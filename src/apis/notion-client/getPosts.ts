@@ -1,9 +1,3 @@
-import { CONFIG } from "site.config"
-import { NotionAPI } from "notion-client"
-import { idToUuid } from "notion-utils"
-
-import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
-import getPageProperties from "src/libs/utils/notion/getPageProperties"
 import { TPosts } from "src/types"
 
 /**
@@ -12,26 +6,6 @@ import { TPosts } from "src/types"
 
 // TODO: react query를 사용해서 처음 불러온 뒤로는 해당데이터만 사용하도록 수정
 export const getPosts = async () => {
-  let id = CONFIG.notionConfig.pageId as string
-  const api = new NotionAPI()
-
-  const response = await api.getPage(id)
-  id = idToUuid(id)
-  const collection = Object.values(response.collection)[0]?.value
-  const block = response.block
-  const schema = collection?.schema
-
-  const rawMetadata = block[id].value
-
-  // Check Type
-  if (
-    rawMetadata?.type !== "collection_view_page" &&
-    rawMetadata?.type !== "collection_view"
-  ) {
-    return []
-  } else {
-    // Construct Data
-    const pageIds = getAllPageIds(response)
     const data = [{
       id: '28154df8-48c9-4b7c-b572-7a677ebf463e',
       date: { start_date: '2023-07-23' },
@@ -70,7 +44,5 @@ export const getPosts = async () => {
     })
 
     const posts = data as TPosts
-    console.log(posts)
     return posts
-  }
 }

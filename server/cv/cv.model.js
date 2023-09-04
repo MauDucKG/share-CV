@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const lockSchema = new Schema(
+const cvSchema = new Schema(
   {
     ten: {
       type: String,
@@ -18,10 +18,10 @@ const lockSchema = new Schema(
     }
   },
   {
-    collection: "locks",
+    collection: "cvs",
   }
 );
 
-const lock = mongoose.model("locks", lockSchema);
+const cv = mongoose.model("cvs", cvSchema);
 
-module.exports = lock;
+module.exports = cv;

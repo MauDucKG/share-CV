@@ -1,11 +1,10 @@
 const app = require("express")();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const userRouter = require("./cvitem/cvitem.router");
-const adminRouter = require("./admin/admin.router");
+const cvRouter = require("./cv/cv.router");
+const cvitemRouter = require("./cvitem/cvitem.router");
 const http = require("http").createServer(app);
 const cors = require("cors");
-const request = require("request");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,5 +24,5 @@ http.listen(4000, function () {
 });
 
 app.use(cors());
-app.use("/cvitem", cvitemRouter);
 app.use("/cv", cvRouter);
+app.use("/cvitem", cvitemRouter);

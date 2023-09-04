@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const cvitemSchema = new Schema(
   {
     ten: {
       type: String,
@@ -16,10 +16,10 @@ const userSchema = new Schema(
     },
   },
   {
-    collection: "users",
+    collection: "cvitems",
   }
 );
 
-const user = mongoose.model("users", userSchema);
+const cvitem = mongoose.model("cvitems", cvitemSchema);
 
-module.exports = user;
+module.exports = cvitem;

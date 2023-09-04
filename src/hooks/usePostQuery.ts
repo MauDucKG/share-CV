@@ -11,6 +11,7 @@ const usePostQuery = () => {
     enabled: false,
   })
 
+  // if (data?.recordMap === null) return undefined
   return data
 }
 

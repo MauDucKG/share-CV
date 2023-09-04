@@ -1,12 +1,10 @@
 const  webFramework = require("express");
 const router = webFramework.Router();
 
-const UserController = require("./cvitem.controller");
+const cvitemController = require("./cvitem.controller");
 
-router.get("/", UserController.getAllUser);
-router.get("/:id", UserController.getUserById);
-router.get("/:id/lock", UserController.getUserLocks);
-router.post("/", UserController.newuser);
-router.post("/login", UserController.login);
+router.get("/", cvitemController.getAllcvitem);
+router.get("/:id", cvitemController.getcvitemById);
+router.post("/", cvitemController.newcvitem);
 
 module.exports = router;
