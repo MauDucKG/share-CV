@@ -44,7 +44,8 @@ export const getPosts = async () => {
       title: 'Cung Ma Kết',
       status: [ 'Public' ],
       createdTime: 'Sat Sep 02 2023 07:57:04 GMT+0700 (Indochina Time)',
-      fullWidth: false
+      fullWidth: false,
+      experience: "3 tháng"
     },
     {
       id: '545c8773-d1a6-459b-9a11-da2775a8410d',
@@ -57,6 +58,7 @@ export const getPosts = async () => {
       status: [ 'PublicOnDetail' ],
       createdTime: 'Sat Sep 02 2023 07:57:04 GMT+0700 (Indochina Time)',
       fullWidth: false,
+      experience: "3 tháng"
     }]
 
 
