@@ -16,19 +16,25 @@ class cvitemController {
   }
 
   newcvitem = async function (req, res) {
-    const { ten, thongTin, anhDaiDien } = req.body;
-    const cvitem = new cvitemModel({
-      ten,
-      thongTin,
-      anhDaiDien,
-    });
+    const { idCv, detail } = req.body;
+
     try {
+      const cvExist = await cvModel.findById(idCv).exec();
+      if (!cvExist) {
+        return res.status(404).send("Invalid cv id");
+      }
+
+      const cvitem = new cvitemModel({
+        idCv,
+        detail,
+      });
       await cvitem.save();
       res.status(200).send("New cvitem created!");
     } catch (error) {
       res.status(500).send(error);
     }
   };
+
 
   getcvitemById = async (req, res) => {
     const cvitemId = req.params.id;

@@ -16,15 +16,24 @@ class  cvController {
   }
 
   newcv = async function(req, res) {
-    const { ten, viTri, status } = req.body;
+    const { date, type, slug, tags, category, summary, title, status, createdTime, fullWidth, experience, workstatus } = req.body;
     const cv = new cvModel({
-      ten,
-      viTri,
-      status
+      date,
+      type,
+      slug,
+      tags,
+      category,
+      summary,
+      title,
+      status,
+      createdTime,
+      fullWidth,
+      experience,
+      workstatus,
     });
     try {
       await cv.save();
-      res.status(200).send('New cv created!');
+      res.status(200).send('New CV created!');
     } catch (error) {
       res.status(500).send(error);
     }

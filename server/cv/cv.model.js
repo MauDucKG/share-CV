@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const cvSchema = new Schema(
   {
+    // id: {
+    //   type: String,
+    //   required: true,
+    // },
     date: {
         type: String,
         required: true,
