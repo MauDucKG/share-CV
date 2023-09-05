@@ -4,14 +4,9 @@ const Schema = mongoose.Schema;
 
 const cvitemSchema = new Schema(
   {
-    // id: {
-    //   type: String,
-    //   required: true,
-    // },
     idCv: {
       type: Schema.Types.ObjectId,
-      // type: Schema.Types.ObjectId,
-      // ref: "cv",
+      ref: "cv",
       required: true,
     },
     detail: {

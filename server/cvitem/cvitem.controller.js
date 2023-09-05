@@ -1,4 +1,5 @@
 const cvitemModel = require("./cvitem.model");
+const cvModel = require("../cv/cv.model");
 
 class cvitemController {
   getAllcvitem(request, respond) {
