@@ -11,6 +11,8 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+import { LINK_TO_REGISTER } from "src/constants"
+import Register from "src/routes/Register"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -55,6 +57,9 @@ const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
 
   if (!post) return <CustomError />
+
+  if (post.slug === LINK_TO_REGISTER) return <Register />
+
 
   const image =
     post.thumbnail ??
