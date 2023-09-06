@@ -4,15 +4,14 @@ const Schema = mongoose.Schema;
 
 const cvitemSchema = new Schema(
   {
-    ten: {
-      type: String,
+    idCv: {
+      type: Schema.Types.ObjectId,
+      ref: "cv",
       required: true,
     },
-    thongTin: {
+    detail: {
       type: String,
-    },
-    anhDaiDien: {
-      type: String,
+      required: true,
     },
   },
   {

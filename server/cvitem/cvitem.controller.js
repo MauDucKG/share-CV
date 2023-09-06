@@ -1,4 +1,5 @@
 const cvitemModel = require("./cvitem.model");
+const cvModel = require("../cv/cv.model");
 
 class cvitemController {
   getAllcvitem(request, respond) {
@@ -16,19 +17,26 @@ class cvitemController {
   }
 
   newcvitem = async function (req, res) {
-    const { ten, thongTin, anhDaiDien } = req.body;
-    const cvitem = new cvitemModel({
-      ten,
-      thongTin,
-      anhDaiDien,
-    });
+    const { idCv, detail } = req.body;
+
     try {
+      const cvExist = await cvModel.findById(idCv).exec();
+      if (!cvExist) {
+        return res.status(404).send("Invalid cv id");
+      }
+
+      const cvitem = new cvitemModel({
+        idCv,
+        detail,
+      });
       await cvitem.save();
       res.status(200).send("New cvitem created!");
     } catch (error) {
       res.status(500).send(error);
     }
   };
+
+
 
   getcvitemById = async (req, res) => {
     const cvitemId = req.params.id;
@@ -43,6 +51,34 @@ class cvitemController {
       res.status(500).json({ message: "Server error" });
     }
   };
+
+  deleteCvitem = async function (req, res) {
+    const cvitemId = req.params.id;
+    try {
+      const deletedCvitem = await cvitemModel.findByIdAndRemove(cvitemId);
+      if (!deletedCvitem) {
+        return res.status(404).send("cvitem not found");
+      }
+      res.status(200).send("cvitem deleted!");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+
+  updateCvitem = async function (req, res) {
+    const cvitemId = req.params.id;
+    const updateData = req.body;
+    try {
+      const updatedCvitem = await cvitemModel.findByIdAndUpdate(cvitemId, updateData, { new: true });
+      if (!updatedCvitem) {
+        return res.status(404).send("cvitem not found");
+      }
+      res.status(200).send("cvitem updated!");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+
 }
 
 module.exports = new cvitemController();

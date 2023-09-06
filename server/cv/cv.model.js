@@ -4,18 +4,61 @@ const Schema = mongoose.Schema;
 
 const cvSchema = new Schema(
   {
-    ten: {
-      type: String,
-      required: true
+    date: {
+        type: String,
+        required: true,
     },
-    viTri: {
+    type: [
+      {
+        type: String,
+        enum: ["Vietnam", "English", "Other"],
+        required: true,
+      },
+    ],
+    slug: {
       type: String,
-      required: true
+      required: true,
     },
-    status: {
+    tags: [
+      {
+        type: String,
+      },
+    ],
+    category: [
+      {
+        type: String,
+      },
+    ],
+    summary: {
+      type: String,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    status: [
+      {
+        type: String,
+        enum: ["on", "off"],
+        required: true,
+      },
+    ],
+    createdTime: {
+      type: String,
+      required: true,
+    },
+    fullWidth: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
+    experience: {
+      type: String,
+      required: true,
+    },
+    workstatus: {
+      type: String,
+      required: true,
+    },
   },
   {
     collection: "cvs",
