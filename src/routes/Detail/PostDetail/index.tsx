@@ -8,6 +8,7 @@ import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight'
+import 'github-markdown-css';
 
 type Props = {}
 
@@ -117,7 +118,9 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
         {data.type[0] === "Post" && <PostHeader data={data} />}
         <div>
           {/* <NotionRenderer recordMap={data.recordMap} /> */}
-          <ReactMarkdown>{markdownText}</ReactMarkdown>
+          <div className='markdown-body'>
+            <ReactMarkdown>{markdownText}</ReactMarkdown>
+          </div>
         </div>
         {data.type[0] === "Post" && (
           <>
