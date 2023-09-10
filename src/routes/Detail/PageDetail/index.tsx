@@ -99,7 +99,6 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
     <StyledWrapper>
       {/* <NotionRenderer recordMap={data.recordMap} /> */}
       <ReactMarkdown>{markdownText}</ReactMarkdown>
-
     </StyledWrapper>
   )
 }

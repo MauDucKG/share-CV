@@ -106,7 +106,7 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
 
   return (
     <StyledWrapper>
-      <article>
+      <article className="markdown">
         {category && (
           <div css={{ marginBottom: "0.5rem" }}>
             <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
@@ -117,7 +117,7 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
         {data.type[0] === "Post" && <PostHeader data={data} />}
         <div>
           {/* <NotionRenderer recordMap={data.recordMap} /> */}
-          <ReactMarkdown>{markdownText}</ReactMarkdown>
+            <ReactMarkdown>{markdownText}</ReactMarkdown>
         </div>
         {data.type[0] === "Post" && (
           <>
