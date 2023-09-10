@@ -73,6 +73,63 @@ export const Global = () => {
           margin: 0;
           border-top: 1px solid ${theme.colors.gray6};
         }
+
+        .markdown h1,
+        .markdown h2,
+        .markdown h3,
+        .markdown h4,
+        .markdown h5,
+        .markdown h6 {
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        .markdown a {
+          color: #0366d6;
+          text-decoration: none;
+        }
+
+        .markdown a:hover {
+          text-decoration: underline;
+        }
+
+        .markdown pre {
+          background-color: #f6f8fa;
+          padding: 1rem;
+          border-radius: 0.25rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          overflow: auto;
+        }
+
+        .markdown code {
+          // font-family: "Courier New", Courier, monospace;
+          font-size: 0.9rem;
+        }
+
+        .markdown ul,
+        .markdown ol {
+          padding-left: 2rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .markdown blockquote {
+          margin: 1rem 0;
+          padding: 0.5rem 1rem;
+          border-left: 0.25rem solid #dfe2e5;
+          color: #6a737d;
+          background-color: #f6f8fa;
+        }
+
+        .markdown p code {
+          background-color: #f6f8fa;
+          padding: 0.2rem 0.4rem;
+          border-radius: 0.25rem;
+          font-size: 0.9rem;
+        }
       `}
     />
   )

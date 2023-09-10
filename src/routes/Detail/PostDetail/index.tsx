@@ -107,7 +107,7 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
 
   return (
     <StyledWrapper>
-      <article>
+      <article className="markdown">
         {category && (
           <div css={{ marginBottom: "0.5rem" }}>
             <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
