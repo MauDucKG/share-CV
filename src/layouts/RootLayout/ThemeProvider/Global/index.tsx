@@ -105,7 +105,6 @@ export const Global = () => {
         }
 
         .markdown code {
-          // font-family: "Courier New", Courier, monospace;
           font-size: 0.9rem;
         }
 

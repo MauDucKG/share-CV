@@ -3,8 +3,6 @@ import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
 import ReactMarkdown from 'react-markdown';
-import 'github-markdown-css';
-
 type Props = {}
 
 const PageDetail: React.FC<Props> = () => {
@@ -100,9 +98,7 @@ Keywords: Mobile Development, Fullstack, React Native, Nodejs, IOT, Face Recogni
   return (
     <StyledWrapper>
       {/* <NotionRenderer recordMap={data.recordMap} /> */}
-      <div className='markdown-body'>
-        <ReactMarkdown>{markdownText}</ReactMarkdown>
-      </div>
+      <ReactMarkdown>{markdownText}</ReactMarkdown>
     </StyledWrapper>
   )
 }
