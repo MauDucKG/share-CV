@@ -8,7 +8,6 @@
 const fs = require('fs');
 const pdf = require('pdf-parse');
 
-
 const pdfToText =  (filePath) => {
     var dataBuffer = fs.readFileSync(filePath);
     var text = '';
