@@ -5,7 +5,18 @@
  * @returns {string} - The text content within the PDF file.
  */
 
-export const pdfToText = () => {
-    lv_result = ""
-    return lv_result
+const fs = require('fs');
+const pdf = require('pdf-parse');
+
+
+const pdfToText =  (filePath) => {
+    var dataBuffer = fs.readFileSync(filePath);
+    var text = '';
+    pdf(dataBuffer).then((data) => {
+        console.log(data.text)
+        text = data.text
+    })
+    return text
 }
+
+module.exports = { pdfToText };

@@ -5,6 +5,7 @@ const cvRouter = require("./cv/cv.router");
 const cvitemRouter = require("./cvitem/cvitem.router");
 const http = require("http").createServer(app);
 const cors = require("cors");
+// const test = require("./shared/pdfToText");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ mongoose
 
 http.listen(4000, function () {
   console.log("listening on port 4000");
+  // const getText = test.pdfToText('./shared/hello.pdf');
 });
 
 app.use(cors());
