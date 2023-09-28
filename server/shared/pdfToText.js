@@ -15,6 +15,13 @@ const pdfToText =  (filePath) => {
         console.log(data.text)
         text = data.text
     })
+    fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+        } else {
+          console.log('File deleted successfully');
+        }
+    });
     return text
 }
 

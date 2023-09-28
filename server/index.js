@@ -22,7 +22,7 @@ mongoose
 
 http.listen(4000, function () {
   console.log("listening on port 4000");
-  // const getText = test.pdfToText('./shared/hello.pdf');
+  // const getText = test.pdfToText('./uploads/hello.pdf');
 });
 
 app.use(cors());
