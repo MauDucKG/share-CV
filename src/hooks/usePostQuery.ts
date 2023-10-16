@@ -16,23 +16,22 @@ const usePostQuery = () => {
     const datafordirect = {
       id: '',
       date: { start_date: '2022-06-09' },
-      type: [ 'Post' ],
+      type: [  ],
       slug: 'register',
       category: [ '😎 Daily' ],
       author: [],
-      title: 'hello!',
-      status: [ 'PublicOnDetail' ],
+      title: '',
+      status: [  ],
       createdTime: 'Sat Sep 02 2023 07:57:04 GMT+0700 (Indochina Time)',
       fullWidth: false,
-      experience: '3 tháng',
+      experience: '',
       summary: "",
       thumbnail: "",
-      recordMap: null
+      recordMap: ""
     }
     return datafordirect;
   }
-
-  if (data?.recordMap === null) return undefined
+  else if (data?.recordMap === "") return undefined
   return data
 }
 
