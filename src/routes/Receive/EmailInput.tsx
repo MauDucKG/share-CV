@@ -4,23 +4,23 @@ import { Emoji } from "src/components/Emoji"
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> { }
 
-const FullNameInput: React.FC<Props> = ({ ...props }) => {
+const EmailInput: React.FC<Props> = ({ ...props }) => {
   return (
     <StyledWrapper>
       <div className="top-input">
-        <Emoji>🕵️‍♂️</Emoji> Fullname
+        <Emoji>🕵️‍♂️</Emoji> Email 
       </div>
       <input
         className="mid"
         type="text"
-        placeholder="Fill your fullname..."
+        placeholder="Fill your email..."
         {...props}
       />
     </StyledWrapper>
   )
 }
 
-export default FullNameInput
+export default EmailInput
 
 const StyledWrapper = styled.div`
   margin-bottom: 1rem;

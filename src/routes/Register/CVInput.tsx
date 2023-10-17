@@ -14,6 +14,7 @@ const CVInput: React.FC<Props> = ({ ...props }) => {
       <textarea
         className="mid"
         rows={10}
+        placeholder="Fill your CV text..."
         {...props}
       ></textarea>
     </StyledWrapper>
@@ -31,7 +32,7 @@ const StyledWrapper = styled.div`
   > .top-input {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
-    font-size: 1.5rem; 
+    font-size: 1rem; 
   }
   > .mid {
     padding-top: 0.5rem;
@@ -41,6 +42,7 @@ const StyledWrapper = styled.div`
     border-radius: 1rem;
     outline-style: none;
     width: 100%;
+    font-size: 1rem;
     background-color: ${({ theme }) => theme.colors.gray4};
   }
 `

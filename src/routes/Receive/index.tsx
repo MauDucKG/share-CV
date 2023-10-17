@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Emoji } from "src/components/Emoji";
-import FullNameInput from "./FullNameInput";
-import MajorInput from "./MajorInput";
-import CVInput from "./CVInput";
-import { postCVData } from "src/apis";
+import EmailInput from "./EmailInput";
+import JDInput from "./JDInput";
+import { postJD } from "src/apis";
 
-const Register: React.FC = () => {
-  const [fullName, setFullName] = useState("");
-  const [major, setMajor] = useState("");
-  const [cvText, setCvText] = useState("");
+const Receive: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [jdText, setJdText] = useState("");
 
   const handleRegister = () => {
     // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý theo cách bạn muốn ở đây
-    console.log("Họ tên:", fullName);
-    console.log("Ngành ứng tuyển:", major);
-    console.log("CV:", cvText);
+    console.log("Email:", email);
+    console.log("JD:", jdText);
   };
 
   return (
     <StyledWrapper>
       <div className="wrapper">
         <div className="top">
-          <Emoji>📝</Emoji>
+          <Emoji>✉️</Emoji>
         </div>
-        <div className="text">Register by submitting your CV !!!</div>
+        <div className="text">Register to receive CV !!!</div>
         <div className="form">
-          <FullNameInput value={fullName} onChange={(e) => setFullName(e.target.value)} />
-          <MajorInput value={major} onChange={(e) => setMajor(e.target.value)} />
-          <CVInput value={cvText} onChange={(e) => setCvText(e.target.value)} />
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} />
+          <JDInput value={jdText} onChange={(e) => setJdText(e.target.value)} />
           <div className="form-submit">
             <button className="btn-submit" onClick={handleRegister}>Register</button>
           </div>
@@ -39,7 +35,7 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Receive;
 
 const StyledWrapper = styled.div`
   margin: 0 auto;

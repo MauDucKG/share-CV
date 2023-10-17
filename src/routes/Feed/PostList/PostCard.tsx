@@ -37,11 +37,13 @@ const PostCard: React.FC<Props> = ({ data }) => {
             <h2>{data.title}</h2>
           </header>
           <div className="date">
-            <div className="content">
-              {/* {formatDate(
+            {/* <div className="content">
+              {formatDate(
                 data?.date?.start_date || data.createdTime,
                 CONFIG.lang
-              )} */}
+              )}
+            </div> */}
+            <div className="content">
               {data.experience}
             </div>
           </div>

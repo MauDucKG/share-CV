@@ -2,25 +2,26 @@ import styled from "@emotion/styled"
 import React, { InputHTMLAttributes, ReactNode } from "react"
 import { Emoji } from "src/components/Emoji"
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> { }
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { }
 
-const FullNameInput: React.FC<Props> = ({ ...props }) => {
+
+const JDInput: React.FC<Props> = ({ ...props }) => {
   return (
     <StyledWrapper>
       <div className="top-input">
-        <Emoji>🕵️‍♂️</Emoji> Fullname
+        <Emoji>💼</Emoji> JD (copy the content of your JD and paste it here)
       </div>
-      <input
+      <textarea
         className="mid"
-        type="text"
-        placeholder="Fill your fullname..."
+        rows={10}
+        placeholder="Fill your JD text..."
         {...props}
-      />
+      ></textarea>
     </StyledWrapper>
   )
 }
 
-export default FullNameInput
+export default JDInput
 
 const StyledWrapper = styled.div`
   margin-bottom: 1rem;
@@ -41,6 +42,7 @@ const StyledWrapper = styled.div`
     border-radius: 1rem;
     outline-style: none;
     width: 100%;
+    font-size: 1rem;
     background-color: ${({ theme }) => theme.colors.gray4};
   }
 `

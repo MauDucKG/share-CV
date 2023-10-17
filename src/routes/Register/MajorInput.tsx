@@ -31,7 +31,7 @@ const StyledWrapper = styled.div`
   > .top-input {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
-    font-size: 1.5rem; 
+    font-size: 1rem; 
   }
   > .mid {
     padding-top: 0.5rem;

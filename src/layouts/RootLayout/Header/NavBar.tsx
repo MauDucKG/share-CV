@@ -5,6 +5,7 @@ const NavBar: React.FC = () => {
   const links = [
     { id: 1, name: "About", to: "/about" },
     { id: 2, name: "Register", to: "/register" },
+    { id: 3, name: "Receive CV", to: "/receive" },
   ]
   return (
     <StyledWrapper className="">
