@@ -5,33 +5,25 @@ const Schema = mongoose.Schema;
 const cvSchema = new Schema(
   {
     date: {
-        type: String,
-        required: true,
+        start_date: String,
     },
     type: [
       {
         type: String,
-        enum: ["Vietnam", "English", "Other"],
-        required: true,
+        enum: ["Post", "Paper", "Page"],
       },
     ],
-    slug: {
-      type: String,
-      required: true,
-    },
-    tags: [
+    slug: String,
+    tags: [String],
+    category: [String],
+    summary: String,
+    author: [
       {
-        type: String,
+        id: String,
+        name: String,
+        profile_photo: String,
       },
     ],
-    category: [
-      {
-        type: String,
-      },
-    ],
-    summary: {
-      type: String,
-    },
     title: {
       type: String,
       required: true,
@@ -39,26 +31,13 @@ const cvSchema = new Schema(
     status: [
       {
         type: String,
-        enum: ["on", "off"],
-        required: true,
+        enum: ["Private", "Public", "PublicOnDetail"],
       },
     ],
-    createdTime: {
-      type: String,
-      required: true,
-    },
-    fullWidth: {
-      type: Boolean,
-      required: true,
-    },
-    experience: {
-      type: String,
-      required: true,
-    },
-    workstatus: {
-      type: String,
-      required: true,
-    },
+    createdTime: String,
+    fullWidth: Boolean,
+    thumbnail: String,
+    experience: String,
   },
   {
     collection: "cvs",

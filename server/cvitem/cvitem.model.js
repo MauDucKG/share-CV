@@ -5,8 +5,7 @@ const Schema = mongoose.Schema;
 const cvitemSchema = new Schema(
   {
     idCv: {
-      type: Schema.Types.ObjectId,
-      ref: "cv",
+      type: String,
       required: true,
     },
     detail: {

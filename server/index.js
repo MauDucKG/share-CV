@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cvRouter = require("./cv/cv.router");
 const cvitemRouter = require("./cvitem/cvitem.router");
-const managedbRouter = require("./managedb/managedb.router");
 const http = require("http").createServer(app);
 const cors = require("cors");
 
@@ -28,7 +27,3 @@ http.listen(4000, function () {
 app.use(cors());
 app.use("/cv", cvRouter);
 app.use("/cvitem", cvitemRouter);
-
-// Set EJS as the view engine
-app.set('view engine', 'ejs');
-app.use('/managedb',managedbRouter)

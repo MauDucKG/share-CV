@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Emoji } from "src/components/Emoji";
-import FullNameInput from "./FullNameInput";
-import MajorInput from "./MajorInput";
-import CVInput from "./CVInput";
-import { postCVData } from "src/apis";
+import React, { useState } from "react"
+import styled from "@emotion/styled"
+import { Emoji } from "src/components/Emoji"
+import FullNameInput from "./FullNameInput"
+import MajorInput from "./MajorInput"
+import CVInput from "./CVInput"
+import { postCVData } from "src/apis"
 
 const Register: React.FC = () => {
-  const [fullName, setFullName] = useState("");
-  const [major, setMajor] = useState("");
-  const [cvText, setCvText] = useState("");
+  const [fullName, setFullName] = useState("")
+  const [major, setMajor] = useState("")
+  const [cvText, setCvText] = useState("")
+  const [isRegistering, setIsRegistering] = useState(false) // Add state for registering
 
-  const handleRegister = () => {
-    // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý theo cách bạn muốn ở đây
-    console.log("Họ tên:", fullName);
-    console.log("Ngành ứng tuyển:", major);
-    console.log("CV:", cvText);
+  const handleRegister = async () => {
+    await postCVData(fullName, major, cvText); 
+    setIsRegistering(true);
+    window.location.href = "/";
   };
 
   return (
@@ -26,20 +26,31 @@ const Register: React.FC = () => {
         </div>
         <div className="text">Register by submitting your CV !!!</div>
         <div className="form">
-          <FullNameInput value={fullName} onChange={(e) => setFullName(e.target.value)} />
-          <MajorInput value={major} onChange={(e) => setMajor(e.target.value)} />
+          <FullNameInput
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <MajorInput
+            value={major}
+            onChange={(e) => setMajor(e.target.value)}
+          />
           <CVInput value={cvText} onChange={(e) => setCvText(e.target.value)} />
           <div className="form-submit">
-            <button className="btn-submit" onClick={handleRegister}>Register</button>
+            <button
+              className="btn-submit"
+              onClick={handleRegister} // Use handleRegister function for onClick event
+              disabled={isRegistering} // Disable button when registering
+            >
+              Register
+            </button>
           </div>
         </div>
-
       </div>
     </StyledWrapper>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
 
 const StyledWrapper = styled.div`
   margin: 0 auto;
@@ -69,10 +80,10 @@ const StyledWrapper = styled.div`
       color: ${({ theme }) => theme.colors.gray11};
     }
     .form {
-      width: 90%; // Đặt giá trị mặc định là 100%
+      width: 90%; 
       color: ${({ theme }) => theme.colors.gray11};
 
-      @media (min-width: 768px) { // Chỉ áp dụng cho màn hình có chiều rộng từ 768px trở lên
+      @media (min-width: 768px) { 
         width: 70%;
     }
     .form-submit {
@@ -88,4 +99,4 @@ const StyledWrapper = styled.div`
       font-size: 1rem; /* adjust this value to your preference */
     }
   }
-`;
+`

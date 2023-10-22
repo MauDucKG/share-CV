@@ -15,7 +15,7 @@ export type TPostStatus = "Private" | "Public" | "PublicOnDetail"
 export type TPostType = "Post" | "Paper" | "Page"
 
 export type TPost = {
-  id: string
+  _id: string
   date: { start_date: string }
   type: TPostType[]
   slug: string
