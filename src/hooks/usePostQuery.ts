@@ -14,7 +14,7 @@ const usePostQuery = () => {
 
   if (slug === LINK_TO_REGISTER) {
     const datafordirect = {
-      id: '',
+      _id: '',
       date: { start_date: '2022-06-09' },
       type: [  ],
       slug: 'register',
@@ -32,7 +32,7 @@ const usePostQuery = () => {
     return datafordirect;
   } else if (slug === LINK_TO_RECEIVE) {
     const datafordirect = {
-      id: '',
+      _id: '',
       date: { start_date: '2022-06-09' },
       type: [  ],
       slug: 'receive',
