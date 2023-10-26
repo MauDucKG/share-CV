@@ -33,10 +33,10 @@ async function extractDataFromCV(text, cv_category) {
     const PROMPT_PROJECT = `Among the projects that the candidate mentioned in the following CV, please extract all information about the 2 projects most relevant to the job ${cv_category}: `
     const project = await extractData(PROMPT_PROJECT, text);
 
-    const PROMPT_FULLNAME = `Please provide me with the full name of the candidate mentioned in the CV: `
-    const PROMPT_SUMMARY = `Please provide a brief summary of the CV: `
-    const PROMPT_EXP = `Extract from the following CV to get the part about work experience corresponding to the job ${major} (company name, working position, working period (from ... to ...), job description) : `
-    const PROMPT_EXPERIENCE = `Extract from the following CV to get the total months of work experience in ${major}): `
+    const PROMPT_FULLNAME = `Please provide me with the full name of the candidate mentioned in the CV. (Please display the full name, for example: Nguyen Mau Minh Duc)`
+    const PROMPT_SUMMARY = `Please provide a brief summary of the CV that includes information about education, skills, experience, and language proficiency. The summary should be approximately 300-350 characters in length`
+    const PROMPT_EXP = `Extract from the following CV to get the part about work experience corresponding to the job ${cv_category} (company name, working position, working period (from ... to ...), job description)`
+    const PROMPT_EXPERIENCE = `Extract from the following CV to get the total months of work experience in ${major}, from January to February in a year is considered as 1 month. For example: 2 months`
     const PROMPT_LANGUAGES = `Extract from the CV the programming languages/frameworks used in the projects (only in ${TAGS}), the extracted ones should be in ((only return the word separate by comma, not duplicate)): `
 
     const fullname = await extractData(PROMPT_FULLNAME, text);
