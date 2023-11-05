@@ -7,38 +7,6 @@ export const getPosts = async () => {
   try {
     const response = await axios.get(`${LINK_TO_SERVER}/cv`);
     const newData = response.data.cvs;
-    console.log(newData)
-
-    //######################################################
-    const number = newData.length;
-    let countBelow24Months = 0;
-    let countAbove24Months = 0;
-    
-    newData.forEach((item : any) => {
-      const experience = parseInt(item.experience);
-      if (experience <= 24) {
-        countBelow24Months++;
-      } else {
-        countAbove24Months++;
-      }
-    });
-    
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); 
-
-    let countNewApplicants = 0;
-    newData.forEach((item : any) => {
-      const createdTime = new Date(item.createdTime);
-      createdTime.setHours(0, 0, 0, 0); 
-
-      if (createdTime.getTime() === today.getTime()) {
-        countNewApplicants++;
-      }
-    });
-
-
-
-    //######################################################
 
     const data = [
     {
@@ -46,13 +14,9 @@ export const getPosts = async () => {
       date: { start_date: '2022-06-09' },
       type: [ 'Post' ],
       slug: 'about',
-      category: [ '😎 Daily' ],
+      category: [ '😎 Analysis' ],
       author: [ ],
-      title: `- Nhu cầu tìm việc: ${number} ứng viên
-      - Số lượng intern/fresher (dưới 2 năm kinh nghiệm): ${countBelow24Months} ứng viên 
-      - Số lượng trên 2 năm kinh nghiệm: ${countAbove24Months} ứng viên
-      - Số lượng CV mới hôm nay: ${countNewApplicants} CV
-      `,
+      title: `Job Market Analysis`,
       status: [ 'PublicOnDetail' ],
       createdTime: 'Sat Sep 02 2023 07:57:04 GMT+0700 (Indochina Time)',
       fullWidth: false,
