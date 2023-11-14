@@ -9,13 +9,52 @@ import usePostQuery from "src/hooks/usePostQuery"
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight'
 
+import usePostsQuery from "src/hooks/usePostsQuery"
+
+
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
+  const datas = usePostsQuery()
   const data = usePostQuery()
   if (!data) return null
-
+  
   const category = (data.category && data.category?.[0]) || undefined
+  const number = datas.length;
+  let countBelow24Months = 0;
+  let countAbove24Months = 0;
+    
+  datas.forEach((item : any) => {
+    const experience = parseInt(item.experience);
+    if (experience <= 24) {
+      countBelow24Months++;
+    } else {
+      countAbove24Months++;
+    }
+  });
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+
+  let countNewApplicants = 0;
+  datas.forEach((item : any) => {
+    const createdTime = new Date(item.createdTime);
+    createdTime.setHours(0, 0, 0, 0); 
+
+    if (createdTime.getTime() === today.getTime()) {
+      countNewApplicants++;
+    }
+  });
+
+//     const text = `
+// - Nhu cầu tìm việc: ${number} ứng viên
+// - Số lượng intern/fresher (dưới 2 năm kinh nghiệm): ${countBelow24Months} ứng viên 
+// - Số lượng trên 2 năm kinh nghiệm: ${countAbove24Months} ứng viên
+// - Số lượng CV mới hôm nay: ${countNewApplicants} CV
+
+// ` + data.recordMap
+
+  //#####################################################
 
   return (
     <StyledWrapper>
@@ -29,7 +68,11 @@ const PostDetail: React.FC<Props> = () => {
         )}
         {data.type[0] === "Post" && <PostHeader data={data} />}
         <div>
-            <ReactMarkdown>{data.recordMap}</ReactMarkdown>
+            <ReactMarkdown>
+            
+          {data.recordMap}
+          </ReactMarkdown>
+           
         </div>
         {data.type[0] === "Post" && (
           <>

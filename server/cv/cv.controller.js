@@ -1,8 +1,9 @@
 const cvModel = require("./cv.model")
 const textToMarkdown = require("../shared/textToMarkdown")
 const extractDataFromCV = require("../shared/extractDataFromCV")
-const cvitemModel = require("../cvitem/cvitem.model")
+const extractData = require("../shared/promt/extractData")
 
+const cvitemModel = require("../cvitem/cvitem.model")
 class cvController {
   async getAllcv(request, respond) {
     cvModel
@@ -24,6 +25,15 @@ class cvController {
     const { fullname, major, cvText } = req.body
     let cv = {}
     let cvitem = {}
+    let number = 0
+    let countBelow24Months = 0;
+    let countAbove24Months = 0;
+    let countNewApplicants = 0;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+  
+    
 
     await extractDataFromCV(cvText, major).then((dataFormCV) => {
       // Generate a unique slug for each CV
@@ -52,8 +62,40 @@ class cvController {
         detail
       })
     })
-
+    const cvs = await cvModel.find().exec();
+    cvs.forEach((cv) => {
+      console.log(cv);
+      number++;
+      const experience = parseInt(cv.experience);
+      if (experience <= 24) {
+        countBelow24Months++;
+      } else {
+        countAbove24Months++;
+      }
+      const createdTime = new Date(cv.createdTime);
+      createdTime.setHours(0, 0, 0, 0); 
+  
+      if (createdTime.getTime() === today.getTime()) {
+        countNewApplicants++;
+      }
+    });
+    
     try {
+      const aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
+      const text = `
+- Job seekers demand: ${number} candidates
+- Number of interns/freshers (below 2 years of experience): ${countBelow24Months} candidates 
+- Number of candidates with over 2 years of experience: ${countAbove24Months} candidates
+- Number of new CVs today: ${countNewApplicants} CVs
+      
+`
+      const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a chart`, text);;
+      console.log(summary)
+      if (aboutCvitem) {
+        aboutCvitem.detail = text + '\n' + summary;
+      }
+      await aboutCvitem.save();
+
       await cv.save()
       await cvitem.save()
       res.status(200).send("New CV created!")
