@@ -23,7 +23,7 @@ const TAGS2 = [
   "Lua",
 ]
 const TAGS1 =
-  "React, Nodejs, Python, Java, C++, C#, PHP, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, NoSQL, R, MATLAB, Shell, Groovy, Lua"
+  "ReactJS, Nodejs, Python, Java, C++, C#, PHP, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, NoSQL, R, MATLAB, Shell, Groovy, Lua"
 const CATEGORYS1 =
   "Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer"
 const CATEGORYS2 = [
@@ -117,4 +117,25 @@ Data programming
 • SQL, MySQL, MongoDB
 `
 
-module.exports = { TAGS1, TAGS2, CATEGORYS1, CATEGORYS2, CV_DEMO }
+const JD_DEMO = `
+Work part-time or full-time if possible.
+Receive training and in-depth research on programming languages such as PHP, HTML, CSS, Javascript, etc.
+Familiarize yourself with the company's templates and applications, support research and system development.
+Analyze and design website systems.
+Support the development of specialized products in the field of remote healthcare, video conferencing, digital signatures, etc.
+After 2-3 months, if qualified and passionate, you will be trained to work with Laravel.
+Candidate Requirements
+
+Graduated from IT-related majors, or in the process of arranging time to work without having graduated yet.
+Knowledge of HTML/CSS/Javascript.
+Experience or knowledge of PHP, Java.
+Familiarity with AngularJS, VueJS, PHP Laravel framework is a plus.
+Benefits
+
+Receive direct training and work in the company's IT department.
+Learn and be trained in coding skills, tools, coding standards, technologies, frameworks, and tools used.
+Have the opportunity to become an official employee of Vinasimex Joint Stock Company after completing the internship program and graduating from university, enjoying the benefits of an official employee, including basic salary, income, health insurance, social insurance, and retirement insurance without going through the interview process and competition between candidates, and without the probationary period for new recruits.
+Receive high income support during the internship if the work is effective.
+Receive assistance in completing the graduation thesis.`
+
+module.exports = { TAGS1, TAGS2, CATEGORYS1, CATEGORYS2, CV_DEMO, JD_DEMO }
