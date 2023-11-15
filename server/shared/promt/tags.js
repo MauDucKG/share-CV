@@ -14,7 +14,7 @@ async function extractTags(text, cv_category) {
     const tag_item = await extractData(PROMPT_CHECK_TAGS, "")
     if (tag_item !== null) {
       const cleanedTag = tag_item.replace(/['" ]/g, "")
-      console.log(cleanedTag)
+      // console.log(cleanedTag)
       res.push(cleanedTag)
     }
   }

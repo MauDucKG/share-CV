@@ -16,5 +16,5 @@ module.exports = extractMajor
 // Test case
 const cv_category = "SW Developer"
 extractMajor(CV_DEMO, cv_category).then((result) => {
-  console.log(result)
+  // console.log(result)
 })

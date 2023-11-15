@@ -26,8 +26,8 @@ async function extractDataFromCV(text, cv_category) {
 module.exports = extractDataFromCV
 
 // Test case
-const text = CV_DEMO
-const cv_category = "SW Developer"
-extractDataFromCV(text, cv_category).then((result) => {
-  console.log(result)
-})
+// const text = CV_DEMO
+// const cv_category = "SW Developer"
+// extractDataFromCV(text, cv_category).then((result) => {
+//   console.log(result)
+// })
