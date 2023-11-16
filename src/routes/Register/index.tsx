@@ -6,6 +6,8 @@ import MajorInput from "./MajorInput"
 import CVInput from "./CVInput"
 import { postCVData } from "src/apis"
 
+
+
 const Register: React.FC = () => {
   const [fullName, setFullName] = useState("")
   const [major, setMajor] = useState("")
@@ -13,8 +15,8 @@ const Register: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState(false) // Add state for registering
 
   const handleRegister = async () => {
-    await postCVData(fullName, major, cvText); 
     setIsRegistering(true);
+    await postCVData(fullName, major, cvText); 
     window.location.href = "/";
   };
 
@@ -41,7 +43,8 @@ const Register: React.FC = () => {
               onClick={handleRegister} // Use handleRegister function for onClick event
               disabled={isRegistering} // Disable button when registering
             >
-              Register
+              {isRegistering && "Please wait a moment"} 
+              {isRegistering || "Register"}
             </button>
           </div>
         </div>
