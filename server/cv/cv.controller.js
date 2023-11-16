@@ -81,20 +81,20 @@ class cvController {
     });
     
     try {
-      const aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
-      const text = `
-- Job seekers demand: ${number} candidates
-- Number of interns/freshers (below 2 years of experience): ${countBelow24Months} candidates 
-- Number of candidates with over 2 years of experience: ${countAbove24Months} candidates
-- Number of new CVs today: ${countNewApplicants} CVs
+//       const aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
+//       const text = `
+// - Job seekers demand: ${number} candidates
+// - Number of interns/freshers (below 2 years of experience): ${countBelow24Months} candidates 
+// - Number of candidates with over 2 years of experience: ${countAbove24Months} candidates
+// - Number of new CVs today: ${countNewApplicants} CVs
       
-`
-      const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a chart`, text);;
-      console.log(summary)
-      if (aboutCvitem) {
-        aboutCvitem.detail = text + '\n' + summary;
-      }
-      await aboutCvitem.save();
+// `
+//       const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a chart`, text);;
+//       console.log(summary)
+//       if (aboutCvitem) {
+//         aboutCvitem.detail = text + '\n' + summary;
+//       }
+//       await aboutCvitem.save();
 
       await cv.save()
       await cvitem.save()
