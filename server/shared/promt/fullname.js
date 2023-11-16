@@ -16,7 +16,7 @@ module.exports = extractFullname
 // Test the function
 extractFullname(CV_DEMO)
   .then((fullname) => {
-    console.log(fullname);
+    // console.log(fullname);
   })
   .catch((error) => {
     console.error(error);

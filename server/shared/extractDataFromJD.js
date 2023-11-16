@@ -1,5 +1,6 @@
-const { JD_DEMO, TAGS1, TAGS2, CATEGORYS2 } = require("./const")
+const { CV_DEMO, JD_DEMO, TAGS1, TAGS2, CATEGORYS2 } = require("./const")
 const extractData = require("./promt/extractData")
+const extractDataFromCV = require("./extractDataFromCV")
 
 async function extractDataFromJD(text) {
   const PROMPT_POSITION = `From the job description below, please indicate the mentioned position (only return the name of the position): `
@@ -9,7 +10,6 @@ async function extractDataFromJD(text) {
 
   const position = await extractData(PROMPT_POSITION, text)
   const position1 = position.replace(/['"]/g, "")
-
   const lowercaseString = position1.trim().toLowerCase()
   const position2 =
     CATEGORYS2.find((tag) => lowercaseString === tag.toLowerCase()) || null
@@ -22,7 +22,7 @@ async function extractDataFromJD(text) {
 
   const tagsString = await extractData(PROMPT_LANGUAGES_JD, required)
   const tags = tagsString.split(",")
-  console.log(tags)
+  // console.log(tags)
 
   let tags1 = []
 
@@ -52,7 +52,9 @@ async function extractDataFromJD(text) {
 module.exports = extractDataFromJD
 
 // Test case
-const text = JD_DEMO
-extractDataFromJD(text).then((result) => {
-  console.log(result)
-})
+
+// const text = JD_DEMO
+// extractDataFromJD(text).then((result) => {
+//   console.log(result)
+// })
+
