@@ -13,7 +13,7 @@ module.exports = extractLocation
 // Test the function
 extractLocation(CV_DEMO)
   .then((location) => {
-    console.log(location);
+    // console.log(location);
   })
   .catch((error) => {
     console.error(error);
