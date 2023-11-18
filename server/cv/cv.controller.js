@@ -25,6 +25,7 @@ class cvController {
     const { fullname, major, cvText } = req.body
     let cv = {}
     let cvitem = {}
+    let aboutCvitem = {}
     let number = 0
     let countBelow24Months = 0;
     let countAbove24Months = 0;
@@ -62,9 +63,13 @@ class cvController {
         detail
       })
     })
+
+    await cv.save()
+    await cvitem.save()
+    res.status(200).send("New CV created!")
+
     const cvs = await cvModel.find().exec();
     cvs.forEach((cv) => {
-      console.log(cv);
       number++;
       const experience = parseInt(cv.experience);
       if (experience <= 24) {
@@ -79,26 +84,28 @@ class cvController {
         countNewApplicants++;
       }
     });
-    
-    try {
-//       const aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
-//       const text = `
-// - Job seekers demand: ${number} candidates
-// - Number of interns/freshers (below 2 years of experience): ${countBelow24Months} candidates 
-// - Number of candidates with over 2 years of experience: ${countAbove24Months} candidates
-// - Number of new CVs today: ${countNewApplicants} CVs
-      
-// `
-//       const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a chart`, text);;
-//       console.log(summary)
-//       if (aboutCvitem) {
-//         aboutCvitem.detail = text + '\n' + summary;
-//       }
-//       await aboutCvitem.save();
 
-      await cv.save()
-      await cvitem.save()
-      res.status(200).send("New CV created!")
+    try {
+      aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
+      if (!aboutCvitem) {
+        aboutCvitem = new cvitemModel({
+          idCv: 'about',
+          detail: ''
+        });
+      }
+      const text = `
+- Job seekers demand: ${number} candidates
+- Number of interns/freshers (below 2 years of experience): ${countBelow24Months} candidates 
+- Number of candidates with over 2 years of experience: ${countAbove24Months} candidates
+- Number of new CVs today: ${countNewApplicants} CVs
+      
+`
+      const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a graph running in python then display the associated image`, text);;
+      if (aboutCvitem) {
+        aboutCvitem.detail = text + '\n' + summary;
+      }
+
+      await aboutCvitem.save();
     } catch (error) {
       res.status(500).send(error)
     }
