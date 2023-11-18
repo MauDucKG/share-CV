@@ -31,7 +31,8 @@ async function textToMarkdown(text, cv_category) {
   # Information
 - Name: 
 - Github: 
-- Email: 
+- Email:
+- Location:  
   `
   const PROMPT_EXP = `Extract from the following CV to get the part about work experience corresponding to the job ${cv_category} (company name, working position, working period (from ... to ...), job description). Experience does not include education and project. Write the above introduction into markdown text with the header "# Experience". If there is no data, skip this Experience section. For example structural information:
   # Experience

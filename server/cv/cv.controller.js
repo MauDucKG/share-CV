@@ -48,6 +48,7 @@ class cvController {
         tags: dataFormCV.tags,
         category: [dataFormCV.major],
         summary: dataFormCV.summary,
+        location: dataFormCV.location,
         title: dataFormCV.fullname,
         status: ["Public"],
         createdTime: new Date().toISOString(),
