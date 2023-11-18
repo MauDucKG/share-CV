@@ -17,6 +17,7 @@ const cvSchema = new Schema(
     tags: [String],
     category: [String],
     summary: String,
+    location: String,
     author: [
       {
         id: String,
