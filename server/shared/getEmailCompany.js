@@ -1,10 +1,5 @@
-const fetch = require('node-fetch');
-
-async function getHtmlContent(url) {
-  const response = await fetch(url);
-  const htmlContent = await response.text();
-  return htmlContent;
-}
+const puppeteer = require("puppeteer");
+const extractData = require("./promt/extractData");
 
 function findEmails(htmlContent) {
   const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
@@ -12,38 +7,48 @@ function findEmails(htmlContent) {
   return emails;
 }
 
-function testEmails(emails) {
+async function  testEmails(emails) {
   if (emails && emails.length > 0) {
-    console.log("Đang kiểm tra các địa chỉ email:");
-    emails.forEach((email) => {
-      console.log(email);
-      // Thực hiện các kiểm tra email tại đây
-    });
+    const PROMPT_EMAIL_SELECTION = `Among the emails mentioned below, which email is the most suitable for submitting the CV (sometime have tuyendung, hr, contract) (return only 1 email): `;
+    const selectedEmail = await extractData(PROMPT_EMAIL_SELECTION, emails.join("\n"));
+    return selectedEmail
   } else {
     console.log("Không có địa chỉ email để kiểm tra.");
   }
 }
 
-// Sử dụng hàm để lấy HTML từ liên kết
-const url = "https://tuyendung.viettel.vn/";
-getHtmlContent(url)
-  .then((htmlContent) => {
-    // Tìm các địa chỉ email trong nội dung HTML
-    const emails = findEmails(htmlContent);
+async function getEmailCompany(url) {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url);
+    const content = await page.content();
+    await browser.close();
 
-    // In ra danh sách các địa chỉ email tìm được
+    const emails = findEmails(content);
     if (emails && emails.length > 0) {
-      console.log("Các địa chỉ email có thể có trong trang HTML:");
       emails.forEach((email) => {
         console.log(email);
       });
 
-      // Kiểm tra các địa chỉ email
-      testEmails(emails);
+      const selectedEmail = await testEmails(emails);
+      return selectedEmail;
     } else {
       console.log("Không tìm thấy địa chỉ email.");
+      return "";
     }
+  } catch (error) {
+    console.error("Lỗi khi lấy nội dung HTML:", error);
+  }
+}
+
+module.exports = getEmailCompany
+
+const url = "https://tuyendung.viettel.vn/";
+getEmailCompany(url)
+  .then((selectedEmail) => {
+    console.log("Selected email:", selectedEmail);
   })
   .catch((error) => {
-    console.error("Lỗi khi lấy nội dung HTML:", error);
+    console.error("Error:", error);
   });
