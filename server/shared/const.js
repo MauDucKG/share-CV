@@ -40,7 +40,7 @@ const TAGS2 = [
 const TAGS1 =
   "ReactJS, React Native, NodeJS, NextJS, NestJS, ExpressJS, VueJS, AngularJS, Python, Django, Flask, Dart, Flutter, Java, C++, C#, PHP, Laravel, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, MySQL, MS SQL Server, PostgreSQL, NoSQL, MongoDB, R, MATLAB, Shell, Groovy, Lua"
 const CATEGORYS1 =
-  "Data Analyst, Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer"
+  "Data Analyst, Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer, Quality Assurance/Control"
 const CATEGORYS2 = [
   "Data Analyst",
   "Data Engineer",
@@ -51,7 +51,8 @@ const CATEGORYS2 = [
   "DevOps Engineer",
   "Data Scientist",
   "Machine Learning Engineer",
-  "Software Engineer"
+  "Software Engineer",
+  "Quality Assurance/Control"
 ]
 const CV_DEMO = `
 NGUYỄN MẬU MINH ĐỨC
