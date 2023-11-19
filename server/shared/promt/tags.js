@@ -14,8 +14,9 @@ async function extractTags(text, cv_category) {
     const tag_item = await extractData(PROMPT_CHECK_TAGS, "")
     if (tag_item !== null) {
       const cleanedTag = tag_item.replace(/['" ]/g, "")
-      // console.log(cleanedTag)
-      res.push(cleanedTag)
+      if (!res.includes(cleanedTag)) {
+        res.push(cleanedTag)
+      }
     }
   }
 
@@ -31,9 +32,11 @@ module.exports = extractTags
 
 // // Test the function
 // const cv_category = "Software Engineer"
-// extractTags(CV_DEMO, cv_category)
+// extractTags(CV_DEMO2, cv_category)
 //   .then((tags) => {
+//     console.log("--------------------------------")
 //     console.log(tags)
+//     console.log("--------------------------------")
 //   })
 //   .catch((error) => {
 //     console.error(error)

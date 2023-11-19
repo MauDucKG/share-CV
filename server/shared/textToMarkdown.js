@@ -83,8 +83,8 @@ async function textToMarkdown(text, cv_category) {
 module.exports = textToMarkdown
 
 // Test MARKDOWN
-textToMarkdown(CV_DEMO, "Software Engineer").then((detail) => {
-  console.log("--------------------------------")
-  console.log(detail)
-  console.log("--------------------------------")
-})
+// textToMarkdown(CV_DEMO, "Software Engineer").then((detail) => {
+//   console.log("--------------------------------")
+//   console.log(detail)
+//   console.log("--------------------------------")
+// })
