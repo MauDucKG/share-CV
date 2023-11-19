@@ -1,14 +1,22 @@
 const TAGS2 = [
   "ReactJS",
   "React Native",
-  "Nodejs",
-  "Vuejs",
-  "Angular",
+  "NodeJS",
+  "NextJS",
+  "NestJS",
+  "ExpressJS",
+  "VueJS",
+  "AngularJS",
   "Python",
+  "Django",
+  "Flask",
+  "Dart",
+  "Flutter",
   "Java",
   "C++",
   "C#",
   "PHP",
+  "Laravel",
   "Ruby",
   "Swift",
   "Go",
@@ -18,7 +26,11 @@ const TAGS2 = [
   "Scala",
   "Perl",
   "SQL",
+  "MySQL",
+  "MS SQL Server",
+  "PostgreSQL",
   "NoSQL",
+  "MongoDB",
   "R",
   "MATLAB",
   "Shell",
@@ -26,7 +38,7 @@ const TAGS2 = [
   "Lua",
 ]
 const TAGS1 =
-  "ReactJS, React Native, Nodejs, Vuejs, Angular, Python, Java, C++, C#, PHP, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, NoSQL, R, MATLAB, Shell, Groovy, Lua"
+  "ReactJS, React Native, NodeJS, NextJS, NestJS, ExpressJS, VueJS, AngularJS, Python, Django, Flask, Dart, Flutter, Java, C++, C#, PHP, Laravel, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, MySQL, MS SQL Server, PostgreSQL, NoSQL, MongoDB, R, MATLAB, Shell, Groovy, Lua"
 const CATEGORYS1 =
   "Data Analyst, Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer"
 const CATEGORYS2 = [
