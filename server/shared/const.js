@@ -1,6 +1,9 @@
 const TAGS2 = [
   "ReactJS",
+  "React Native",
   "Nodejs",
+  "Vuejs",
+  "Angular",
   "Python",
   "Java",
   "C++",
@@ -23,10 +26,11 @@ const TAGS2 = [
   "Lua",
 ]
 const TAGS1 =
-  "ReactJS, Nodejs, Python, Java, C++, C#, PHP, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, NoSQL, R, MATLAB, Shell, Groovy, Lua"
+  "ReactJS, React Native, Nodejs, Vuejs, Angular, Python, Java, C++, C#, PHP, Ruby, Swift, Go, Rust, TypeScript, Kotlin, Scala, Perl, SQL, NoSQL, R, MATLAB, Shell, Groovy, Lua"
 const CATEGORYS1 =
-  "Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer"
+  "Data Analyst, Data Engineer, Front-end Developer, Software Engineer, Back-end Developer, Full-stack Developer, Mobile Developer, DevOps Engineer, Data Scientist, Machine Learning Engineer"
 const CATEGORYS2 = [
+  "Data Analyst",
   "Data Engineer",
   "Front-end Developer",
   "Back-end Developer",
