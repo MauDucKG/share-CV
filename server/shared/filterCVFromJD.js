@@ -1,58 +1,45 @@
-const { CV_DEMO, JD_DEMO, TAGS1, TAGS2, CATEGORYS2 } = require("./const")
-const extractData = require("./promt/extractData")
-const extractDataFromCV = require("./extractDataFromCV")
-const extractDataFromJD = require("./extractDataFromJD")
+const extractDataFromJD = require("../shared/extractDataFromJD")
+const { JD_DEMO } = require("./const")
+const mongoose = require("mongoose")
 
-async function calculateTagSimilarity(jdTags, cvTags) {
-    const commonTags = jdTags.filter(tag => cvTags.includes(tag));
-    const similarityPercentage = (commonTags.length / jdTags.length) * 100;
-    console.log(similarityPercentage)
-    return similarityPercentage;
+async function filterCVFromJD(jdText) {
+  try {
+    const jdData = await extractDataFromJD(jdText)
+    console.log(jdData)
+    mongoose.connect(
+      "mongodb+srv://mauduckg:mauduckg@cluster0.liowy3n.mongodb.net/test",
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+
+    const cvModel = mongoose.model(
+      "cv",
+      new mongoose.Schema()
+    )
+
+    const cvs = await cvModel.find({
+      tags: { $all: jdData.tags1 },
+    }).lean()
+
+    const matchedCVs = cvs.filter(cv => {
+      const experience = parseInt(cv.experience);
+      return experience >= parseInt(jdData.min_exp) && experience <= parseInt(jdData.max_exp);
+    });
+
+    mongoose.connection.close()
+    return matchedCVs
+  } catch (error) {
+    console.error("Error filtering CV from JD:", error)
+    return []
+  }
 }
 
-async function filterCVFromJD(jdText, cvText, cvCategory) {
-    try {
-        const jdData = await extractDataFromJD(jdText);
-        const cvData = await extractDataFromCV(cvText, cvCategory);
+module.exports = filterCVFromJD
 
-        const minExp = parseInt(jdData.min_exp);
-        const maxExp = parseInt(jdData.max_exp);
-        const cvExp = parseInt(cvData.experience);
-
-        if (cvExp >= minExp && cvExp <= maxExp) {
-            const jdTags = jdData.tags1;
-            console.log(jdTags)
-            const cvTags = cvData.tags;
-            console.log(cvTags)
-
-            // Calculate %
-            const similarityPercentage = await calculateTagSimilarity(jdTags, cvTags);
-
-            // % match
-            const similarityThreshold = 50;
-
-            if (similarityPercentage >= similarityThreshold) {
-                return true; 
-            }
-
-        }
-
-        return false; 
-    } catch (error) {
-        console.error("Error filtering CV from JD:", error);
-        return false;
-    }
-}
-
-const jdText = JD_DEMO;
-const cvText = CV_DEMO;
-const cvCategory = "SW Developer";
-
-filterCVFromJD(jdText, cvText, cvCategory).then((isMatch) => {
-    if (isMatch) {
-    console.log("CV matches JD");
-    } else {
-    console.log("CV does not match JD");
-    }
-});
+const text = `
+Bachelor's or Master's degree in Computer Science, IT or related field.
+intern experience in PHP development or related field.
+`
+filterCVFromJD(text).then((result) => {
+  console.log(result)
+})
 

@@ -3,23 +3,23 @@ const CONFIG = {
   profile: {
     name: "share-CV",
     image: "/avatar.svg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
-    role: "frontend developer",
-    bio: "I develop everything using node.",
-    email: "morethanmin.dev@gmail.com",
-    linkedin: "morethanmin",
-    github: "morethanmin",
+    role: "HR",
+    bio: "For resume creation, please visit share-CV",
+    email: "",
+    linkedin: "",
+    github: "",
     instagram: "",
   },
   projects: [
     {
       name: `share-CV`,
-      href: "https://github.com/morethanmin/morethan-log",
+      href: "",
     },
   ],
   // blog setting (required)
   blog: {
     title: "share-CV",
-    description: "welcome to share-CV!",
+    description: "Welcome to share-CV!",
   },
 
   // CONFIG configration (required)
