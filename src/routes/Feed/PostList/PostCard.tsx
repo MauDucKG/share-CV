@@ -43,9 +43,13 @@ const PostCard: React.FC<Props> = ({ data }) => {
                 CONFIG.lang
               )}
             </div> */}
+            <div className="content">{data.experience}</div>
             <div className="content">
-              {data.experience}
+              -
             </div>
+            <div className="content">
+  {data.location ? <strong>{data.location}</strong> : null}
+</div>
           </div>
           <div className="summary">
             <p>{data.summary}</p>

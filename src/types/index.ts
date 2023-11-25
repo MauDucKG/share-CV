@@ -33,6 +33,7 @@ export type TPost = {
   fullWidth: boolean
   thumbnail?: string
   experience: string
+  location: string
 }
 
 export type PostDetail = TPost & {

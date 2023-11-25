@@ -7,7 +7,7 @@ async function getJDFromTopDev() {
   const url = "https://api.topdev.vn/td/v2/jobs";
   const params = {
     "fields[job]": "id,title,skills_arr,requirements_arr,company",
-    "fields[company]": "slug",
+    "fields[company]": "slug,addresses",
     "page": 1,
     "locale": "en_US",
     "ordering": "jobs_new"
@@ -29,6 +29,7 @@ async function getJDFromTopDev() {
       "url_company": await getWebsiteLink(item["company"]["detail_url"]),
       "requirements": item["requirements_arr"].map(req => req.value.join(", ")).join(", ") + ", Key word is: " + item["skills_arr"].join(", "),
       "email_company": "",
+      "address_short_region_list": item["company"]["addresses"]["address_short_region_list"],
     };
     entry.email_company = await getEmailCompany(entry.url_company),
     result.push(entry);
