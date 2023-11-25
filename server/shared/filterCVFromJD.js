@@ -11,9 +11,12 @@ async function filterCVFromJD(jdText, location) {
       "mongodb+srv://mauduckg:mauduckg@cluster0.liowy3n.mongodb.net/test",
       { useNewUrlParser: true, useUnifiedTopology: true }
     )
-
-    const PROMPT_LOCATION = `Generate all names for this location separated by '|'". Example: HoChiMinh generates HoChiMinh|Ho Chi Minh City|HCMC|HCM City|Ho Chi Minh|...`
-    const location_all = await extractData(PROMPT_LOCATION, location)
+    
+    let location_all = ""
+    if (location){
+      const PROMPT_LOCATION = `Generate all names for this location separated by '|'". Example: HoChiMinh generates HoChiMinh|Ho Chi Minh City|HCMC|HCM City|Ho Chi Minh|... (minimize 10 names)`
+      location_all = await extractData(PROMPT_LOCATION, location)
+    }
     console.log(location_all)
     // Tạo biểu thức chính quy từ địa điểm
     const locationRegex = new RegExp(location_all, "i");
