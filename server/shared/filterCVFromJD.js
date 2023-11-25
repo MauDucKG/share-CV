@@ -1,8 +1,9 @@
 const extractDataFromJD = require("../shared/extractDataFromJD")
+const extractData = require("./promt/extractData")
 const { JD_DEMO } = require("./const")
 const mongoose = require("mongoose")
 
-async function filterCVFromJD(jdText) {
+async function filterCVFromJD(jdText, location) {
   try {
     const jdData = await extractDataFromJD(jdText)
     console.log(jdData)
@@ -11,6 +12,12 @@ async function filterCVFromJD(jdText) {
       { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
+    const PROMPT_LOCATION = `Generate all names for this location separated by '|'". Example: HoChiMinh generates HoChiMinh|Ho Chi Minh City|HCMC|HCM City|Ho Chi Minh|...`
+    const location_all = await extractData(PROMPT_LOCATION, location)
+    console.log(location_all)
+    // Tạo biểu thức chính quy từ địa điểm
+    const locationRegex = new RegExp(location_all, "i");
+
     const cvModel = mongoose.model(
       "cv",
       new mongoose.Schema()
@@ -18,6 +25,7 @@ async function filterCVFromJD(jdText) {
 
     const cvs = await cvModel.find({
       tags: { $all: jdData.tags1 },
+      location: { $regex: locationRegex }
     }).lean()
 
     const matchedCVs = cvs.filter(cv => {
@@ -39,7 +47,8 @@ const text = `
 Bachelor's or Master's degree in Computer Science, IT or related field.
 intern experience in PHP development or related field.
 `
-filterCVFromJD(text).then((result) => {
+const location = `ho chi minh city`
+filterCVFromJD(text, location).then((result) => {
   console.log(result)
 })
 
