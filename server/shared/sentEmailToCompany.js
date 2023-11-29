@@ -3,13 +3,13 @@ const filterCVFromJD = require("../shared/filterCVFromJD")
 // const htmlContent = fs.readFileSync('sentBody.html', 'utf8');
 
 async function sendEmail(json, email) {
-    // let link_cv = []
-    // filterCVFromJD(json.requirements, "").then((result) => {
-    //     for (const item of result) {
-    //         link_cv.push(item.title)
-    //     }
-    //   })
-    // console.log(link_cv)
+    let link_cv = []
+    filterCVFromJD(json.requirements, "").then((result) => {
+        for (const item of result) {
+            link_cv.push(item.title)
+        }
+      })
+    console.log(link_cv)
       
     const nodemailer = require('nodemailer');
 

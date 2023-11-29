@@ -21,10 +21,7 @@ async function filterCVFromJD(jdText, location) {
     // Tạo biểu thức chính quy từ địa điểm
     const locationRegex = new RegExp(location_all, "i");
 
-    const cvModel = mongoose.model(
-      "cv",
-      new mongoose.Schema()
-    )
+    const cvModel = require("../cv/cv.model")
 
     const cvs = await cvModel.find({
       tags: { $all: jdData.tags1 },

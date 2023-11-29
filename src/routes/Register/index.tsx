@@ -6,8 +6,6 @@ import MajorInput from "./MajorInput"
 import CVInput from "./CVInput"
 import { postCVData } from "src/apis"
 
-
-
 const Register: React.FC = () => {
   const [fullName, setFullName] = useState("")
   const [major, setMajor] = useState("")
@@ -15,10 +13,10 @@ const Register: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState(false) // Add state for registering
 
   const handleRegister = async () => {
-    setIsRegistering(true);
-    await postCVData(fullName, major, cvText); 
-    window.location.href = "/";
-  };
+    setIsRegistering(true)
+    let newSlug = await postCVData(fullName, major, cvText)
+    window.location.href = `/${newSlug}`;
+  }
 
   return (
     <StyledWrapper>
@@ -38,14 +36,22 @@ const Register: React.FC = () => {
           />
           <CVInput value={cvText} onChange={(e) => setCvText(e.target.value)} />
           <div className="form-submit">
-            <button
-              className="btn-submit"
-              onClick={handleRegister} // Use handleRegister function for onClick event
-              disabled={isRegistering} // Disable button when registering
-            >
-              {isRegistering && "Please wait a moment"} 
-              {isRegistering || "Register"}
-            </button>
+            {isRegistering || (
+              <button
+                className="btn-submit"
+                onClick={handleRegister} // Use handleRegister function for onClick event
+                disabled={isRegistering} // Disable button when registering
+              >
+                Register
+              </button>
+            )}
+            {isRegistering && (
+              <p
+                className="btn-submit1"
+              >
+                Please wait a moment
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -99,6 +105,15 @@ const StyledWrapper = styled.div`
       padding-right: 1.25rem;
       border-radius: 1rem;
       background-color: ${({ theme }) => theme.colors.blue4};
+      font-size: 1rem; /* adjust this value to your preference */
+    }
+    .btn-submit1 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      border-radius: 1rem;
+      background-color: ${({ theme }) => theme.colors.green4};
       font-size: 1rem; /* adjust this value to your preference */
     }
   }

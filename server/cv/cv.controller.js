@@ -27,14 +27,12 @@ class cvController {
     let cvitem = {}
     let aboutCvitem = {}
     let number = 0
-    let countBelow24Months = 0;
-    let countAbove24Months = 0;
-    let countNewApplicants = 0;
+    let countBelow24Months = 0
+    let countAbove24Months = 0
+    let countNewApplicants = 0
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); 
-  
-    
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
 
     await extractDataFromCV(cvText, major).then((dataFormCV) => {
       // Generate a unique slug for each CV
@@ -61,38 +59,38 @@ class cvController {
     await textToMarkdown(cvText, major).then((detail) => {
       cvitem = new cvitemModel({
         idCv: cv.slug,
-        detail
+        detail,
       })
     })
 
     await cv.save()
     await cvitem.save()
-    res.status(200).send("New CV created!")
+    res.status(200).json({ message: "New CV created!", slug: cv.slug })
 
-    const cvs = await cvModel.find().exec();
+    const cvs = await cvModel.find().exec()
     cvs.forEach((cv) => {
-      number++;
-      const experience = parseInt(cv.experience);
+      number++
+      const experience = parseInt(cv.experience)
       if (experience <= 24) {
-        countBelow24Months++;
+        countBelow24Months++
       } else {
-        countAbove24Months++;
+        countAbove24Months++
       }
-      const createdTime = new Date(cv.createdTime);
-      createdTime.setHours(0, 0, 0, 0); 
-  
+      const createdTime = new Date(cv.createdTime)
+      createdTime.setHours(0, 0, 0, 0)
+
       if (createdTime.getTime() === today.getTime()) {
-        countNewApplicants++;
+        countNewApplicants++
       }
-    });
+    })
 
     try {
-      aboutCvitem = await cvitemModel.findOne({ idCv: 'about' });
+      aboutCvitem = await cvitemModel.findOne({ idCv: "about" })
       if (!aboutCvitem) {
         aboutCvitem = new cvitemModel({
-          idCv: 'about',
-          detail: ''
-        });
+          idCv: "about",
+          detail: "",
+        })
       }
       const text = `
 - Job seekers demand: ${number} candidates
@@ -101,12 +99,15 @@ class cvController {
 - Number of new CVs today: ${countNewApplicants} CVs
       
 `
-      const summary = await extractData(`Write a market analysis article based on the following paragraph in markdown. Draw a graph running in python then display the associated image`, text);;
+      const summary = await extractData(
+        `Write a market analysis article based on the following paragraph in markdown. Draw a graph running in python then display the associated image`,
+        text
+      )
       if (aboutCvitem) {
-        aboutCvitem.detail = text + '\n' + summary;
+        aboutCvitem.detail = text + "\n" + summary
       }
 
-      await aboutCvitem.save();
+      await aboutCvitem.save()
     } catch (error) {
       res.status(500).send(error)
     }

@@ -7,10 +7,11 @@ export const postCVData = async (fullName: string, major: string, cvText: string
     major: major,
     cvText: cvText
   };
-
+  
   try {
     const response = await axios.post(`${LINK_TO_SERVER}/cv`, body);
-    console.log(response.data);
+    const { slug } = response.data;
+    return slug
   } catch (error) {
     console.error(error);
   }
