@@ -4,12 +4,25 @@ const filterCVFromJD = require("../shared/filterCVFromJD")
 
 async function sendEmail(json, email) {
     let link_cv = []
-    filterCVFromJD(json.requirements, "").then((result) => {
+    let suggest1 = suggest2 = suggest3 = {
+        slug: '',
+        summary: '',
+        location: '',
+        title: '',
+        experience: ''
+    }
+    
+    await filterCVFromJD(json.requirements, "").then((result) => {
         for (const item of result) {
-            link_cv.push(item.title)
+            link_cv.push(item)
         }
-      })
-    console.log(link_cv)
+        for (let i = 0; i < link_cv.length; i++) {
+            if (i == 0) suggest1 = link_cv[0]
+            else if (i == 1) suggest2 = link_cv[1]
+            else if (i == 2) suggest3 = link_cv[2]
+            else break
+        }
+    })
       
     const nodemailer = require('nodemailer');
 
@@ -25,7 +38,7 @@ async function sendEmail(json, email) {
     const mailOptions = {
         from: 'phdhuy1@gmail.com',
         to: email,
-        subject: 'Suggested CV for ' + json.title +'from Share-CV',
+        subject: 'Suggested CV for ' + json.title +' position from Share-CV',
         html: `
 <!DOCTYPE html>
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background: #f1f1f1;margin: 0 auto !important;padding: 0 !important;height: 100% !important;width: 100% !important;">
@@ -79,7 +92,12 @@ async function sendEmail(json, email) {
                                     </tr>
                                     <tr style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                         <p style="color: #000000;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"> I hope this email finds you well. I am writing to suggest CVs that I believe would be suitable for the ` + json.title + ` at your company.</p>
-                                        <a href="https://share-cv.vercel.app/9b107d4b9e9ca06fa916" style="color: blue;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Thien Phan</a>
+                                        <a href="https://share-cv.vercel.app/`+ suggest1.slug + `" style="color: blue;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"> ` + suggest1.title + ` </a>
+                                        <p style="color: #000000;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;text-align: justify;margin-right: 15px"><em>`+ suggest1.summary + `</em></p>
+                                        <a href="https://share-cv.vercel.app/`+ suggest2.slug + `" style="color: blue;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"> ` + suggest2.title + ` </a>
+                                        <p style="color: #000000;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;text-align: justify;margin-right: 15px"><em>`+ suggest2.summary + `</em></p>
+                                        <a href="https://share-cv.vercel.app/`+ suggest3.slug + `" style="color: blue;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"> ` + suggest3.title + ` </a>
+                                        <p style="color: #000000;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;text-align: justify;margin-right: 15px"><em>`+ suggest3.summary + `</em></p>
                                         <p style="color: #000000;margin-left: 30px;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"> Thank you for considering this suggested CV for the ` + json.title + `. I believe that the candidate's skills, experience, and passion for delivering exceptional results make them a strong fit for your organization.</p>
                                     </tr>
                                     <tr style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
