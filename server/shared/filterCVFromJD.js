@@ -33,7 +33,7 @@ async function filterCVFromJD(jdText, location) {
       return experience >= parseInt(jdData.min_exp) && experience <= parseInt(jdData.max_exp);
     });
 
-    mongoose.connection.close()
+    // mongoose.connection.close()
     return matchedCVs
   } catch (error) {
     console.error("Error filtering CV from JD:", error)

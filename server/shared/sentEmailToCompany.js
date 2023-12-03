@@ -183,18 +183,18 @@ async function sendEmail(json, email) {
 
 module.exports = sendEmail;
 
-// Dữ liệu JSON
-const data = {
-    id: 2031769,
-    title: 'Project leader (Java Spring Web)',
-    skills_arr: [ 'Java', 'Project Leader', 'Java Spring' ],
-    requirements_arr: [ [Object], [Object], [Object], [Object] ],
-    detail_url: 'https://topdev.vn/companies/ntt-data-vietnam-81445',
-    url_company: 'https://www.nttdata.com/vn/en/',
-    requirements: `Bachelor's or Master's degree in Computer Science, IT or related field. intern experience in PHP development or related field.`,
-    email_company: 'duchuydeptrainhatthegioi@gmail.com'
-}
+// // Dữ liệu JSON
+// const data = {
+//     id: 2031769,
+//     title: 'Project leader (Java Spring Web)',
+//     skills_arr: [ 'Java', 'Project Leader', 'Java Spring' ],
+//     requirements_arr: [ [Object], [Object], [Object], [Object] ],
+//     detail_url: 'https://topdev.vn/companies/ntt-data-vietnam-81445',
+//     url_company: 'https://www.nttdata.com/vn/en/',
+//     requirements: `Bachelor's or Master's degree in Computer Science, IT or related field. intern experience in PHP development or related field.`,
+//     email_company: 'duchuydeptrainhatthegioi@gmail.com'
+// }
   
-sendEmail(data, data.email_company).then((result) => {
-  console.log(result)
-})
+// sendEmail(data, data.email_company).then((result) => {
+//   console.log(result)
+// })

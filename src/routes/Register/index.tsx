@@ -15,7 +15,7 @@ const Register: React.FC = () => {
   const handleRegister = async () => {
     setIsRegistering(true)
     let newSlug = await postCVData(fullName, major, cvText)
-    window.location.href = `/${newSlug}`;
+    window.location.href = `/${newSlug}`
   }
 
   return (
@@ -46,11 +46,7 @@ const Register: React.FC = () => {
               </button>
             )}
             {isRegistering && (
-              <p
-                className="btn-submit1"
-              >
-                Please wait a moment
-              </p>
+              <p className="btn-submit1">Please wait a moment</p>
             )}
           </div>
         </div>
