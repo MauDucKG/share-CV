@@ -74,17 +74,47 @@ export const Global = () => {
           border-top: 1px solid ${theme.colors.gray6};
         }
 
-        .markdown h1,
-        .markdown h2,
-        .markdown h3,
-        .markdown h4,
-        .markdown h5,
-        .markdown h6 {
+        .markdown h1 {
+          font-size: 2rem;
           margin-top: 2rem;
           margin-bottom: 1rem;
-          font-size: 1.5rem;
-          font-weight: bold;
-        }
+          font-weight: 800;
+          }
+          
+          .markdown h2 {
+          font-size: 1.8rem;
+          margin-top: 1.5rem;
+          margin-bottom: 1rem;
+          font-weight: 700;
+          }
+          
+          .markdown h3 {
+          font-size: 1.6rem;
+          margin-top: 1rem;
+          margin-bottom: 0.8rem;
+          font-weight: 600;
+          }
+          
+          .markdown h4 {
+          font-size: 1.4rem;
+          margin-top: 0.8rem;
+          margin-bottom: 0.8rem;
+          font-weight: 500;
+          }
+          
+          .markdown h5 {
+          font-size: 1.2rem;
+          margin-top: 0.6rem;
+          margin-bottom: 0.6rem;
+          font-weight: 400;
+          }
+          
+          .markdown h6 {
+          font-size: 1rem;
+          margin-top: 0.4rem;
+          margin-bottom: 0.4rem;
+          font-weight: 300;
+          }
 
         .markdown a {
           color: #0366d6;
