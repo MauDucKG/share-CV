@@ -76,7 +76,7 @@ async function textToMarkdown(text, cv_category) {
   const certificate = await extractData(PROMT_CERTIFICATE, text)
   const lang = await extractData(PROMPT_LANG, certificate);
   const project = await extractData(PROMPT_PROJECT, text);
-  const res = info + '\n' + exp + '\n' + skill + '\n' + lang + '\n' + project + '\n'
+  const res = "📷 " + info + '\n' + "🏃 " + exp + '\n' + "🖥 " + skill + '\n' + "🗨️ " +lang + '\n' + "📑 " + project + '\n'
   return res;
 }
 
