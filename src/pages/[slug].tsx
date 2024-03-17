@@ -11,9 +11,10 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-import { LINK_TO_REGISTER, LINK_TO_RECEIVE } from "src/constants"
+import { LINK_TO_REGISTER, LINK_TO_RECEIVE, LINK_TO_POST } from "src/constants"
 import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
+import Post from "src/routes/Post"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -56,20 +57,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
+  console.log(post) 
 
   if (!post) return <CustomError />
 
   if (post.slug === LINK_TO_REGISTER) return <Register />
 
   if (post.slug === LINK_TO_RECEIVE) return <Receive />
-
+  
+  if (post.slug === LINK_TO_POST) return <Post />
+  console.log(post)
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??
     `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
 
   const date = post.date?.start_date || post.createdTime || ""
-
   const meta = {
     title: post.title,
     date: new Date(date).toISOString(),

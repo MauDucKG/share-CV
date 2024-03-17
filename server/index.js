@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cvRouter = require("./cv/cv.router");
 const cvitemRouter = require("./cvitem/cvitem.router");
 const jdRouter = require("./jd/jd.router");
+const postRouter = require("./post/post.router");
 const http = require("http").createServer(app);
 const cors = require("cors");
 
@@ -29,3 +30,4 @@ app.use(cors());
 app.use("/cv", cvRouter);
 app.use("/cvitem", cvitemRouter);
 app.use("/jd", jdRouter);
+app.use("/post", postRouter);

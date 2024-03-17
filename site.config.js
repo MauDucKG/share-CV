@@ -55,7 +55,7 @@ const CONFIG = {
     },
   },
   cusdis: {
-    enable: true,
+    enable: false,
     config: {
       host: "https://cusdis.com",
       appid: "1e62f627-b1ae-450a-b217-5fee1b1958a1", 

@@ -2,26 +2,25 @@ import styled from "@emotion/styled"
 import React, { InputHTMLAttributes, ReactNode } from "react"
 import { Emoji } from "src/components/Emoji"
 
-interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { }
+interface Props extends InputHTMLAttributes<HTMLInputElement> { }
 
-
-const ContentInput: React.FC<Props> = ({ ...props }) => {
+const SummaryInput: React.FC<Props> = ({ ...props }) => {
   return (
     <StyledWrapper>
       <div className="top-input">
-        <Emoji>💼</Emoji> Content
+        <Emoji>💻</Emoji> Image 
       </div>
-      <textarea
+      <input
         className="mid"
-        rows={10}
-        placeholder="Fill your content ..."
+        type="text"
+        placeholder="Fill your link image (Use imgur.com). Example: i.imgur.com/rzjoRq7.jpeg"
         {...props}
-      ></textarea>
+      />
     </StyledWrapper>
   )
 }
 
-export default ContentInput
+export default SummaryInput
 
 const StyledWrapper = styled.div`
   margin-bottom: 1rem;
@@ -42,7 +41,6 @@ const StyledWrapper = styled.div`
     border-radius: 1rem;
     outline-style: none;
     width: 100%;
-    font-size: 1rem;
     background-color: ${({ theme }) => theme.colors.gray4};
   }
 `
