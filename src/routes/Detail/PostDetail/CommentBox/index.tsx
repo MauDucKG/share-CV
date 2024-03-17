@@ -22,10 +22,10 @@ type Props = {
 const CommentBox: React.FC<Props> = ({ data }) => {
   return (
     <div>
-      {CONFIG.utterances.enable && <UtterancesComponent issueTerm={data.slug} />}
-      {/* {CONFIG.cusdis.enable && (
+      {CONFIG.utterances.enable && <UtterancesComponent issueTerm={data._id} />}
+      {CONFIG.cusdis.enable && (
         <CusdisComponent id={data._id} slug={data.slug} title={data.title} />
-      )} */}
+      )}
     </div>
   )
 }

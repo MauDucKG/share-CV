@@ -19,7 +19,7 @@ const Utterances: React.FC<Props> = ({ issueTerm }) => {
     const script = document.createElement("script")
     const anchor = document.getElementById("comments")
     if (!anchor) return
-
+    
     script.setAttribute("src", "https://utteranc.es/client.js")
     script.setAttribute("crossorigin", "anonymous")
     script.setAttribute("async", `true`)
@@ -33,7 +33,7 @@ const Utterances: React.FC<Props> = ({ issueTerm }) => {
     return () => {
       anchor.innerHTML = ""
     }
-  }, [scheme, router, issueTerm])
+  }, [scheme, router])
   return (
     <>
       <StyledWrapper id="comments">
