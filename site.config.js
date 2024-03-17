@@ -7,13 +7,13 @@ const CONFIG = {
     bio: "For resume creation, please visit share-CV",
     email: "",
     linkedin: "",
-    github: "",
+    github: "duchuykg",
     instagram: "",
   },
   projects: [
     {
       name: `share-CV`,
-      href: "",
+      href: "https://github.com/MauDucKG/share-CV",
     },
   ],
   // blog setting (required)
@@ -47,18 +47,18 @@ const CONFIG = {
     },
   },
   utterances: {
-    enable: false,
+    enable: true,
     config: {
-      repo: process.env.NEXT_PUBLIC_UTTERANCES_REPO || "",
+      repo: "MauDucKG/share-CV" ||"",
       "issue-term": "og:title",
       label: "💬 Utterances",
     },
   },
   cusdis: {
-    enable: false,
+    enable: true,
     config: {
       host: "https://cusdis.com",
-      appid: "", // Embed Code -> data-app-id value
+      appid: "1e62f627-b1ae-450a-b217-5fee1b1958a1", 
     },
   },
   isProd: process.env.VERCEL_ENV === "production", // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
