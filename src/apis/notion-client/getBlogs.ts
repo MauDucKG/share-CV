@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { TPosts } from 'src/types';
+import { TPosts, TPost } from 'src/types';
 import { LINK_TO_SERVER } from 'src/constants';
 
 
-export const getPosts = async () => {
+export const getBlogs = async () => {
   try {
-    const response = await axios.get(`${LINK_TO_SERVER}/cv`);
+    const response = await axios.get(`${LINK_TO_SERVER}/post`);
 
-    const newData = response.data.cvs;
+    const newData = response.data.posts
 
     const data = [
     {
@@ -33,11 +33,11 @@ export const getPosts = async () => {
       return dateB - dateA;
     });
 
-    const posts = mergedData as TPosts;
-    return posts;
+    const blogs = mergedData as TPosts;
+    return blogs;
   } catch (error) {
     console.error('Error fetching posts:', error);
     return [];
   }
-  
+
 }

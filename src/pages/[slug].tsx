@@ -3,7 +3,7 @@ import { filterPosts } from "src/libs/utils/notion"
 import { CONFIG } from "site.config"
 import { NextPageWithLayout } from "../types"
 import CustomError from "src/routes/Error"
-import { getRecordMap, getPosts } from "src/apis"
+import { getRecordMap, getPosts, getBlogs } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
 import { GetStaticProps } from "next"
 import { queryClient } from "src/libs/react-query"
@@ -11,10 +11,11 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-import { LINK_TO_REGISTER, LINK_TO_RECEIVE, LINK_TO_POST } from "src/constants"
+import { LINK_TO_REGISTER, LINK_TO_RECEIVE, LINK_TO_POST, LINK_TO_SUBMIT } from "src/constants"
 import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
 import Post from "src/routes/Post"
+import Feed from "src/routes/Feed"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -33,20 +34,23 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
-
-  const posts = await getPosts()
+ 
+  const posts = await getPosts()  
   const feedPosts = filterPosts(posts)
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
-
+  if (slug === LINK_TO_POST) {
+    const posts = filterPosts(await getBlogs())
+    await queryClient.prefetchQuery(queryKey.posts(), () => posts)
+  }
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
+  
   const recordMap = await getRecordMap(postDetail?.slug!)
-
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
   }))
-
+ 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -57,22 +61,23 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
-  console.log(post) 
-
   if (!post) return <CustomError />
 
   if (post.slug === LINK_TO_REGISTER) return <Register />
 
   if (post.slug === LINK_TO_RECEIVE) return <Receive />
   
-  if (post.slug === LINK_TO_POST) return <Post />
-  console.log(post)
+  if (post.slug === LINK_TO_SUBMIT) return <Post />
+
+  if (post.slug === LINK_TO_POST) return <Feed />
+  
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??
     `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
 
   const date = post.date?.start_date || post.createdTime || ""
+  console.log(date)
   const meta = {
     title: post.title,
     date: new Date(date).toISOString(),

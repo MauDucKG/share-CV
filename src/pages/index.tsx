@@ -1,7 +1,7 @@
 import Feed from "src/routes/Feed"
 import { CONFIG } from "../../site.config"
 import { NextPageWithLayout } from "../types"
-import { getPosts } from "../apis"
+import { getPosts, getBlogs } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
