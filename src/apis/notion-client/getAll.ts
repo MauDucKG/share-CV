@@ -3,10 +3,13 @@ import { TPosts } from 'src/types';
 import { LINK_TO_SERVER } from 'src/constants';
 
 
-export const getPosts = async () => {
+export const getAll = async () => {
   try {
     const response = await axios.get(`${LINK_TO_SERVER}/cv`);
+    const response2 = await axios.get(`${LINK_TO_SERVER}/post`);
+
     const newData = response.data.cvs;
+    const newData2 = response2.data.posts;
 
     const data = [
     {
@@ -23,7 +26,7 @@ export const getPosts = async () => {
       experience: "3 tháng"
     }];
     
-    const mergedData = [...data, ...newData];
+    const mergedData = [...data, ...newData, ...newData2];
 
     // Sort by date
     mergedData.sort((a: any, b: any) => {

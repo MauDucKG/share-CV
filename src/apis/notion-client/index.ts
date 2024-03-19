@@ -1,4 +1,5 @@
 export * from "./getRecordMap"
+export * from "./getAll"
 export * from "./getBlogs"
 export * from "./getPosts"
 export * from "./postCVData"
