@@ -71,14 +71,12 @@ const DetailPage: NextPageWithLayout = () => {
   if (post.slug === LINK_TO_SUBMIT) return <Post />
 
   if (post.slug === LINK_TO_POST) return <Feed />
-  
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??
     `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
 
   const date = post.date?.start_date || post.createdTime || ""
-  console.log(date)
   const meta = {
     title: post.title,
     date: new Date(date).toISOString(),

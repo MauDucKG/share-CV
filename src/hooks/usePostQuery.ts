@@ -11,7 +11,6 @@ const usePostQuery = () => {
     queryKey: queryKey.post(`${slug}`),
     enabled: false,
   })
-  console.log(slug)
 
   if (slug === LINK_TO_REGISTER) {
     const datafordirect = {

@@ -9,6 +9,7 @@ const Footer: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <a onClick={() => router.push("/")}>← Back</a>
+      {/* <a onClick={() => router.back()}>← Back</a> */}
       <a onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
         ↑ Top
       </a>

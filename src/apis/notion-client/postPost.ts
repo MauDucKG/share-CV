@@ -11,7 +11,7 @@ export const postPost = async (title: string, summary: string, image: string, co
   
   try {
     const response = await axios.post(`${LINK_TO_SERVER}/post`, body);
-    const { slug } = response.data;
+    const {slug} = response.data;
     return slug
   } catch (error) {
     console.error(error);

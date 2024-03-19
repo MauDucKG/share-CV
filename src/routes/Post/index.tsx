@@ -17,9 +17,9 @@ const Post: React.FC = () => {
 
   const handlePost = async () => {
     setIsPost(true)
-    let newSlug = await postPost(title, summary, image, content)
-    // window.location.href = `/${newSlug}`
-    window.location.href = `/`
+    let slug = await postPost(title, summary, image, content)
+    window.location.href = `/${slug}`
+    // window.location.href = `/`
   }
 
   return (

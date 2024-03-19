@@ -48,11 +48,9 @@ class postController {
         idCv: postItem.slug,
         detail: content
       });
-
       await postItem.save();
       await cvitem.save()
-
-      res.status(200).send("New Post created!!!");
+      res.status(200).send({message: "New Post created!!!", slug: postItem.slug});
     } catch (error) {
       res.status(500).send(error);
     }
