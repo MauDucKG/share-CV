@@ -10,6 +10,6 @@ export const LINK_TO_SUBMIT = "submit" as string
 
 export const LINK_TO_LOGIN = "login" as string
 
-// export const LINK_TO_SERVER = "https://share-cv-ubv1.onrender.com" as string
+export const LINK_TO_SERVER = "https://share-cv-ubv1.onrender.com" as string
 
-export const LINK_TO_SERVER = "http://localhost:4000" as string
+// export const LINK_TO_SERVER = "http://localhost:4000" as string

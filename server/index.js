@@ -16,14 +16,37 @@ require("dotenv").config();
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const CLIENT_ID = "3a0867acc92f99838faf"
 const CLIENT_SECRET = "9086ba3e25aea160195fdfd0cd1eceb5dbec1477"
+
 app.get('/getAccessToken', async function (req, res){
   console.log(req.query.code)
   const params = "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&code=" + req.query.code
-  await.fetch("https://github.com/login/oauth/access_token" + params, {
-    method: 
+  await fetch("https://github.com/login/oauth/access_token" + params, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+    }
+  }).then((response) => {
+    return response.json();
+  }).then((data) => {
+    console.log(data)
+    res.json(data);
   })
 });
 
+app.get('/getUserData', async function (req, res){
+  req.get("Authorization")
+  await fetch("https://api.github.com/user", {
+    method: "GET",
+    headers: {
+      "Authorization": req.get("Authorization")
+    }
+  }).then((response) => {
+    return response.json();
+  }).then((data) => {
+    console.log(data)
+    res.json(data);
+  })
+});
 
 
 
