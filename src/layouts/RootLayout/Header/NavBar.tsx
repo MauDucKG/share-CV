@@ -7,6 +7,7 @@ const NavBar: React.FC = () => {
     { id: 2, name: "Register", to: "/register" },
     { id: 3, name: "Receive CV", to: "/receive" },
     { id: 4, name: "Post", to: "/post" },
+    { id: 5, name: "Login", to: "/login" },
     // { id: 5, name: "Submit", to: "/submit" },
 
   ]
