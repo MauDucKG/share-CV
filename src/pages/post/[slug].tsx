@@ -1,7 +1,7 @@
 import Detail from "src/routes/Detail"
 import { filterPosts } from "src/libs/utils/notion"
 import { CONFIG } from "site.config"
-import { NextPageWithLayout } from "../types"
+import { NextPageWithLayout } from "../../types"
 import CustomError from "src/routes/Error"
 import { getRecordMap, getPosts, getBlogs, getAll } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
@@ -28,12 +28,12 @@ export const getStaticPaths = async () => {
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    // paths: filteredPost.map((row) => !usePath ? `/${row.slug}` : `/${row.slug}`),
-    paths: filteredPost.map((row) => `/${row.slug}`),
+    // paths: filteredPost.map((row) => usePath ? `/post/${row.slug}` : `/post/${row.slug}`),
+    paths: filteredPost.map((row) => `/post/${row.slug}`),
     fallback: true,
   }
 }
-
+ 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
   const posts = await getAll()  

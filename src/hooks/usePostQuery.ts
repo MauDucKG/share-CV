@@ -7,11 +7,11 @@ import { LINK_TO_REGISTER, LINK_TO_RECEIVE, LINK_TO_POST, LINK_TO_SUBMIT, LINK_T
 const usePostQuery = () => {
   const router = useRouter()
   const { slug } = router.query
+  
   const { data } = useQuery<PostDetail>({
     queryKey: queryKey.post(`${slug}`),
     enabled: false,
   })
-
   if (slug === LINK_TO_REGISTER) {
     const datafordirect = {
       _id: '',

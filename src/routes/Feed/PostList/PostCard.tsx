@@ -15,7 +15,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
   const category = (data.category && data.category?.[0]) || undefined
 
   return (
-    <StyledWrapper href={`/${data.slug}`}>
+    <StyledWrapper href={(data.category !== undefined && data.category[0] === 'Blog') ? `/post/${data.slug}` : `/${data.slug}`}>
       <article>
         {category && (
           <div className="category">

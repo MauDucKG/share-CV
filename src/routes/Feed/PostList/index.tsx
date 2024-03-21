@@ -26,7 +26,7 @@ const PostList: React.FC<Props> = ({ q }) => {
         const searchContent = post.title + post.summary + tagContent
         return searchContent.toLowerCase().includes(q.toLowerCase())
       })
-
+      
       // tag
       if (currentTag) {
         newFilteredPosts = newFilteredPosts.filter(
