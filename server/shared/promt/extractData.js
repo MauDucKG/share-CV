@@ -28,7 +28,7 @@
 
 // module.exports = extractData
 
-const fetch = require('node-fetch');
+const https = require('https');
 
 async function extractData(prompt, cv) {
   const apiKey = 'AIzaSyDRSSB98nK78iOssd_Mwm-vJc47foqjwZk';
@@ -52,18 +52,34 @@ async function extractData(prompt, cv) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(requestPayload),
   };
 
-  try {
-    const response = await fetch(apiUrl, requestOptions);
-    const data = await response.json();
-    // console.log(data.candidates[0].content.parts[0].text);
-    generatedText = data.candidates[0].content.parts[0].text
-    return generatedText
-  } catch (error) {
-    console.error(error);
-  }
+  return new Promise((resolve, reject) => {
+    const req = https.request(apiUrl, requestOptions, (res) => {
+      let data = '';
+
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          const generatedText = response.candidates[0].content.parts[0].text;
+          resolve(generatedText);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.write(JSON.stringify(requestPayload));
+    req.end();
+  });
 }
 
-module.exports = extractData
+module.exports = extractData;

@@ -1,25 +1,36 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
+import useDropdown from "src/hooks/useDropdown"
 
 const NavBar: React.FC = () => {
   const links = [
-    { id: 1, name: "About", to: "/about" },
-    { id: 2, name: "Register", to: "/register" },
-    { id: 3, name: "Receive CV", to: "/receive" },
-    { id: 4, name: "Post", to: "/post" },
-    { id: 5, name: "Login", to: "/login" },
-    // { id: 5, name: "Submit", to: "/submit" },
-
+    { id: 2, name: "📝 Register", to: "/register" },
+    { id: 3, name: "✉️ Receive CV", to: "/receive" },
+    { id: 4, name: "📰 Post", to: "/post" },
+    { id: 5, name: "✏ Submit", to: "/submit" },
+    { id: 6, name: "Login", to: "/login" },
   ]
+  const [dropdownRef, opened, handleOpen] = useDropdown()
+
   return (
-    <StyledWrapper className="">
-      <ul>
-        {links.map((link) => (
-          <li key={link.id}>
-            <Link href={link.to}>{link.name}</Link>
-          </li>
-        ))}
-      </ul>
+    <StyledWrapper>
+      <div className="wrapper">
+        <Link href={"/about"}>About</Link>
+        <div ref={dropdownRef} onClick={handleOpen} className="more-button">More</div>
+      </div>
+      {opened && (
+        <div className="content">
+          {links.map((link, i) => (
+            <div
+              className="item"
+              key={i}
+            >
+              <Link className="item" href={link.to}>{link.name}</Link>
+            </div>
+
+          ))}
+        </div>
+      )}
     </StyledWrapper>
   )
 }
@@ -27,14 +38,46 @@ const NavBar: React.FC = () => {
 export default NavBar
 
 const StyledWrapper = styled.div`
-  flex-shrink: 0;
-  ul {
+  flex-direction: row;
+  > .wrapper {
     display: flex;
-    flex-direction: row;
-    li {
-      display: block;
-      margin-left: 1rem;
-      color: ${({ theme }) => theme.colors.gray11};
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 0.25rem;
+    align-items: center;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.gray11};
+  }
+  .more-button {
+    margin-left: 0.5rem;
+  }
+  > .content {
+    position: absolute;
+    z-index: 40;
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    background-color: ${({ theme }) => theme.colors.gray2};
+    color: ${({ theme }) => theme.colors.gray10};
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  > .item {
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    cursor: pointer;
+
+    :hover {
+      background-color: ${({ theme }) => theme.colors.gray4};
     }
+  }
+  .icon {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 `

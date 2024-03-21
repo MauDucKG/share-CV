@@ -1,25 +1,45 @@
-import styled from "@emotion/styled"
-import React from "react"
-import { Emoji } from "src/components/Emoji"
+import styled from "@emotion/styled";
+import React, { useEffect, useState } from "react";
+import { Emoji } from "src/components/Emoji";
 
-type Props = {}
+type Props = {};
 
 const CustomError: React.FC<Props> = () => {
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <StyledWrapper>
-      <div className="wrapper">
-        <div className="top">
-          <div>4</div>
-          <Emoji>🤔</Emoji>
-          <div>4</div>
+      {showContent && (
+        <div className="wrapper">
+          <div className="top">
+            <div>4</div>
+            <Emoji>🤔</Emoji>
+            <div>4</div>
+          </div>
+          <div className="text">Post not found</div>
         </div>
-        <div className="text">Post not found</div>
-      </div>
+      )}
+      {!showContent && (
+        <div className="wrapper">
+          <div className="top">
+            <Emoji>☕</Emoji>
+          </div>
+          <div className="text">Loading</div>
+        </div>
+      )}
     </StyledWrapper>
-  )
-}
+  );
+};
 
-export default CustomError
+export default CustomError;
 
 const StyledWrapper = styled.div`
   margin: 0 auto;
@@ -48,4 +68,4 @@ const StyledWrapper = styled.div`
       color: ${({ theme }) => theme.colors.gray11};
     }
   }
-`
+}`;

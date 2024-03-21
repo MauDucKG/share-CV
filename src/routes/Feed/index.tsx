@@ -40,7 +40,7 @@ const Feed: React.FC<Props> = () => {
           <Footer />
         </div>
       </div>
-      {/* <div
+      <div
         className="rt"
         css={{
           height: `calc(100vh - ${HEADER_HEIGHT}px)`,
@@ -52,7 +52,7 @@ const Feed: React.FC<Props> = () => {
         <div className="footer">
           <Footer />
         </div>
-      </div> */}
+      </div>
     </StyledWrapper>
   )
 }
@@ -93,7 +93,7 @@ const StyledWrapper = styled.div`
     grid-column: span 12 / span 12;
 
     @media (min-width: 1024px) {
-      grid-column: span 10 / span 10;
+      grid-column: span 7 / span 7;
     }
 
     > .tags {

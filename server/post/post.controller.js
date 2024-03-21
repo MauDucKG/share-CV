@@ -29,7 +29,7 @@ class postController {
         date: {
           start_date: new Date().toISOString(),
         },
-        type: ["Post"],
+        type: ["Paper"],
         slug: slug, // Use the unique slug here
         tags: ["Analyst"],
         category: ["Blog"],
