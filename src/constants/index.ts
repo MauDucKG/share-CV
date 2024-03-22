@@ -10,4 +10,6 @@ export const LINK_TO_SUBMIT = "submit" as string
 
 export const LINK_TO_LOGIN = "login" as string
 
+export var usePath = true 
+
 export const LINK_TO_SERVER = process.env.SERVER ? process.env.SERVER : "http://localhost:4000";
