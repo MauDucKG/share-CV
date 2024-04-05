@@ -26,7 +26,7 @@ const Post: React.FC = () => {
     <StyledWrapper>
       <div className="wrapper">
         <div className="top">
-          <Emoji>✏</Emoji>
+          <Emoji>📣</Emoji>
         </div>
         <div className="text">Post artical !!!</div>
         <div className="form">

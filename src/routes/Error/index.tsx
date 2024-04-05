@@ -10,7 +10,7 @@ const CustomError: React.FC<Props> = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 1500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

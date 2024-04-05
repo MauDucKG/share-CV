@@ -31,7 +31,7 @@
 const https = require('https');
 
 async function extractData(prompt, cv) {
-  const apiKey = 'AIzaSyDRSSB98nK78iOssd_Mwm-vJc47foqjwZk';
+  const apiKey = 'AIzaSyCG5knfzDTChcWugj-Kd5YvbEtVvm3w1fs';
   const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
   const combined_prompt = `${prompt} "${cv}"`
