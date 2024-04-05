@@ -11,3 +11,5 @@ export const LINK_TO_SUBMIT = "submit" as string
 export var usePath = true 
 
 export const LINK_TO_SERVER = process.env.SERVER ? process.env.SERVER : "http://localhost:4000";
+
+export const LINK_TO_CLIENT = process.env.CLIENT ? process.env.CLIENT : "http://localhost:3000";
