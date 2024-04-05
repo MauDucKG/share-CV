@@ -1,14 +1,13 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
 import useDropdown from "src/hooks/useDropdown"
-import { LINK_TO_CLIENT } from "src/constants"
 
 const NavBar: React.FC = () => {
   const links = [
-    { id: 2, name: "📝 Register", to: LINK_TO_CLIENT + "/register" },
-    { id: 3, name: "✉️ Receive CV", to: LINK_TO_CLIENT + "/receive" },
-    { id: 4, name: "📰 New Feed", to: LINK_TO_CLIENT + "/post" },
-    { id: 5, name: "📣 Submit Post", to: LINK_TO_CLIENT + "/submit" },
+    { id: 2, name: "📝 Register", to: "/register" },
+    { id: 3, name: "✉️ Receive CV", to: "/receive" },
+    { id: 4, name: "📰 New Feed", to: "/post" },
+    { id: 5, name: "📣 Submit Post", to: "/submit" },
   ]
   const [dropdownRef, opened, handleOpen] = useDropdown()
 
