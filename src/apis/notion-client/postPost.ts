@@ -1,11 +1,10 @@
 import axios from "axios";
 import { LINK_TO_SERVER } from "src/constants";
 
-export const postPost = async (title: string, summary: string, image: string, content: string) => {
+export const postPost = async (title: string, summary: string, content: string) => {
   const body = {
     title,
     summary,
-    image,
     content,
   };
   

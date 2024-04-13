@@ -1,16 +1,24 @@
 import styled from "@emotion/styled"
 import Link from "next/link"
 import useDropdown from "src/hooks/useDropdown"
-import { LINK_TO_CLIENT } from "src/constants"
+import { useState, useEffect } from "react"
 
 const NavBar: React.FC = () => {
   const links = [
-    { id: 2, name: "📝 Register", to: LINK_TO_CLIENT + "/register" },
-    { id: 3, name: "✉️ Receive CV", to: LINK_TO_CLIENT + "/receive" },
-    { id: 4, name: "📰 New Feed", to: LINK_TO_CLIENT + "/post" },
-    { id: 5, name: "📣 Submit Post", to: LINK_TO_CLIENT + "/submit" },
+    { id: 2, name: "📝 Register", to: "/register" },
+    { id: 3, name: "✉️ Receive CV", to: "/receive" },
+    { id: 4, name: "📰 New Feed", to: "/post" },
+    { id: 5, name: "📣 Submit Post", to: "/submit" },
   ]
   const [dropdownRef, opened, handleOpen] = useDropdown()
+
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if (localStorage.getItem("utterances-session")) {
+      setIsLogin(true)
+    }
+  }, [])
 
   return (
     <StyledWrapper>
@@ -30,15 +38,17 @@ const NavBar: React.FC = () => {
               </Link>
             </div>
           ))}
-          <div className="item" key={6}>
-            <a
-              className="btn btn-primary"
-              href="https://api.utteranc.es/authorize?redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F2ceda70a5ecb5f688e71"
-              target="_top"
-            >
-              Sign in with GitHub
-            </a>
-          </div>
+          {isLogin || (
+            <div className="item" key={6}>
+              <a
+                className="btn btn-primary"
+                href="https://api.utteranc.es/authorize?redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F2ceda70a5ecb5f688e71"
+                target="_top"
+              >
+                Sign in with GitHub
+              </a>
+            </div>
+          )}
         </div>
       )}
     </StyledWrapper>

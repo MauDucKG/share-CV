@@ -44,11 +44,11 @@ async function getEmailCompany(url) {
 
 module.exports = getEmailCompany
 
-const url = "https://tuyendung.viettel.vn/";
-getEmailCompany(url)
-  .then((selectedEmail) => {
-    console.log("Selected email:", selectedEmail);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+// const url = "https://tuyendung.viettel.vn/";
+// getEmailCompany(url)
+//   .then((selectedEmail) => {
+//     console.log("Selected email:", selectedEmail);
+//   })
+//   .catch((error) => {
+//     console.error("Error:", error);
+//   });

@@ -4,20 +4,18 @@ import { Emoji } from "src/components/Emoji"
 import TitleInput from "./TitleInput"
 import ContentInput from "./ContentInput"
 import SummaryInput from "./SummaryInput"
-import ImageInput from "./ImageInput"
 import { postPost } from "src/apis"
 
 const Post: React.FC = () => {
   const [title, setTitle] = useState("")
   const [summary, setSummary] = useState("")
   const [content, setContent] = useState("")
-  const [image, setImage] = useState("")
 
   const [isPost, setIsPost] = useState(false) 
 
   const handlePost = async () => {
     setIsPost(true)
-    let slug = await postPost(title, summary, image, content)
+    let slug = await postPost(title, summary, content)
     window.location.href = `/post/${slug}`
     // window.location.href = `/`
   }
@@ -37,10 +35,6 @@ const Post: React.FC = () => {
            <SummaryInput
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
-          />
-           <ImageInput
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
           />
           <ContentInput value={content} onChange={(e) => setContent(e.target.value)} />
           <div className="form-submit">

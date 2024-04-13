@@ -18,12 +18,12 @@ async function extractSummary(text, cv_category) {
 
 module.exports = extractSummary
 
-// Test the function
-const cv_category = "Software Engineer"
-extractSummary(CV_DEMO, cv_category)
-  .then((summary) => {
-    // console.log(summary)
-  })
-  .catch((error) => {
-    console.error(error)
-  })
+// // Test the function
+// const cv_category = "Software Engineer"
+// extractSummary(CV_DEMO, cv_category)
+//   .then((summary) => {
+//     // console.log(summary)
+//   })
+//   .catch((error) => {
+//     console.error(error)
+//   })

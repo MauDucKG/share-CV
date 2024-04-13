@@ -37,9 +37,8 @@ const insight = {
   ],
   period: "1",
 }
-generateBlog(insight, "Write the blog to describe about the trend of Java job recently").then((result) => {
-  console.log("================================")
-  console.log(result)
-  console.log("================================")
-})
-
+// generateBlog(insight, "Write the blog to describe about the trend of Java job recently").then((result) => {
+//   console.log("================================")
+//   console.log(result)
+//   console.log("================================")
+// })

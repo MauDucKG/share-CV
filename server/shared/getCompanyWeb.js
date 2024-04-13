@@ -29,16 +29,16 @@ async function getWebsiteLink(url) {
 
 module.exports = getWebsiteLink
 
-// Usage: Get the website link from the URL
-const url = 'https://topdev.vn/companies/viettel-group-84011';
-getWebsiteLink(url)
-  .then((websiteLink) => {
-    if (websiteLink) {
-      console.log('Liên kết website:', websiteLink);
-    } else {
-      console.log('Không tìm thấy liên kết website.');
-    }
-  })
-  .catch((error) => {
-    console.error('Error:', error.message);
-  });
+// // Usage: Get the website link from the URL
+// const url = 'https://topdev.vn/companies/viettel-group-84011';
+// getWebsiteLink(url)
+//   .then((websiteLink) => {
+//     if (websiteLink) {
+//       console.log('Liên kết website:', websiteLink);
+//     } else {
+//       console.log('Không tìm thấy liên kết website.');
+//     }
+//   })
+//   .catch((error) => {
+//     console.error('Error:', error.message);
+//   });
