@@ -3,6 +3,8 @@ import PostHeader from "./PostHeader"
 import Footer from "./PostFooter"
 import CommentBox from "./CommentBox"
 import Category from "src/components/Category"
+import { ColumnChart } from "src/components/ColumnChart"
+
 import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
@@ -18,13 +20,35 @@ const PostDetail: React.FC<Props> = () => {
   const datas = usePostsQuery()
   const data = usePostQuery()
   if (!data) return null
-  
+  const CATEGORYS2 = [
+    "Data Analyst",
+    "Data Engineer",
+    "Front-end Developer",
+    "Back-end Developer",
+    "Full-stack Developer",
+    "Mobile Developer",
+    "DevOps Engineer",
+    "Data Scientist",
+    "Machine Learning Engineer",
+    "Software Engineer",
+    "Quality Assurance/Control",
+    "Blog"
+  ]
+
+  const categoryCounts: { [key: string]: number } = {};
+
   const category = (data.category && data.category?.[0]) || undefined
   const number = datas.length;
   let countBelow24Months = 0;
   let countAbove24Months = 0;
     
   datas.forEach((item : any) => {
+    const category = item.category;
+    if (categoryCounts[category]) {
+      categoryCounts[category]++;
+    } else {
+      categoryCounts[category] = 1;
+    }
     const experience = parseInt(item.experience);
     if (experience <= 24) {
       countBelow24Months++;
@@ -32,7 +56,8 @@ const PostDetail: React.FC<Props> = () => {
       countAbove24Months++;
     }
   });
-  
+  const CATEGORYS2COUNT = CATEGORYS2.map((category) => categoryCounts[category] || 0);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0); 
 
@@ -45,7 +70,8 @@ const PostDetail: React.FC<Props> = () => {
       countNewApplicants++;
     }
   });
-
+  let columnNames = ['Demand', 'Intern/Fresher', 'Others', 'New'];
+  let values = [number, countBelow24Months, countAbove24Months, countNewApplicants]
 //     const text = `
 // - Nhu cầu tìm việc: ${number} ứng viên
 // - Số lượng intern/fresher (dưới 2 năm kinh nghiệm): ${countBelow24Months} ứng viên 
@@ -59,6 +85,7 @@ const PostDetail: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <article className="markdown">
+      
         {category && (
           <div css={{ marginBottom: "0.5rem" }}>
             <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
@@ -66,14 +93,23 @@ const PostDetail: React.FC<Props> = () => {
             </Category>
           </div>
         )}
+        {data.slug === "about" ? 
+        <div>
+        <ColumnChart name = "Number of candidates in the system" columnNames={CATEGORYS2} values={CATEGORYS2COUNT}/> 
+        <ColumnChart name = "Number of candidates by category" columnNames={columnNames} values={values}/>
+        </div>
+        : 
+        <></>}
+
+
         {data.type[0] === "Post" && <PostHeader data={data} />}
         <div>
             <ReactMarkdown>
             
           {data.recordMap}
           </ReactMarkdown>
-           
         </div>
+        
         {data.type[0] === "Post" && (
           <>
             <Footer />
