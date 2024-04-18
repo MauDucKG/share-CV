@@ -1,5 +1,5 @@
 const postModel = require("./post.model")
-const cvitemModel = require("../cvitem/cvitem.model")
+const postitemModel = require("../postitem/postitem.model")
 const checkPost = require("../shared/promt/checkPost")
 const extractTagsFromPost = require("../shared/promt/extractTagsFromPost")
 
@@ -52,12 +52,12 @@ class postController {
             experience: new Date().toISOString(),
           })
 
-          const cvitem = new cvitemModel({
-            idCv: postItem.slug,
+          const postitem = new postitemModel({
+            idPost: postItem.slug,
             detail: content,
           })
           await postItem.save()
-          await cvitem.save()
+          await postitem.save()
           res
             .status(200)
             .send({ message: "New Post created!!!", slug: postItem.slug })

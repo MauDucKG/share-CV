@@ -40,7 +40,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
-  const posts = await getAll()
+  const posts = await getPosts()
   const feedPosts = filterPosts(posts)
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   if (slug === LINK_TO_POST) {
@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const feedPosts = filterPosts(posts)
     await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   } else if (slug !== LINK_TO_POST){
-    const posts = await getAll()
+    const posts = await getPosts()
     const feedPosts = filterPosts(posts)
     await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   }
