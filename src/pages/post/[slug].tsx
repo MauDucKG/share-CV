@@ -3,7 +3,7 @@ import { filterPosts } from "src/libs/utils/notion"
 import { CONFIG } from "site.config"
 import { NextPageWithLayout } from "../../types"
 import CustomError from "src/routes/Error"
-import { getRecordMap, getPosts, getBlogs, getAll } from "src/apis"
+import { getRecordMap, getPosts, getBlogs, getBlogMap } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
 import { GetStaticProps } from "next"
 import { queryClient } from "src/libs/react-query"
@@ -35,22 +35,15 @@ export const getStaticPaths = async () => {
  
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
-  const posts = await getPosts()  
+
+  const posts = await getBlogs()  
   const feedPosts = filterPosts(posts)
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
-  if (slug === LINK_TO_POST) {
-    const posts = await getBlogs()
-    const feedPosts = filterPosts(posts)
-    await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
-  } else if (slug !== LINK_TO_POST){
-    const posts = await getPosts()
-    const feedPosts = filterPosts(posts)
-    await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
-  }
+
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
   
-  const recordMap = await getRecordMap(postDetail?.slug!)
+  const recordMap = await getBlogMap(postDetail?.slug!)
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
@@ -68,13 +61,6 @@ const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
   if (!post) return <CustomError />
 
-  if (post.slug === LINK_TO_REGISTER) return <Register />
-
-  if (post.slug === LINK_TO_RECEIVE) return <Receive />
-  
-  if (post.slug === LINK_TO_SUBMIT) return <Post />
-
-  if (post.slug === LINK_TO_POST) return <Feed />
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??

@@ -8,6 +8,12 @@ import { queryKey } from "src/constants/queryKey"
 import { GetStaticProps } from "next"
 import { dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
+import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+
+const filter: FilterPostsOptions = {
+  acceptStatus: ["Public", "PublicOnDetail"],
+  acceptType: ["Paper", "Post", "Page"],
+}
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = filterPosts(await getPosts())
