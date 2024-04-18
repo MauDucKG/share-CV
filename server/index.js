@@ -12,6 +12,50 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 require("dotenv").config();
 
+const cloudinary = require("cloudinary").v2;
+const Multer = require("multer");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new Multer.memoryStorage();
+const upload = Multer({
+  storage,
+});
+
+async function handleUpload(file) {
+  const res = await cloudinary.uploader.upload(file, {
+    resource_type: "auto",
+  });
+  return res;
+}
+
+app.use(cors());
+
+app.post("/upload", upload.single("my_file"), async (req, res) => {
+  try {
+    if (!req.file) {
+      throw new Error("No file uploaded");
+    }
+
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    const cldRes = await handleUpload(dataURI);
+    res.json(cldRes);
+  } catch (error) {
+    console.log(error);
+    res.send({
+      message: error.message,
+    });
+  }
+});
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 const mongoDB_url =
   "mongodb+srv://mauduckg:mauduckg@cluster0.liowy3n.mongodb.net/test";
 mongoose
@@ -26,7 +70,6 @@ http.listen(4000, function () {
   // const getText = test.pdfToText('./uploads/hello.pdf');
 });
 
-app.use(cors());
 app.use("/cv", cvRouter);
 app.use("/cvitem", cvitemRouter);
 app.use("/jd", jdRouter);

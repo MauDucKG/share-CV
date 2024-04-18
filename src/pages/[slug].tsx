@@ -16,7 +16,6 @@ import {
   LINK_TO_RECEIVE,
   LINK_TO_POST,
   LINK_TO_SUBMIT,
-  usePath,
 } from "src/constants"
 import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
@@ -46,6 +45,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   if (slug === LINK_TO_POST) {
     const posts = await getBlogs()
+    const feedPosts = filterPosts(posts)
+    await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
+  } else if (slug !== LINK_TO_POST){
+    const posts = await getAll()
     const feedPosts = filterPosts(posts)
     await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   }

@@ -43,7 +43,12 @@ const PostCard: React.FC<Props> = ({ data }) => {
                 CONFIG.lang
               )}
             </div> */}
-            <div className="content">{data.experience}</div>
+            <div className="content">{(data.category !== undefined && data.category[0] === 'Blog')
+            ? formatDate(
+              data?.date?.start_date || data.experience,
+              CONFIG.lang
+            )
+            : data.experience}</div>
             <div className="content">
               -
             </div>
