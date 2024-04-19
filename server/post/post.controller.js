@@ -21,7 +21,7 @@ class postController {
   }
 
   newpost = async function (req, res) {
-    const { title, summary, content } = req.body
+    const { title, summary, content, thumbnail } = req.body
 
     await checkPost(content).then(async (checkRes) => {
       if (checkRes === "false") {
@@ -34,7 +34,7 @@ class postController {
           const today = new Date()
           today.setHours(0, 0, 0, 0)
           const slug = require("crypto").randomBytes(10).toString("hex")
-          const postItem = new postModel({
+          const post = new postModel({
             date: {
               start_date: new Date().toISOString(),
             },
@@ -49,18 +49,19 @@ class postController {
             status: ["Public"],
             createdTime: new Date().toISOString(),
             fullWidth: false,
+            thumbnail: thumbnail,
             experience: new Date().toISOString(),
           })
 
           const postitem = new postitemModel({
-            idPost: postItem.slug,
+            idPost: post.slug,
             detail: content,
           })
-          await postItem.save()
+          await post.save()
           await postitem.save()
           res
             .status(200)
-            .send({ message: "New Post created!!!", slug: postItem.slug })
+            .send({ message: "New Post created!!!", slug: post.slug })
         } catch (error) {
           res.status(500).send(error)
         }

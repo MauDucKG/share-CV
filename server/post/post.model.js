@@ -38,6 +38,7 @@ const postSchema = new Schema(
     ],
     createdTime: String,
     fullWidth: Boolean,
+    thumbnail: String,
     experience: String,
   },
   {
