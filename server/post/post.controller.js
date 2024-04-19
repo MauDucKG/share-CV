@@ -1,6 +1,7 @@
 const postModel = require("./post.model")
 const postitemModel = require("../postitem/postitem.model")
 const checkPost = require("../shared/promt/checkPost")
+const remarkdown = require("../shared/promt/remarkdown")
 const extractTagsFromPost = require("../shared/promt/extractTagsFromPost")
 
 class postController {
@@ -52,10 +53,11 @@ class postController {
             thumbnail: thumbnail,
             experience: new Date().toISOString(),
           })
+          const new_content = await remarkdown(content)
 
           const postitem = new postitemModel({
             idPost: post.slug,
-            detail: content,
+            detail: new_content,
           })
           await post.save()
           await postitem.save()

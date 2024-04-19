@@ -1,5 +1,6 @@
 const postitemModel = require("./postitem.model");
 const postModel = require("../post/post.model");
+const remarkdown = require("../shared/promt/remarkdown")
 
 class postitemController {
   getAllpostitem(request, respond) {
@@ -18,17 +19,19 @@ class postitemController {
 
   newpostitem = async function (req, res) {
     const { idPost, detail } = req.body;
-
+    
     try {
       const postExist = await postModel.findById(idPost).exec();
       if (!postExist) {
         return res.status(404).send("Invalid post id");
       }
 
+      const content = await remarkdown(detail)
       const postitem = new postitemModel({
         idPost,
-        detail,
+        detail: content,
       });
+
       await postitem.save();
       res.status(200).send("New postitem created!");
     } catch (error) {
