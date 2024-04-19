@@ -15,7 +15,9 @@ const NavBar: React.FC = () => {
   const [isLogin, setIsLogin] = useState(false)
 
   const handleReload = (e : any) => {
-    window.location.href = `${e}`;
+    if (e === "/post" || e === "/about") {
+      window.location.href = `${e}`;
+    }
   }
 
   useEffect(() => {
@@ -27,8 +29,7 @@ const NavBar: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-        {/* <Link onClick={() => handleReload("/about")} href={"/about"}>About</Link> */}
-        <Link href={"/about"}>About</Link>
+        <Link onClick={() => handleReload("/about")} href={"/about"}>About</Link>
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
           More
         </div>
