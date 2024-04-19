@@ -44,7 +44,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
   let posts 
-
+  console.log(slug)
   if (slug === "post") posts = await getBlogs()
   else posts = await getPosts()
   const feedPosts = filterPosts(posts)
