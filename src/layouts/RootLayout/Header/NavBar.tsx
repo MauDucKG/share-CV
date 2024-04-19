@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
             <div className="item" key={6}>
               <a
                 className="btn btn-primary"
-                href="https://api.utteranc.es/authorize?redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F2ceda70a5ecb5f688e71"
+                href="https://api.utteranc.es/authorize?redirect_uri=https%3A%2F%2Fshare-cv.vercel.app"
                 target="_top"
               >
                 Sign in with GitHub
