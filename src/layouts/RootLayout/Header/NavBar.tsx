@@ -14,6 +14,10 @@ const NavBar: React.FC = () => {
 
   const [isLogin, setIsLogin] = useState(false)
 
+  const handleReload = (e : any) => {
+    window.location.href = `${e}`;
+  }
+
   useEffect(() => {
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
@@ -23,6 +27,7 @@ const NavBar: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
+        {/* <Link onClick={() => handleReload("/about")} href={"/about"}>About</Link> */}
         <Link href={"/about"}>About</Link>
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
           More
@@ -33,7 +38,7 @@ const NavBar: React.FC = () => {
         <div className="content">
           {links.map((link, i) => (
             <div className="item" key={i}>
-              <Link className="item" href={link.to}>
+              <Link className="item" onClick={() => handleReload(link.to)} href={link.to}>
                 {link.name}
               </Link>
             </div>
