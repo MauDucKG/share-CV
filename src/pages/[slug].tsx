@@ -20,7 +20,6 @@ import {
 import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
 import Post from "src/routes/Post"
-import Blog from "src/routes/Blog"
 import Feed from "src/routes/Feed"
 
 import { get } from "http"
@@ -44,7 +43,6 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
   let posts 
-  console.log(slug)
   if (slug === "post") posts = await getBlogs()
   else posts = await getPosts()
   const feedPosts = filterPosts(posts)
@@ -77,7 +75,7 @@ const DetailPage: NextPageWithLayout = () => {
 
   if (post.slug === LINK_TO_SUBMIT) return <Post />
   
-  if (post.slug === LINK_TO_POST) return <Blog />
+  if (post.slug === LINK_TO_POST) return <Feed />
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??

@@ -36,7 +36,9 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
 
-  const posts = await getBlogs()  
+  let posts 
+  if (slug === "about") posts = await getPosts()
+  else posts = await getBlogs()
   const feedPosts = filterPosts(posts)
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
 

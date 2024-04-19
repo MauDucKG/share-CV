@@ -10,9 +10,10 @@ import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight'
-
+import { getPosts } from "src/apis"
 import usePostsQuery from "src/hooks/usePostsQuery"
-
+import { filterPosts } from "src/libs/utils/notion"
+import { queryClient } from "src/libs/react-query"
 
 type Props = {}
 
@@ -32,7 +33,6 @@ const PostDetail: React.FC<Props> = () => {
     "Machine Learning Engineer",
     "Software Engineer",
     "Quality Assurance/Control",
-    "Blog"
   ]
 
   const categoryCounts: { [key: string]: number } = {};
