@@ -1,7 +1,7 @@
 const extractData = require("./extractData")
 
 async function remarkdown(content) {
-    const PROMPT = `Translate the following paragraph into professional Markdown format display (bold, italics, numbering, line breaks, justify...). Keep the content and number of words the same, only change the format. Example: increase the font size use #.`
+    const PROMPT = `Translate the following paragraph into professional Markdown format display (bold, italics, numbering, line breaks, justify...). Keep the content and number of words the same, only change the format (this is required)`
       
     const new_para = await extractData(PROMPT, content);
 
