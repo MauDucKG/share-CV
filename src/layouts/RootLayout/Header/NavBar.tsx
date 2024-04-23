@@ -2,8 +2,11 @@ import styled from "@emotion/styled"
 import Link from "next/link"
 import useDropdown from "src/hooks/useDropdown"
 import { useState, useEffect } from "react"
+import { LINK_TO_CLIENT } from "src/constants"
 
 const NavBar: React.FC = () => {
+  var redirect_uri = "https://api.utteranc.es/authorize?redirect_uri=" + encodeURIComponent(LINK_TO_CLIENT);
+
   const links = [
     { id: 2, name: "📝 Register", to: "/register" },
     { id: 3, name: "✉️ Receive CV", to: "/receive" },
@@ -13,6 +16,7 @@ const NavBar: React.FC = () => {
   const [dropdownRef, opened, handleOpen] = useDropdown()
 
   const [isLogin, setIsLogin] = useState(false)
+  const [utterancesParam, setUtterancesParam] = useState("");
 
   const handleReload = (e : any) => {
     if (e === "/post" || e === "/about") {
@@ -21,9 +25,19 @@ const NavBar: React.FC = () => {
   }
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utterancesValue = urlParams.get("utterances");
+    if (utterancesValue) {
+      setUtterancesParam(utterancesValue);
+      console.log(utterancesValue)
+      localStorage.setItem("utterances-session", utterancesValue);
+      setIsLogin(true)
+    }
+
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
     }
+
   }, [])
 
   return (
@@ -48,7 +62,7 @@ const NavBar: React.FC = () => {
             <div className="item" key={6}>
               <a
                 className="btn btn-primary"
-                href="https://api.utteranc.es/authorize?redirect_uri=https%3A%2F%2Fshare-cv.vercel.app"
+                href={redirect_uri}
                 target="_top"
               >
                 Sign in with GitHub
