@@ -8,6 +8,7 @@ const postRouter = require("./post/post.router");
 const postitemRouter = require("./postitem/postitem.router");
 const http = require("http").createServer(app);
 const cors = require("cors");
+const axios = require('axios');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -53,6 +54,51 @@ app.post("/upload", upload.single("my_file"), async (req, res) => {
     });
   }
 });
+
+app.post("/getToken", async (req, res) => {
+  try {
+    const data = req.body.data;
+
+    const config = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: "https://api.utteranc.es/token",
+      headers: {
+        "Content-Type": "application/json",
+        // Thêm các header khác nếu cần thiết
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get('/getUserData', async (req, res) => {
+  try {
+      req.get("Authorization")
+      const config = {
+      method: 'GET',
+      maxBodyLength: Infinity,
+      url: 'https://api.github.com/user',
+      headers: { 
+        'Accept': 'application/vnd.github.v3+json', 
+        'Authorization': req.get("Authorization")
+      }
+    };
+
+    const response = await axios.request(config);
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

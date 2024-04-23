@@ -16,11 +16,13 @@ import {
   LINK_TO_RECEIVE,
   LINK_TO_POST,
   LINK_TO_SUBMIT,
+  LINK_TO_PROFILE
 } from "src/constants"
 import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
 import Post from "src/routes/Post"
 import Feed from "src/routes/Feed"
+import Profile from "src/routes/Profile"
 
 import { get } from "http"
 
@@ -67,13 +69,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
-  if (!post) return <CustomError />
+  if (!post || !post.type) return <CustomError />
 
   if (post.slug === LINK_TO_REGISTER) return <Register />
 
   if (post.slug === LINK_TO_RECEIVE) return <Receive />
 
   if (post.slug === LINK_TO_SUBMIT) return <Post />
+
+  if (post.slug === LINK_TO_PROFILE) return <Profile />
   
   if (post.slug === LINK_TO_POST) return <Feed />
   const image =
