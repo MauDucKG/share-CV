@@ -26,9 +26,9 @@ const NavBar: React.FC = () => {
   const [utterancesParam, setUtterancesParam] = useState("");
 
   const handleReload = (e : any) => {
-    // if (e === "/post" || e === "/about" || e === "/profile" || e === "/") {
-    //   window.location.href = `${e}`;
-    // }
+    if (e === "/post" || e === "/about" || e === "/profile" || e === "/") {
+      window.location.href = `${e}`;
+    }
   }
 
   const handleLogoutGithub = () => {
@@ -76,6 +76,12 @@ const NavBar: React.FC = () => {
     }
     fetchData();
   }, [userdata.login])
+
+  useEffect(() => {
+    if (isLogin) {
+      handleReload("/");
+    }
+  }, [isLogin]);
 
   return (
     <StyledWrapper>
