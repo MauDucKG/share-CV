@@ -65,7 +65,6 @@ app.post("/getToken", async (req, res) => {
       url: "https://api.utteranc.es/token",
       headers: {
         "Content-Type": "application/json",
-        // Thêm các header khác nếu cần thiết
       },
       data: data,
     };

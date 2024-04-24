@@ -3,34 +3,12 @@ import styled from "@emotion/styled"
 import { Emoji } from "src/components/Emoji"
 import local from "next/font/local"
 import axios from "axios"
-import { LINK_TO_SERVER } from "src/constants"
+import { LINK_TO_SERVER, DATA_USER } from "src/constants"
 import Image from "next/image"
+import ProfilePage from "./ProfilePage"
+
 const Profile: React.FC = () => {
-  const [userdata, setUserData] = useState({
-      "login": "",
-      "id": 0,
-      "node_id": "",
-      "avatar_url": "",
-      "gravatar_id": "",
-      "url": "",
-      "html_url": "",
-      "type": "User",
-      "site_admin": false,
-      "name": "",
-      "company": null,
-      "blog": "",
-      "location": null,
-      "email": null,
-      "hireable": null,
-      "bio": null,
-      "twitter_username": null,
-      "public_repos": 0,
-      "public_gists": 0,
-      "followers": 0,
-      "following": 0,
-      "created_at": "2022-02-20T11:55:01Z",
-      "updated_at": "2024-04-23T01:20:02Z"
-  })
+  const [userdata, setUserData] = useState(DATA_USER)
 
   let utterancesParam
   if (typeof localStorage !== "undefined" && localStorage.getItem("utterances-session")) {
@@ -51,7 +29,7 @@ const Profile: React.FC = () => {
           },
         });
         setUserData(infoResponse.data)
-        console.log(userdata)
+
       } catch (error) {
         console.log(error);
       }
@@ -64,24 +42,7 @@ const Profile: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-        <div className="top">
-          <Emoji>📝</Emoji>
-        </div>
-        <div className="text">Profile</div>
-        <div className="form">
-          <div className="text"> {userdata.login}</div>
-          <Image
-                src={userdata.avatar_url}
-                alt={userdata.login}
-                width={400} 
-                height={400} 
-              />
-          <div className="text">Name: {userdata.name}</div>
-          <div className="text">Followers: {userdata.followers}</div>
-          <div className="text">Following: {userdata.following}</div>
-          <div className="text">Public Repos: {userdata.public_repos}</div>
-
-        </div>
+            <ProfilePage userdata={userdata}/>
       </div>
     </StyledWrapper>
   )
@@ -144,5 +105,23 @@ const StyledWrapper = styled.div`
       background-color: ${({ theme }) => theme.colors.green4};
       font-size: 1rem; /* adjust this value to your preference */
     }
+    .wrapper {
+      display: flex;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+      flex-direction: column;
+      gap: 2.5rem;
+      align-items: center;
+      > .top {
+        display: flex;
+        align-items: center;
+        font-size: 3.75rem;
+        line-height: 1;
+      }
+      > .text {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        color: ${({ theme }) => theme.colors.gray11};
+      }
   }
 `

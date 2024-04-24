@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import Link from "next/link"
 import useDropdown from "src/hooks/useDropdown"
 import { useState, useEffect } from "react"
-import { LINK_TO_CLIENT, LINK_TO_SERVER } from "src/constants"
+import { LINK_TO_CLIENT, LINK_TO_SERVER, DATA_USER } from "src/constants"
 import axios from "axios"
 
 const NavBar: React.FC = () => {
@@ -21,31 +21,7 @@ const NavBar: React.FC = () => {
   ]
   const [dropdownRef, opened, handleOpen] = useDropdown()
   const [dropdownLogout, logout, handleLogout] = useDropdown()
-  const [userdata, setUserData] = useState({
-    "login": "",
-    "id": 0,
-    "node_id": "",
-    "avatar_url": "",
-    "gravatar_id": "",
-    "url": "",
-    "html_url": "",
-    "type": "User",
-    "site_admin": false,
-    "name": "",
-    "company": null,
-    "blog": "",
-    "location": null,
-    "email": null,
-    "hireable": null,
-    "bio": null,
-    "twitter_username": null,
-    "public_repos": 0,
-    "public_gists": 0,
-    "followers": 0,
-    "following": 0,
-    "created_at": "2022-02-20T11:55:01Z",
-    "updated_at": "2024-04-23T01:20:02Z"
-  })
+  const [userdata, setUserData] = useState(DATA_USER)
   const [isLogin, setIsLogin] = useState(false)
   const [utterancesParam, setUtterancesParam] = useState("");
 
@@ -80,8 +56,8 @@ const NavBar: React.FC = () => {
             Authorization: `Bearer ${access_token.data}`,
           },
         });
+
         setUserData(infoResponse.data)
-        console.log(userdata)
       } catch (error) {
         console.log(error);
       }
@@ -91,7 +67,6 @@ const NavBar: React.FC = () => {
     const utterancesValue = urlParams.get("utterances");
     if (utterancesValue) {
       setUtterancesParam(utterancesValue);
-      console.log(utterancesValue)
       localStorage.setItem("utterances-session", utterancesValue);
       setIsLogin(true)
     }
@@ -100,7 +75,7 @@ const NavBar: React.FC = () => {
       setIsLogin(true)
     }
     fetchData();
-  }, [isLogin])
+  }, [userdata.login])
 
   return (
     <StyledWrapper>
@@ -109,14 +84,14 @@ const NavBar: React.FC = () => {
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
           More
         </div>
-        {isLogin 
+        {isLogin || userdata.login !== ""
         ? 
         <div>
           <Link onClick={() => handleReload("/profile")} href={"/profile"} className="more-button"> Profile</Link>
         </div>
         : <></>
         }
-        {isLogin 
+        {isLogin || userdata.login !== ""
         ? 
         <div className="more-button" ref={dropdownLogout} onClick={handleLogout} >
           Hello {userdata.login}
@@ -134,7 +109,7 @@ const NavBar: React.FC = () => {
               </Link>
             </div>
           ))}
-          {isLogin || (
+          {isLogin || userdata.login !== "" || (
             <div className="item" key={6} >
               <a
                 className="btn btn-primary"
@@ -191,6 +166,7 @@ const StyledWrapper = styled.div`
     color: ${({ theme }) => theme.colors.gray10};
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
   > .item {
     padding: 0.25rem;
     padding-left: 0.5rem;

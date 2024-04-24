@@ -52,8 +52,6 @@ const CONFIG = {
       repo: "MauDucKG/share-CV" ||"",
       "issue-term": "og:title",
       label: "💬 Utterances",
-      clientId: "3a0867acc92f99838faf", // Client ID của ứng dụng OAuth của bạn
-      clientSecret: "8e90a246f0ae25c90c0d4b3c2f3ab631144c40ef",
     },
   },
   cusdis: {
