@@ -26,9 +26,9 @@ const NavBar: React.FC = () => {
   const [utterancesParam, setUtterancesParam] = useState("");
 
   const handleReload = (e : any) => {
-    if (e === "/post" || e === "/about" || e === "/profile" || e === "/") {
-      window.location.href = `${e}`;
-    }
+    // if (e === "/post" || e === "/about" || e === "/profile" || e === "/") {
+    //   window.location.href = `${e}`;
+    // }
   }
 
   const handleLogoutGithub = () => {
@@ -84,14 +84,14 @@ const NavBar: React.FC = () => {
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
           More
         </div>
-        {isLogin || userdata.login !== ""
+        {isLogin && userdata.login !== ""
         ? 
         <div>
           <Link onClick={() => handleReload("/profile")} href={"/profile"} className="more-button"> Profile</Link>
         </div>
         : <></>
         }
-        {isLogin || userdata.login !== ""
+        {isLogin && userdata.login !== ""
         ? 
         <div className="more-button" ref={dropdownLogout} onClick={handleLogout} >
           Hello {userdata.login}
@@ -109,7 +109,7 @@ const NavBar: React.FC = () => {
               </Link>
             </div>
           ))}
-          {isLogin || userdata.login !== "" || (
+          {isLogin && userdata.login !== "" || (
             <div className="item" key={6} >
               <a
                 className="btn btn-primary"
