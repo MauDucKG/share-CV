@@ -73,15 +73,19 @@ const NavBar: React.FC = () => {
 
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
+      
     }
     fetchData();
+
   }, [userdata.login])
 
   useEffect(() => {
-    if (isLogin && userdata.login !== "") {
+    if ((isLogin && userdata.login !== "")) {
+      setIsLogin(false)
       handleReload("/");
     }
-  }, [isLogin]);
+  }, []);
+
 
   return (
     <StyledWrapper>
