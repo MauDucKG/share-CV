@@ -8,7 +8,7 @@ import MetaConfig from "src/components/MetaConfig"
 import { GetStaticProps } from "next"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
-import { dehydrate } from "@tanstack/react-query"
+import { dehydrate, QueryClient } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
 import {
@@ -43,18 +43,20 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient();
+  await queryClient.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
   let posts 
   if (slug === "post") posts = await getBlogs()
   else posts = await getPosts()
   const feedPosts = filterPosts(posts)
-  await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
+  await queryClient.fetchQuery(queryKey.posts(), () => feedPosts)
   
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
   const recordMap = await getRecordMap(postDetail?.slug!)
 
-  await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
+  await queryClient.fetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
   }))
