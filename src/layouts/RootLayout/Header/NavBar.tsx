@@ -78,7 +78,7 @@ const NavBar: React.FC = () => {
   }, [userdata.login])
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && userdata.login !== "") {
       handleReload("/");
     }
   }, [isLogin]);
