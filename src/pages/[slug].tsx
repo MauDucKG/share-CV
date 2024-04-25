@@ -43,8 +43,8 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient = new QueryClient();
-  await queryClient.invalidateQueries(queryKey.posts());
+  // const queryClient = new QueryClient();
+  // await queryClient.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
   let posts 
   if (slug === "post") posts = await getBlogs()
