@@ -6,7 +6,7 @@ import MetaConfig from "src/components/MetaConfig"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
 import { GetStaticProps } from "next"
-import { dehydrate } from "@tanstack/react-query"
+import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
 
@@ -16,8 +16,10 @@ const filter: FilterPostsOptions = {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
   const posts = filterPosts(await getPosts())
-  await queryClient.prefetchQuery(queryKey.posts(), () => posts)
+  await queryClient.fetchQuery(queryKey.posts(), () => posts)
 
   return {
     props: {
