@@ -9,6 +9,7 @@ import { GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+import { loginGithub } from "../apis"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],

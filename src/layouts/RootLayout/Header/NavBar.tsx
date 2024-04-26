@@ -3,7 +3,7 @@ import Link from "next/link"
 import useDropdown from "src/hooks/useDropdown"
 import { useState, useEffect } from "react"
 import { LINK_TO_CLIENT, LINK_TO_SERVER, DATA_USER } from "src/constants"
-import axios from "axios"
+import { loginGithub } from "src/apis"
 
 const NavBar: React.FC = () => {
   var redirect_uri = "https://api.utteranc.es/authorize?redirect_uri=" + encodeURIComponent(LINK_TO_CLIENT);
@@ -13,7 +13,6 @@ const NavBar: React.FC = () => {
     { id: 3, name: "✉️ Receive CV", to: "/receive" },
     { id: 4, name: "📰 New Feed", to: "/post" },
     { id: 5, name: "📣 Submit Post", to: "/submit" },
-    // { id: 6, name: "🕵️‍♂️ Profile", to: "/profile" },
   ]
 
   const logouts = [
@@ -32,13 +31,13 @@ const NavBar: React.FC = () => {
   }
 
   const handleLogoutGithub = () => {
-    setIsLogin(!isLogin)
-    if (typeof localStorage !== "undefined" && localStorage.getItem("utterances-session")) {
-      localStorage.setItem("utterances-session", "")
+    setIsLogin(false)
+    if (typeof localStorage !== "undefined") {
+      localStorage.clear()
     }
-    window.location.href = "https://github.com/logout";
+    window.location.href = "/";
   }
-  
+
   let utterancesParam1
   if (typeof localStorage !== "undefined" && localStorage.getItem("utterances-session")) {
     utterancesParam1 = localStorage.getItem("utterances-session")
@@ -47,37 +46,35 @@ const NavBar: React.FC = () => {
     "data": utterancesParam1
   }
 
+  const login = async () => {
+    try {
+      await loginGithub(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const access_token = await axios.post(`${LINK_TO_SERVER}/getToken`, data);
-        const infoResponse = await axios.get(`${LINK_TO_SERVER}/getUserData`, {
-          headers: {
-            Authorization: `Bearer ${access_token.data}`,
-          },
-        });
-
-        setUserData(infoResponse.data)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const urlParams = new URLSearchParams(window.location.search);
     const utterancesValue = urlParams.get("utterances");
     if (utterancesValue) {
       setUtterancesParam(utterancesValue);
       localStorage.setItem("utterances-session", utterancesValue);
-      setIsLogin(true)
     }
+    if (typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
+      const storedUserDataJSON = localStorage.getItem("user_data");
+      if (storedUserDataJSON) {
+        setUserData(JSON.parse(storedUserDataJSON));
+      } 
+    } 
 
     if (localStorage.getItem("utterances-session")) {
-      setIsLogin(true)
-      
+      setIsLogin(true) 
     }
-    fetchData();
-
-  }, [userdata.login])
+    if (typeof localStorage !== "undefined" && !localStorage.getItem("user_data") && localStorage.getItem("utterances-session")) {
+      login()
+    }
+  }, [isLogin])
 
   useEffect(() => {
     if ((isLogin && userdata.login !== "")) {
@@ -125,7 +122,6 @@ const NavBar: React.FC = () => {
                 className="btn btn-primary"
                 href={redirect_uri}
                 target="_top"
-                onClick={() => handleReload("/")}
               >
                 Sign in with GitHub
               </a>

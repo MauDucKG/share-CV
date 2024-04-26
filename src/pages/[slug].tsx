@@ -22,6 +22,7 @@ import Register from "src/routes/Register"
 import Receive from "src/routes/Receive"
 import Post from "src/routes/Post"
 import Feed from "src/routes/Feed"
+import Feed2 from "src/routes/Feed"
 import Profile from "src/routes/Profile"
 
 import { get } from "http"
@@ -43,27 +44,27 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient = new QueryClient();
-  await queryClient.invalidateQueries(queryKey.posts());
+  const queryClient2 = new QueryClient();
+  await queryClient2.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
   let posts 
   if (slug === "post") posts = await getBlogs()
   else posts = await getPosts()
   const feedPosts = filterPosts(posts)
-  await queryClient.fetchQuery(queryKey.posts(), () => feedPosts)
+  await queryClient2.fetchQuery(queryKey.posts(), () => feedPosts)
   
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
   const recordMap = await getRecordMap(postDetail?.slug!)
 
-  await queryClient.fetchQuery(queryKey.post(`${slug}`), () => ({
+  await queryClient2.fetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
   }))
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: dehydrate(queryClient2),
     },
     revalidate: CONFIG.revalidateTime,
   }
@@ -81,7 +82,7 @@ const DetailPage: NextPageWithLayout = () => {
 
   if (post.slug === LINK_TO_PROFILE) return <Profile />
   
-  if (post.slug === LINK_TO_POST) return <Feed />
+  if (post.slug === LINK_TO_POST) return <Feed2 />
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??

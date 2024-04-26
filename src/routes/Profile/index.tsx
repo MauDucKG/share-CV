@@ -10,35 +10,16 @@ import ProfilePage from "./ProfilePage"
 const Profile: React.FC = () => {
   const [userdata, setUserData] = useState(DATA_USER)
 
-  let utterancesParam
-  if (typeof localStorage !== "undefined" && localStorage.getItem("utterances-session")) {
-    utterancesParam = localStorage.getItem("utterances-session")
-  }
-  const data = {
-    "data": utterancesParam
-  }
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const access_token = await axios.post(`${LINK_TO_SERVER}/getToken`, data);
-        
-        const infoResponse = await axios.get(`${LINK_TO_SERVER}/getUserData`, {
-          headers: {
-            Authorization: `Bearer ${access_token.data}`,
-          },
-        });
-        setUserData(infoResponse.data)
-
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    if (typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
+      const storedUserDataJSON = localStorage.getItem("user_data");
+      if (storedUserDataJSON) {
+        setUserData(JSON.parse(storedUserDataJSON));
+      } 
+    }
   
-    fetchData();
   }, [userdata.login]);  
   
-
   return (
     <StyledWrapper>
       <div className="wrapper">

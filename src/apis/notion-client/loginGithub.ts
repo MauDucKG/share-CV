@@ -1,28 +1,22 @@
-import axios from "axios";
-import { useState } from "react";
-import { LINK_TO_SERVER, DATA_USER } from "src/constants";
+import axios from 'axios';
+import { LINK_TO_SERVER } from 'src/constants';
 
-export const loginGithub = async () => {
-  let utterancesParam
-  let response = DATA_USER
-  if (typeof localStorage !== "undefined" && localStorage.getItem("utterances-session")) {
-    utterancesParam = localStorage.getItem("utterances-session")
-  }
-  const data = {
-    "data": utterancesParam
-  }
-  
+export const loginGithub = async (data : any) => {
   try {
-    const access_token = await axios.post(`${LINK_TO_SERVER}/getToken`, data);
-
-    const infoResponse = await axios.get(`${LINK_TO_SERVER}/getUserData`, {
+    const access_token = await axios.post(`${LINK_TO_SERVER}/login/getToken`, data);
+    const response = await axios.get(`${LINK_TO_SERVER}/login/getUserData`, {
       headers: {
-        Authorization: `Bearer ${access_token.data}`,
+          Authorization: `Bearer ${access_token.data}`,
       },
     });
-    response = infoResponse.data
-    return response;
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("access_token", access_token.data)
+      localStorage.setItem("user_data", JSON.stringify(response.data))
+    }
+
+    window.location.href = `/`
   } catch (error) {
-    console.error(error);
+    console.error('Error login:', error);
+    return null;
   }
 }
