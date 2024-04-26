@@ -10,7 +10,7 @@ const usePostQuery = () => {
   
   const { data } = useQuery<PostDetail>({
     queryKey: queryKey.post(`${slug}`),
-    enabled: false,
+    enabled: true,
   })
   if (slug === LINK_TO_REGISTER) {
     const datafordirect = {
