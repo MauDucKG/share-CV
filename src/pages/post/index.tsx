@@ -38,7 +38,7 @@ const FeedPage: NextPageWithLayout = () => {
   }, []);
 
   const meta = {
-    title: CONFIG.blog.title,
+    title: "Post",
     description: CONFIG.blog.description,
     type: "website",
     url: CONFIG.link,

@@ -41,9 +41,9 @@ const FeedPage: NextPageWithLayout = () => {
     };
     fetchData();
 
-    return () => {
-      queryClient.removeQueries(queryKey.posts());
-    };
+    // return () => {
+    //   queryClient.removeQueries(queryKey.posts());
+    // };
   }, []);
 
   return (
