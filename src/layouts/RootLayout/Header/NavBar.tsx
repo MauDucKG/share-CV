@@ -26,9 +26,9 @@ const NavBar: React.FC = () => {
   const [moreText, setMoreText] = useState("More")
 
   const handleReload = (e: any) => {
-    // if (e === "/about" || e === "/") {
-    //   window.location.href = `${e}`
-    // }
+    if (e === "/about" || e === "/") {
+      window.location.href = `${e}`
+    }
   }
 
   const handleLogoutGithub = () => {
@@ -136,7 +136,6 @@ const NavBar: React.FC = () => {
               <>
                 <div className="item" key={7}>
                   <a
-                    onClick={() => handleReload("/profile")}
                     href={"/profile"}
                     className="btn btn-primary"
                   >
