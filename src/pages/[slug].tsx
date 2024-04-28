@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "../types"
 import CustomError from "src/routes/Error"
 import { getRecordMap, getPosts, getBlogs,getBlogMap } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
-import { GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
@@ -22,32 +22,29 @@ export const getStaticPaths = async () => {
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    // paths: filteredPost.map((row) => !usePath ? `/${row.slug}` : `/${row.slug}`),
     paths: filteredPost.map((row) => `/${row.slug}`),
     fallback: true,
   }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient2 = new QueryClient();
-  await queryClient2.invalidateQueries(queryKey.posts());
+export const getStaticProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug
   const posts = await getPosts()
   const feedPosts = filterPosts(posts)
-  await queryClient2.fetchQuery(queryKey.posts(), () => feedPosts)
+  await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
   
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
   const recordMap = await getRecordMap(postDetail?.slug!)
 
-  await queryClient2.fetchQuery(queryKey.post(`${slug}`), () => ({
+  await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
   }))
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient2),
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: CONFIG.revalidateTime,
   }
