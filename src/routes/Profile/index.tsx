@@ -4,7 +4,6 @@ import { Emoji } from "src/components/Emoji"
 import local from "next/font/local"
 import axios from "axios"
 import { LINK_TO_SERVER, DATA_USER } from "src/constants"
-import Image from "next/image"
 import ProfilePage from "./ProfilePage"
 
 const Profile: React.FC = () => {

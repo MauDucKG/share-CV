@@ -3,7 +3,7 @@ import { filterPosts } from "src/libs/utils/notion"
 import { CONFIG } from "site.config"
 import { NextPageWithLayout } from "../../types"
 import CustomError from "src/routes/Error"
-import { getRecordMap, getPosts, getBlogs, getBlogMap } from "src/apis"
+import { getBlogs, getBlogMap } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
 import { GetStaticProps } from "next"
 import { queryClient } from "src/libs/react-query"
@@ -11,11 +11,6 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-import { LINK_TO_REGISTER, LINK_TO_RECEIVE, LINK_TO_POST, LINK_TO_SUBMIT } from "src/constants"
-import Register from "src/routes/Register"
-import Receive from "src/routes/Receive"
-import Post from "src/routes/Post"
-import Feed from "src/routes/Feed"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -23,11 +18,10 @@ const filter: FilterPostsOptions = {
 }
 
 export const getStaticPaths = async () => {
-  const posts = await getPosts()
+  const posts = await getBlogs()
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    // paths: filteredPost.map((row) => usePath ? `/post/${row.slug}` : `/post/${row.slug}`),
     paths: filteredPost.map((row) => `/post/${row.slug}`),
     fallback: true,
   }
@@ -38,9 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   await queryClient3.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
 
-  let posts 
-  if (slug === "about") posts = await getPosts()
-  else posts = await getBlogs()
+  const posts = await getBlogs()
   const feedPosts = filterPosts(posts)
   await queryClient3.fetchQuery(queryKey.posts(), () => feedPosts)
 

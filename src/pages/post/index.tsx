@@ -1,7 +1,7 @@
 import Feed from "src/routes/Feed"
-import { CONFIG } from "../../site.config"
-import { NextPageWithLayout } from "../types"
-import { getPosts, getBlogs } from "../apis"
+import { CONFIG } from "site.config"
+import { NextPageWithLayout } from "../../types"
+import { getBlogs } from "../../apis"
 import MetaConfig from "src/components/MetaConfig"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
@@ -9,6 +9,7 @@ import { GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+import { loginGithub } from "src/apis"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -19,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.invalidateQueries(queryKey.posts());
 
-  const posts = filterPosts(await getPosts())
+  const posts = filterPosts(await getBlogs())
   await queryClient.fetchQuery(queryKey.posts(), () => posts)
 
   return {

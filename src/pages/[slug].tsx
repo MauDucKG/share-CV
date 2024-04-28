@@ -11,21 +11,6 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-import {
-  LINK_TO_REGISTER,
-  LINK_TO_RECEIVE,
-  LINK_TO_POST,
-  LINK_TO_SUBMIT,
-  LINK_TO_PROFILE
-} from "src/constants"
-import Register from "src/routes/Register"
-import Receive from "src/routes/Receive"
-import Post from "src/routes/Post"
-import Feed from "src/routes/Feed"
-import Feed2 from "src/routes/Feed"
-import Profile from "src/routes/Profile"
-
-import { get } from "http"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -47,9 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient2 = new QueryClient();
   await queryClient2.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
-  let posts 
-  if (slug === "post") posts = await getBlogs()
-  else posts = await getPosts()
+  const posts = await getPosts()
   const feedPosts = filterPosts(posts)
   await queryClient2.fetchQuery(queryKey.posts(), () => feedPosts)
   
@@ -74,15 +57,6 @@ const DetailPage: NextPageWithLayout = () => {
   const post = usePostQuery()
   if (!post || !post.type) return <CustomError />
 
-  if (post.slug === LINK_TO_REGISTER) return <Register />
-
-  if (post.slug === LINK_TO_RECEIVE) return <Receive />
-
-  if (post.slug === LINK_TO_SUBMIT) return <Post />
-
-  if (post.slug === LINK_TO_PROFILE) return <Profile />
-  
-  if (post.slug === LINK_TO_POST) return <Feed2 />
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??
