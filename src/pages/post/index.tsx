@@ -29,16 +29,6 @@ export async function getServerSideProps() {
 }
 
 const FeedPage: NextPageWithLayout = () => {
-  useEffect(() => {
-    return () => {
-      const fetchData = async () => {
-        const posts = filterPosts(await getPosts());
-        queryClient.prefetchQuery(queryKey.posts(), () => posts)
-      };
-      fetchData();
-    };
-  }, []);
-
   const meta = {
     title: "Post",
     description: CONFIG.blog.description,
