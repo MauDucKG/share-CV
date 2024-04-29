@@ -3,6 +3,7 @@ import { LINK_TO_SERVER } from 'src/constants';
 
 export const getBlogMap = async (pageId: string) => {
   try {
+    if (pageId === "about") return null;
     const response = await axios.get(`${LINK_TO_SERVER}/postitem/${pageId}`);
     const recordMap = response.data.detail;
     return recordMap;

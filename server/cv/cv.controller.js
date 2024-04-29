@@ -100,7 +100,7 @@ class cvController {
       
 `
       const summary = await extractData(
-        `Write a market analysis article based on the following paragraph in markdown. Draw a graph running in python then display the associated image`,
+        `Write a market analysis article based on the following paragraph in markdown.`,
         text
       )
       if (aboutCvitem) {

@@ -14,10 +14,20 @@ import { getPosts } from "src/apis"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import { filterPosts } from "src/libs/utils/notion"
 import { queryClient } from "src/libs/react-query"
+import { useEffect } from "react"
+import { queryKey } from "src/constants/queryKey";
 
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const posts = filterPosts(await getPosts());
+      queryClient.prefetchQuery(queryKey.posts(), () => posts)
+    };
+    fetchData();
+
+   }, []);
   const datas = usePostsQuery()
   const data = usePostQuery()
   if (!data) return null
@@ -72,15 +82,6 @@ const PostDetail: React.FC<Props> = () => {
   });
   let columnNames = ['Demand', 'Intern/Fresher', 'Others', 'New'];
   let values = [number, countBelow24Months, countAbove24Months, countNewApplicants]
-//     const text = `
-// - Nhu cầu tìm việc: ${number} ứng viên
-// - Số lượng intern/fresher (dưới 2 năm kinh nghiệm): ${countBelow24Months} ứng viên 
-// - Số lượng trên 2 năm kinh nghiệm: ${countAbove24Months} ứng viên
-// - Số lượng CV mới hôm nay: ${countNewApplicants} CV
-
-// ` + data.recordMap
-
-  //#####################################################
 
   return (
     <StyledWrapper>
