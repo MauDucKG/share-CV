@@ -29,13 +29,13 @@ export async function getServerSideProps() {
 }
 
 const FeedPage: NextPageWithLayout = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const posts = filterPosts(await getBlogs());
-      queryClient.prefetchQuery(queryKey.posts(), () => posts)
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const posts = filterPosts(await getBlogs());
+  //     queryClient.prefetchQuery(queryKey.posts(), () => posts)
+  //   };
+  //   fetchData();
+  // }, []);
 
   const meta = {
     title: "Post",

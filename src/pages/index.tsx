@@ -34,17 +34,17 @@ const FeedPage: NextPageWithLayout = () => {
     url: CONFIG.link,
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const posts = filterPosts(await getPosts());
-      queryClient.prefetchQuery(queryKey.posts(), () => posts)
-    };
-    fetchData();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const posts = filterPosts(await getPosts());
+  //     queryClient.prefetchQuery(queryKey.posts(), () => posts)
+  //   };
+  //   fetchData();
 
-    // return () => {
-    //   queryClient.removeQueries(queryKey.posts());
-    // };
-  }, []);
+  //   // return () => {
+  //   //   queryClient.removeQueries(queryKey.posts());
+  //   // };
+  // }, []);
 
   return (
     <>
