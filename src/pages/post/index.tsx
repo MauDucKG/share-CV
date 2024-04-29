@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Feed from "src/routes/Feed";
 import { CONFIG } from "site.config";
 import { NextPageWithLayout } from "../../types";
-import { getBlogs } from "../../apis";
+import { getBlogs, getPosts } from "../../apis";
 import MetaConfig from "src/components/MetaConfig";
 import { queryClient } from "src/libs/react-query";
 import { queryKey } from "src/constants/queryKey";
@@ -29,13 +29,15 @@ export async function getServerSideProps() {
 }
 
 const FeedPage: NextPageWithLayout = () => {
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const posts = filterPosts(await getBlogs());
-  //     queryClient.prefetchQuery(queryKey.posts(), () => posts)
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    return () => {
+      const fetchData = async () => {
+        const posts = filterPosts(await getPosts());
+        queryClient.prefetchQuery(queryKey.posts(), () => posts)
+      };
+      fetchData();
+    };
+  }, []);
 
   const meta = {
     title: "Post",

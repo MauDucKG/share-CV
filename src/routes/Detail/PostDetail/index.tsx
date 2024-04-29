@@ -3,8 +3,8 @@ import PostHeader from "./PostHeader"
 import Footer from "./PostFooter"
 import CommentBox from "./CommentBox"
 import Category from "src/components/Category"
-import { ColumnChart } from "src/components/ColumnChart"
-
+import { ColumnChartVer } from "src/components/ColumnChartVer"
+import { ColumnChartHor } from "src/components/ColumnChartHor"
 import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
@@ -20,14 +20,6 @@ import { queryKey } from "src/constants/queryKey";
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const posts = filterPosts(await getPosts());
-      queryClient.prefetchQuery(queryKey.posts(), () => posts)
-    };
-    fetchData();
-
-   }, []);
   const datas = usePostsQuery()
   const data = usePostQuery()
   if (!data) return null
@@ -96,8 +88,9 @@ const PostDetail: React.FC<Props> = () => {
         )}
         {data.slug === "about" ? 
         <div>
-        <ColumnChart name = "Number of candidates in the system" columnNames={CATEGORYS2} values={CATEGORYS2COUNT}/> 
-        <ColumnChart name = "Number of candidates by category" columnNames={columnNames} values={values}/>
+        <ColumnChartHor name = "Number of candidates in the system" columnNames={CATEGORYS2} values={CATEGORYS2COUNT}/> 
+        <div><br></br></div>
+        <ColumnChartVer name = "Number of candidates by category" columnNames={columnNames} values={values}/>
         </div>
         : 
         <></>}
