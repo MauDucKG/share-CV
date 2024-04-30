@@ -53,7 +53,11 @@ const PostCard: React.FC<Props> = ({ data }) => {
               -
             </div>
             <div className="content">
-  {data.location ? <strong>{data.location}</strong> : null}
+  {(data.category !== undefined && data.category[0] === 'Blog') 
+  ? (data.author 
+    ? (data.author[0] ?  <strong>{data.author[0].name}</strong> : null)
+    : null )
+  : (data.location ? <strong>{data.location}</strong> : null)}
 </div>
           </div>
           <div className="summary">

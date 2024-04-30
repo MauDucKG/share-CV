@@ -115,6 +115,13 @@ const PostDetail: React.FC<Props> = () => {
           {data.recordMap}
           </ReactMarkdown>
         </div>
+        <br></br>
+        {data.category ? 
+        (data.category[0] === "Blog" 
+          ? (data.author ? <div style={{ textAlign: 'right' }}><em>Được sưu tầm bởi <strong> {data.author[0].name}</strong></em> <br></br><br></br></div>  : <></>)
+          : <></>
+        )
+        : <></>}
         
         {data.type[0] === "Post" && (
           <>

@@ -22,7 +22,7 @@ class postController {
   }
 
   newpost = async function (req, res) {
-    const { title, summary, content, thumbnail } = req.body
+    const { title, summary, content, thumbnail, userdata } = req.body
 
     await checkPost(content).then(async (checkRes) => {
       if (checkRes === "false") {
@@ -52,6 +52,13 @@ class postController {
             fullWidth: false,
             thumbnail: thumbnail,
             experience: new Date().toISOString(),
+            author: [
+              {
+                id: userdata ? userdata.id : null,
+                name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
+                profile_photo: userdata ? userdata.avatar_url : null,
+              },
+            ]
           })
           const new_content = await remarkdown(content)
 

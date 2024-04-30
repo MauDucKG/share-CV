@@ -1,12 +1,14 @@
 import axios from "axios";
 import { LINK_TO_SERVER } from "src/constants";
+import { TUser } from "src/types";
 
-export const postPost = async (title: string, summary: string, content: string, thumbnail: string) => {
+export const postPost = async (title: string, summary: string, content: string, thumbnail: string, userdata: TUser) => {
   const body = {
     title,
     summary,
     content,
-    thumbnail
+    thumbnail,
+    userdata
   };
   
   try {

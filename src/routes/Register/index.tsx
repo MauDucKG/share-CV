@@ -1,21 +1,37 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "@emotion/styled"
 import { Emoji } from "src/components/Emoji"
 import FullNameInput from "./FullNameInput"
 import MajorInput from "./MajorInput"
 import CVInput from "./CVInput"
 import { postCVData } from "src/apis"
+import { DATA_USER } from "src/constants"
 
 const Register: React.FC = () => {
   const [fullName, setFullName] = useState("")
   const [major, setMajor] = useState("")
   const [cvText, setCvText] = useState("")
   const [isRegistering, setIsRegistering] = useState(false) // Add state for registering
+  const [userdata, setUserData] = useState(DATA_USER)
+  
+  useEffect(() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
+      const storedUserDataJSON = localStorage.getItem("user_data");
+      if (storedUserDataJSON) {
+        const parsedUserData = JSON.parse(storedUserDataJSON);
+        setUserData(parsedUserData);
+      }
+    }
+  }, []);  
 
   const handleRegister = async () => {
-    setIsRegistering(true)
-    let newSlug = await postCVData(fullName, major, cvText)
-    window.location.href = `/${newSlug}`
+    if (userdata !== DATA_USER){
+      setIsRegistering(true)
+      let newSlug = await postCVData(fullName, major, cvText, userdata)
+      window.location.href = `/${newSlug}`
+    } else {
+      alert("Please login")
+    }
   }
 
   return (

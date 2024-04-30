@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "@emotion/styled"
 import axios from 'axios';
 import { Emoji } from "src/components/Emoji"
@@ -9,17 +9,28 @@ import ImageInput from "./ImageInput"
 import { LINK_TO_SERVER } from 'src/constants';
 import { postPost } from "src/apis"
 import Image from "next/image"
-
+import { DATA_USER } from "src/constants";
 const Post: React.FC = () => {
   const [title, setTitle] = useState("")
   const [summary, setSummary] = useState("")
   const [content, setContent] = useState("")
+  const [userdata, setUserData] = useState(DATA_USER)
 
   const [thumbnail, setThumbnail] = useState("")
   const [isPost, setIsPost] = useState(false) 
   const [file, setFile] = useState("")
   const [res, setRes] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
+      const storedUserDataJSON = localStorage.getItem("user_data");
+      if (storedUserDataJSON) {
+        const parsedUserData = JSON.parse(storedUserDataJSON);
+        setUserData(parsedUserData);
+      }
+    }
+  }, []);  
 
   const handleUpload = async () => {
     try {
@@ -42,9 +53,13 @@ const Post: React.FC = () => {
   };
 
   const handlePost = async () => {
-    setIsPost(true)
-    let slug = await postPost(title, summary, content, thumbnail)
-    window.location.href = `/post/${slug}`
+    if (userdata !== DATA_USER){
+      setIsPost(true)
+      let slug = await postPost(title, summary, content, thumbnail, userdata)
+      window.location.href = `/post/${slug}`
+    } else {
+      alert("Please login")
+    }
     // window.location.href = `/`
   }
 

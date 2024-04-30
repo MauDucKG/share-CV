@@ -22,7 +22,7 @@ class cvController {
   }
 
   newcv = async function (req, res) {
-    const { fullname, major, cvText } = req.body
+    const { fullname, major, cvText, userdata } = req.body
     let cv = {}
     let cvitem = {}
     let aboutCvitem = {}
@@ -53,6 +53,13 @@ class cvController {
         createdTime: new Date().toISOString(),
         fullWidth: false,
         experience: dataFormCV.experience,
+        author: [
+          {
+            id: userdata ? userdata.id : null,
+            name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
+            profile_photo: userdata ? userdata.avatar_url : null,
+          },
+        ]
       })
     })
 
