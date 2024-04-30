@@ -14,7 +14,7 @@ class chatController {
     if (casePROMT === "1") {
       res.json({
         message:
-          "Hệ thống của tôi là ShareCV, rất vui được nhận câu hỏi từ bạn",
+          "Tôi là chatbot của share-CV, tôi có thể giúp bạn tìm kiếm CV phù hợp với yêu cầu của bạn. Bạn có thể nhập văn bản để tìm kiếm CV hoặc tìm kiếm CV phù hợp với JD của bạn. Bạn cũng có thể tìm kiếm các công việc hiện có với các gợi ý từ tôi.",
       })
     } else if (casePROMT === "2" || casePROMT === "3") {
       const result = await filterCVFromJD(text, "Ho Chi Minh")
@@ -25,12 +25,17 @@ class chatController {
         "Cho tôi thông tin về các công việc hiện (đưa ra các liên kết) có trên mạng ở thời điểm hiện tại với các gợi ý ở đây: ",
         text
       )
-      console.log(result)
       res.json({ message: result })
     } else if (casePROMT === "5") {
-      res.json({ message: "Thông tin khác" })
+      res.json({
+        message:
+          "Chào mừng đến với Share CV - nền tảng cung cấp CV chất lượng cho nhà tuyển dụng. Tại đây, bạn có thể nhanh chóng tìm thấy CV phù hợp và trò chuyện với nhà tuyển dụng. Ngoài ra, chúng tôi cung cấp thông tin về việc làm hiện tại và các vị trí phù hợp với yêu cầu của bạn. Khám phá ngay để tìm kiếm những cơ hội việc làm tuyệt vời và chia sẻ CV một cách dễ dàng. Hãy yêu cầu câu hỏi phù hợp với hệ thống để hệ thống phản hồi tốt nhất",
+      })
     } else {
-      res.json({ message: casePROMT }) // if no match found
+      res.json({
+        message:
+          "Chào mừng đến với Share CV - nền tảng cung cấp CV chất lượng cho nhà tuyển dụng. Tại đây, bạn có thể nhanh chóng tìm thấy CV phù hợp và trò chuyện với nhà tuyển dụng. Ngoài ra, chúng tôi cung cấp thông tin về việc làm hiện tại và các vị trí phù hợp với yêu cầu của bạn. Khám phá ngay để tìm kiếm những cơ hội việc làm tuyệt vời và chia sẻ CV một cách dễ dàng.",
+      })
     }
   }
 }
