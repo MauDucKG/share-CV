@@ -18,7 +18,7 @@ const filter: FilterPostsOptions = {
 };
 
 
-export const getStaticProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 
   const posts = filterPosts(await getBlogs())
   await queryClient.fetchQuery(queryKey.posts(), () => posts)
