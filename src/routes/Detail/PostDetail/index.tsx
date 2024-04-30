@@ -21,18 +21,7 @@ import { TPost } from "src/types"
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
-  const [datas, setDatas] = useState<TPost[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const posts = await getPosts();
-      const filteredPosts = filterPosts(posts);
-      setDatas(filteredPosts);
-    };
-
-    fetchData();
-  }, []);
-
+  const datas = usePostsQuery()
   const data = usePostQuery()
   if (!data) return null
   const CATEGORYS2 = [

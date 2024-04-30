@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
   const [moreText, setMoreText] = useState("More")
 
   const handleReload = (e: any) => {
-    if (e === "/post" || e === "/") {
+    if (e === "/post" || e === "/about" || e === "/") {
       window.location.href = `${e}`
     }
   }
