@@ -14,13 +14,25 @@ import { getPosts } from "src/apis"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import { filterPosts } from "src/libs/utils/notion"
 import { queryClient } from "src/libs/react-query"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { queryKey } from "src/constants/queryKey";
+import { TPost } from "src/types"
 
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
-  const datas = usePostsQuery()
+  const [datas, setDatas] = useState<TPost[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const posts = await getPosts();
+      const filteredPosts = filterPosts(posts);
+      setDatas(filteredPosts);
+    };
+
+    fetchData();
+  }, []);
+
   const data = usePostQuery()
   if (!data) return null
   const CATEGORYS2 = [

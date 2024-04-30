@@ -10,7 +10,7 @@ import { dehydrate, hydrate, QueryClient } from "@tanstack/react-query";
 import { filterPosts } from "src/libs/utils/notion";
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts";
 import { loginGithub } from "src/apis";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -18,7 +18,7 @@ const filter: FilterPostsOptions = {
 };
 
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetServerSideProps = async () => {
 
   const posts = filterPosts(await getBlogs())
   await queryClient.fetchQuery(queryKey.posts(), () => posts)
@@ -27,7 +27,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: CONFIG.revalidateTime,
   }
 }
 
