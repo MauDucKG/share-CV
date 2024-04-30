@@ -28,26 +28,24 @@ export const getStaticPaths = async () => {
 }
  
 export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient3 = new QueryClient();
-  await queryClient3.invalidateQueries(queryKey.posts());
   const slug = context.params?.slug
 
   const posts = await getBlogs()
   const feedPosts = filterPosts(posts)
-  await queryClient3.fetchQuery(queryKey.posts(), () => feedPosts)
+  await queryClient.fetchQuery(queryKey.posts(), () => feedPosts)
 
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
   
   const recordMap = await getBlogMap(postDetail?.slug!)
-  await queryClient3.fetchQuery(queryKey.post(`${slug}`), () => ({
+  await queryClient.fetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
     recordMap,
   }))
  
   return {
     props: {
-      dehydratedState: dehydrate(queryClient3),
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: CONFIG.revalidateTime,
   }
