@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "../types"
 import CustomError from "src/routes/Error"
 import { getRecordMap, getPosts } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticProps } from "next"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
   const posts = await getPosts()
   const feedPosts = filterPosts(posts)
