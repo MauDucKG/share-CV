@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 
 const Logo = () => {
   const handleReload = () => {
-      // window.location.href = `/`
+      window.location.href = `/`
   }
 
   return (
