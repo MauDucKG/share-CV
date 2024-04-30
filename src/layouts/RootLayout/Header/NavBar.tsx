@@ -15,6 +15,7 @@ const NavBar: React.FC = () => {
     { id: 3, name: "✉️ Receive CV", to: "/receive" },
     { id: 4, name: "📰 New Feed", to: "/post" },
     { id: 5, name: "📣 Submit Post", to: "/submit" },
+    { id: 9, name: "💬 Talk Space ", to: "/chat" },
   ]
 
   const logouts = [{ id: 2, name: "Logout", to: "/" }]

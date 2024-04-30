@@ -79,3 +79,4 @@ app.use("/jd", jdRouter);
 app.use("/post", postRouter);
 app.use("/postitem", postitemRouter);
 app.use("/login", loginRouter);
+app.use("/chat", require("./chat/chat.router"));

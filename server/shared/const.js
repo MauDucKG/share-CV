@@ -155,4 +155,6 @@ Have the opportunity to become an official employee of Vinasimex Joint Stock Com
 Receive high income support during the internship if the work is effective.
 Receive assistance in completing the graduation thesis.`
 
-module.exports = { TAGS1, TAGS2, CATEGORYS1, CATEGORYS2, CV_DEMO, JD_DEMO }
+const LINK_TO_CLIENT = "https://share-cv.vercel.app"
+
+module.exports = { TAGS1, TAGS2, CATEGORYS1, CATEGORYS2, CV_DEMO, JD_DEMO, LINK_TO_CLIENT}
