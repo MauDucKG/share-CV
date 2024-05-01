@@ -3,7 +3,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } fr
 import { useEffect, useState} from 'react';
 
 type Props = {
-    name: string;
     columnNames: string[];
     values: number[];
 };
@@ -17,14 +16,14 @@ function getRandomColor(): string {
     return color;
   }
 
-export const ColumnChartVer : React.FC<Props> = ({name, columnNames, values}) => {
+export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
     const [chartWidth, setChartWidth] = useState(0);
     const [charHeight, setChartHeight] = useState(0);
 
 
     useEffect(() => {
         const handleResize = () => {
-        setChartWidth(window.innerWidth * 0.55);
+        setChartWidth(window.innerWidth * 1);
         setChartHeight(window.innerHeight * 0.4)
         };
 
@@ -43,22 +42,24 @@ export const ColumnChartVer : React.FC<Props> = ({name, columnNames, values}) =>
     
 
     return (
-    
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h4 style={{ justifyContent: 'center', textAlign: 'center' }}> {name} </h4>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <BarChart width={chartWidth} height={charHeight} data={data} >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fill: '#1ED851'}}>
-                </XAxis>
-                <YAxis />
-                <Tooltip />
-                {/* <Legend /> */}
-                {/* <Bar dataKey="candidate" fill="#8884d8" barSize={40} /> */}
-                <Bar dataKey="candidate" fill={data[0].fill} barSize={40} />
+    <div style={{ alignItems: 'center' }}>
+    <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <BarChart width={chartWidth} height={charHeight} data={data} >
+        <CartesianGrid display="none" />
+        <XAxis dataKey="candidate" tick={{ fill: '#1ED851' }} />
+        <Tooltip />
+        <Bar dataKey="candidate" fill={data[0].fill} barSize={chartWidth / 9} />
+        </BarChart>
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+        {data.map((item, index) => (
+            <div key={index} style={{ display: 'flex', alignItems: 'center', marginRight: '20px', flexBasis: '28%', marginTop: '20px' }}>
+            <div style={{ width: '20px', height: '10px', backgroundColor: item.fill, marginRight: '10px' }}></div>
+            <div style={{ color: '#fff', fontFamily: 'Inter', fontSize: '14px', fontStyle: 'normal' }}>{item.name}</div>
+            </div>
+        ))}
+    </div>
 
-            </BarChart>
-        </div>
     </div>
 );
 };

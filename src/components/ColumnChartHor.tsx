@@ -1,9 +1,9 @@
 import React from 'react';
-import { useEffect, useState} from 'react';
+import { useEffect, useState, useRef} from 'react';
 import { BarChart, Bar, YAxis, XAxis, Tooltip, Legend} from 'recharts';
+import styled from "@emotion/styled"
 
 type Props = {
-  name: string;
   columnNames: string[];
   values: number[];
 };
@@ -17,7 +17,7 @@ function getRandomColor(): string {
   return color;
 }
 
-export const ColumnChartHor: React.FC<Props> = ({ name, columnNames, values }) => {
+export const ColumnChartHor: React.FC<Props> = ({ columnNames, values }) => {
   const [chartWidth, setChartWidth] = useState(0);
   const [charHeight, setChartHeight] = useState(0);
   const [charWord, setChartWord] = useState(0);
@@ -26,7 +26,7 @@ export const ColumnChartHor: React.FC<Props> = ({ name, columnNames, values }) =
   useEffect(() => {
     const handleResize = () => {
       setChartWidth(window.innerWidth * 0.55);
-      setChartHeight(window.innerHeight * 0.75)
+      setChartHeight(window.innerHeight * 0.7)
       setChartWord(window.innerWidth * 0.2)
     };
 
@@ -45,17 +45,29 @@ export const ColumnChartHor: React.FC<Props> = ({ name, columnNames, values }) =
   }));
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h4 style={{ justifyContent: 'center', textAlign: 'center', width: '100%' }}> {name} </h4>
+    <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <BarChart width={chartWidth} height={charHeight} data={data} layout="vertical">
           <XAxis type="number" />
           <YAxis type="category" dataKey="name" tick={{ fill: '#FC21CC' }} interval={0} width={charWord} />
           <Tooltip />
           {/* <Legend /> */}
-          <Bar dataKey="candidate" fill={data[0].fill} barSize={40} />
+          <Bar dataKey="candidate" fill={data[0].fill} barSize="30" />
         </BarChart>
       </div>
     </div>
   );
 };
+
+
+const StyledWrapper = styled.div`
+.box-demand-job {
+  background: #333333;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 16px 24px;
+  position: relative;
+  transition: .3s
+}
+`
