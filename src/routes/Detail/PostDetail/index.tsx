@@ -110,7 +110,7 @@ const PostDetail: React.FC<Props> = () => {
                   <span style={{ fontFamily: 'Inter'}}>
                   💻  JOB MARKET TODAY
                   </span>
-                  <span className="date">{currentDate}</span>
+                  <span className="date" style={{ fontFamily: 'Inter'}}>{currentDate}</span>
                 </div>
                 <div className="work-market_content">
                   <div className="job-hiring">

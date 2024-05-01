@@ -36,7 +36,7 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
     }, []);
     const data = columnNames.map((name, index) => ({
         name: name,
-        candidate: values[index],
+        candidates: values[index],
         fill: getRandomColor()
     }));
     
@@ -46,9 +46,9 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
     <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <BarChart width={chartWidth} height={charHeight} data={data} >
         <CartesianGrid display="none" />
-        <XAxis dataKey="candidate" tick={{ fill: '#1ED851' }} />
-        <Tooltip />
-        <Bar dataKey="candidate" fill={data[0].fill} barSize={chartWidth / 9} />
+        <XAxis dataKey="candidates" tick={{ fill: '#1ED851' }} />
+        <Tooltip labelFormatter={(label) => data[label].name}/>
+        <Bar dataKey="candidates" fill={data[0].fill} barSize={chartWidth / 9} />
         </BarChart>
     </div>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
