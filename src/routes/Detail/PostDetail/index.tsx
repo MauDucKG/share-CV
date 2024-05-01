@@ -25,21 +25,16 @@ type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [datas, setDatas] = useState<TPost[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const posts = await getPosts();
-      const filteredPosts = filterPosts(posts);
-      setDatas(filteredPosts);
-      setIsLoading(false)
-    };
-
-    fetchData();
-    
+  const datas = usePostsQuery()
+  const data = usePostQuery()
+  
+  useEffect(() => {  
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); 
   }, []);
 
-  const data = usePostQuery()
+  
   if (!data) return null
   const CATEGORYS2 = [
     "Data Analyst",
