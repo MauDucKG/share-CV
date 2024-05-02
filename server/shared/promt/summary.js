@@ -5,7 +5,7 @@ async function extractSummary(text, cv_category) {
   const PROMPT_SUMMARY1 =
     "Please provide a brief summary of the following CV that includes information about education, skills, experience, and language proficiency. Write a paragraph summarizing these details within approximately 300-350 characters."
   const PROMPT_SUMMARY2 =
-    `Please provide a brief summary of the following text that includes information about education, skills, experience, and language proficiency for the job {} (omit other languages).`
+    `Please provide a brief summary of the following text that includes information about education, skills, experience, and language proficiency for the job {} (omit other languages). And please write only one paragraph.`
 
   const summary1 = await extractData(PROMPT_SUMMARY1, text)
   const summary2 = await extractData(
@@ -18,11 +18,11 @@ async function extractSummary(text, cv_category) {
 
 module.exports = extractSummary
 
-// // Test the function
+// Test the function
 // const cv_category = "Software Engineer"
 // extractSummary(CV_DEMO, cv_category)
 //   .then((summary) => {
-//     // console.log(summary)
+//     console.log(summary)
 //   })
 //   .catch((error) => {
 //     console.error(error)
