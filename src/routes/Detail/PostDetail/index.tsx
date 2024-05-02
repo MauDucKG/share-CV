@@ -21,21 +21,23 @@ import Image from "next/image"
 import loadingChartImage from 'public/loading-chart.svg';
 import background from 'public/bg-header.webp'
 
+const bg = "https://gcs.tripi.vn/public-tripi/tripi-feed/img/474103Tuq/anh-background-cong-nghe-xanh_035953035.jpg"
 type Props = {}
 
 const PostDetail: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState(true);
+
   const datas = usePostsQuery()
   const data = usePostQuery()
-  
-  useEffect(() => {  
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500); 
-  }, []);
 
+  useEffect(() => {
+    if (datas) {
+      setIsLoading(false);
+    }
+  }, []);
   
   if (!data) return null
+
   const CATEGORYS2 = [
     "Data Analyst",
     "Data Engineer",
@@ -92,7 +94,7 @@ const PostDetail: React.FC<Props> = () => {
   });
   let columnNames = ['Demand', 'Intern/Fresher', 'Others', 'New'];
   let values = [number, countBelow24Months, countAbove24Months, countNewApplicants]
-
+  
   return (
     <div>
       {data.slug === "about" ? 
@@ -236,7 +238,7 @@ width: 100%;
 }
 
 .section-header {
-  background-image: url(https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/v4/image/welcome/bg_header.webp);
+  background-image: url(${bg});
   // background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-blue-streamline-tech-background-technologytechnology-backgroundblue-backgroundbanner-image_55758.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -280,7 +282,7 @@ width: 100%;
 
 .section-header .box-work-market .header .date {
   color: #11d769;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 24px;
   margin-left: 20px
@@ -424,7 +426,7 @@ width: 100%;
 
 .section-header .box-demand-job .header .caption {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 20px;
   font-family: 'Inter'
@@ -581,7 +583,7 @@ width: 100%;
 .box-demand-job_work-market .work-market_header span {
   color: #fff;
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   gap: 8px;
   letter-spacing: .175px;
@@ -612,7 +614,7 @@ width: 100%;
   font-feature-settings: "clig" off,"liga" off;
   color: #fff;  
   font-family: Inter;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   letter-spacing: .175px;

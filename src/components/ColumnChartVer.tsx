@@ -35,19 +35,27 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
         };
     }, []);
     const data = columnNames.map((name, index) => ({
+        index: index,
         name: name,
         candidates: values[index],
         fill: getRandomColor()
     }));
     
-
     return (
     <div style={{ alignItems: 'center' }}>
     <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <BarChart width={chartWidth} height={charHeight} data={data} >
         <CartesianGrid display="none" />
-        <XAxis dataKey="candidates" tick={{ fill: '#1ED851' }} />
-        <Tooltip labelFormatter={(label) => data[label].name}/>
+        <XAxis dataKey="candidates" tick={{ fill: '#1ED851' }}/>
+        <Tooltip labelFormatter={(label) => {
+            //bug trùng tên cột
+            const nameCol = data.find((item) => item.candidates === label);
+            if (nameCol && nameCol.name){
+                return nameCol.name;
+            }
+            return null;
+        }} contentStyle={{ color: 'black', fontFamily: 'Inter' }} />  
+        
         <Bar dataKey="candidates" fill={data[0].fill} barSize={chartWidth / 9} />
         </BarChart>
     </div>
