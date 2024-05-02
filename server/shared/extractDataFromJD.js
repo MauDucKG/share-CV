@@ -57,4 +57,3 @@ module.exports = extractDataFromJD
 // extractDataFromJD(text).then((result) => {
 //   console.log(result)
 // })
-

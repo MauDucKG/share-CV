@@ -28,7 +28,7 @@ async function filterCVFromJD(jdText, location) {
 
     const matchedCVs = cvs.filter(cv => {
       const experience = parseInt(cv.experience);
-      return experience >= parseInt(jdData.min_exp) && experience <= parseInt(jdData.max_exp);
+      return experience >= parseInt(jdData.min_exp) - 3 && experience <= parseInt(jdData.max_exp) + 3;
     });
 
     // mongoose.connection.close()
@@ -41,10 +41,7 @@ async function filterCVFromJD(jdText, location) {
 
 module.exports = filterCVFromJD
 
-// const text = `
-// Bachelor's or Master's degree in Computer Science, IT or related field.
-// intern experience in PHP development or related field.
-// `
+// const text = JD_DEMO
 // const location = `ho chi minh city`
 // filterCVFromJD(text, location).then((result) => {
 //   console.log(result)

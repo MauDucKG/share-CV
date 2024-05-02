@@ -83,3 +83,12 @@ async function extractData(prompt, cv) {
 }
 
 module.exports = extractData;
+
+// // Test the function
+// const prompt = 'Please provide a brief summary of the following CV that includes information about education, skills, experience, and language proficiency. Write a paragraph summarizing these details within approximately 300-350 characters.';
+// const cv = 'This is a CV text';
+
+// extractData(prompt, cv)
+//   .then((summary) => {
+//     console.log(summary);
+//   })

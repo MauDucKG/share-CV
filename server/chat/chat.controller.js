@@ -19,7 +19,15 @@ class chatController {
     } else if (casePROMT === "2" || casePROMT === "3") {
       const result = await filterCVFromJD(text, "Ho Chi Minh")
       const slugFields = result.map((item) => LINK_TO_CLIENT + "/" + item.slug)
-      res.json({ message: slugFields.join(", ") })
+      let message
+      if (slugFields.length === 0) {
+        message = "Hiện tại hệ thống không có CV phù hợp với yêu cầu của bạn"
+      } else {
+        message =
+          "# Sau đây là thông tin về các CV hiện tại phù hợp với yêu cầu của bạn trong hệ thống chúng tôi:<br>" +
+          slugFields.map((field) => `- ${field}`).join("<br>")
+      }
+      res.json({ message: message })
     } else if (casePROMT === "4") {
       const result = await extractData(
         "Cho tôi thông tin về các công việc hiện (đưa ra các liên kết) có trên mạng ở thời điểm hiện tại với các gợi ý ở đây: ",
