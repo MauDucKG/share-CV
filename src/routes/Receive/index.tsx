@@ -42,7 +42,7 @@ const Receive: React.FC = () => {
                 onClick={handleRegister} // Use handleRegister function for onClick event
                 disabled={isRegistering} // Disable button when registering
               >
-                Register
+                Receive
               </button>
             )}
             {isRegistering && (
