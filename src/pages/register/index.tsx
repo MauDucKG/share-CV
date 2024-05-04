@@ -4,7 +4,7 @@ import { CONFIG } from "site.config";
 
 export default function RegisterPage() {
   const meta = {
-    title: "Receive",
+    title: "Register",
     description: CONFIG.blog.description,
     type: "website",
     url: CONFIG.link,
