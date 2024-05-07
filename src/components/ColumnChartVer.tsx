@@ -23,19 +23,25 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
 
     useEffect(() => {
         const handleResize = () => {
-        setChartWidth(window.innerWidth * 1);
-        setChartHeight(window.innerHeight * 0.4)
+            const headerElement = document.querySelector('.header');
+            if (headerElement instanceof HTMLElement) {
+                const headerWidth = headerElement.offsetWidth;
+                setChartWidth(headerWidth);
+                console.log(headerWidth)
+            }          
+            else setChartWidth(window.innerWidth * 1);
+            setChartHeight(window.innerHeight * 0.4)
         };
 
         handleResize();
 
         window.addEventListener('resize', handleResize);
+
         return () => {
-        window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
     const data = columnNames.map((name, index) => ({
-        index: index,
         name: name,
         candidates: values[index],
         fill: getRandomColor()
@@ -43,15 +49,16 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
     
     return (
     <div style={{ alignItems: 'center' }}>
-    <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <BarChart width={chartWidth} height={charHeight} data={data} >
+    <div style={{ }}>
+        <BarChart style={{ flex: 1, display: 'flex', justifyContent: 'center'}} width={chartWidth} height={charHeight} data={data} >
         <CartesianGrid display="none" />
-        <XAxis dataKey="candidates" tick={{ fill: '#1ED851' }}/>
-        <Tooltip labelFormatter={(label) => {
-            //bug trùng tên cột
-            const nameCol = data.find((item) => item.candidates === label);
-            if (nameCol && nameCol.name){
-                return nameCol.name;
+        <XAxis style={{ flex: 1, display: 'flex'}} dataKey="candidates" tick={{ fill: '#1ED851' }}/>
+        <Tooltip labelFormatter={(label, index) => {
+             if (Array.isArray(index) && index.length > 0) {
+                const firstIndex = index[0];
+                if (typeof firstIndex.payload !== 'undefined' && firstIndex.payload !== null) {
+                    return firstIndex.payload.name;
+                }
             }
             return null;
         }} contentStyle={{ color: 'black', fontFamily: 'Inter' }} />  
