@@ -14,7 +14,7 @@ export const Global = () => {
           padding: 0;
           color: ${theme.colors.gray12};
           background-color: ${theme.colors.gray2};
-          font-family: Inter;
+          font-family: ${pretendard.style.fontFamily};;
           font-weight: ${pretendard.style.fontWeight};
           font-style: ${pretendard.style.fontStyle};
         }

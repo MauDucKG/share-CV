@@ -168,7 +168,7 @@ const PostDetail: React.FC<Props> = () => {
 
 
           {data.type[0] === "Post" && <PostHeader data={data} />}
-          <div style={{ textAlign: 'justify' }}>
+          <div>
               <ReactMarkdown>
               
             {data.recordMap}
