@@ -161,6 +161,8 @@ const StyledWrapper = styled(Link)`
         margin-bottom: 1rem;
         p {
           display: none;
+          text-align: justify;
+
           line-height: 2rem;
           color: ${({ theme }) => theme.colors.gray11};
 
