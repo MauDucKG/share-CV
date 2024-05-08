@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const userModel = require('../user/user.model')
 class loginController {
     async getToken(req, res) {
         try {
@@ -15,6 +15,7 @@ class loginController {
                 data: data,
             };
             const response = await axios.request(config);
+
             res.json(response.data);
           } catch (error) {
             console.log(error);
@@ -36,7 +37,28 @@ class loginController {
             };    
 
             const response = await axios.request(config);
+
+            const existingUser = await userModel.findOne({ login: response.data.login });
+
+            if (!existingUser){
+                const userItem = new userModel({
+                    login: response.data.login,
+                    name: response.data.name,
+                    avatar: response.data.avatar_url,
+                    role: "candidate",
+                    email: response.data.email,
+                    phone: "",
+                    bio: response.data.bio,
+                    company: response.data.company,
+                    location: response.data.location,
+                    isRestricted: false,
+                    createdTime: new Date().toISOString()
+                });
+                await userItem.save();
+            } 
+
             res.json(response.data);
+
           } catch (error) {
             console.log(error);
             res.status(500).json({ error: "Internal Server Login Error" });

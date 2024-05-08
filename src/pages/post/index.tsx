@@ -9,7 +9,6 @@ import { queryKey } from "src/constants/queryKey";
 import { dehydrate, hydrate, QueryClient } from "@tanstack/react-query";
 import { filterPosts } from "src/libs/utils/notion";
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts";
-import { loginGithub } from "src/apis";
 import { GetServerSideProps, GetStaticProps } from "next";
 
 const filter: FilterPostsOptions = {

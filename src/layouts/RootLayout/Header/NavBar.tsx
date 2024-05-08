@@ -40,20 +40,27 @@ const NavBar: React.FC = () => {
     window.location.href = "/"
   }
 
-  let utterancesParam1
-  if (
-    typeof localStorage !== "undefined" &&
-    localStorage.getItem("utterances-session")
-  ) {
-    utterancesParam1 = localStorage.getItem("utterances-session")
-  }
-  const data = {
-    data: utterancesParam1,
-  }
+  
 
   const login = async () => {
     try {
-      await loginGithub(data)
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("user_data") &&
+        localStorage.getItem("utterances-session")
+      ) return;
+      let utterancesParam1
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("utterances-session")
+      ) {
+        utterancesParam1 = localStorage.getItem("utterances-session")
+      }
+      const data = {
+        data: utterancesParam1,
+      }
+       await loginGithub(data)
+      
     } catch (error) {
       console.log(error)
     }
@@ -80,6 +87,7 @@ const NavBar: React.FC = () => {
       setIsLogin(true)
       setMoreText(userdata.login)
     }
+    
     if (
       typeof localStorage !== "undefined" &&
       !localStorage.getItem("user_data") &&

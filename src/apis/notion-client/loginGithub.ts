@@ -15,6 +15,7 @@ export const loginGithub = async (data : any) => {
     }
 
     window.location.href = `/`
+    return response
   } catch (error) {
     console.error('Error login:', error);
     return null;
