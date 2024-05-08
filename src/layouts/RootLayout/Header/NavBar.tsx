@@ -85,7 +85,7 @@ const NavBar: React.FC = () => {
 
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
-      setMoreText(userdata.login)
+      setMoreText(userdata.name ? userdata.name : userdata.login)
     }
     
     if (
@@ -94,7 +94,7 @@ const NavBar: React.FC = () => {
       localStorage.getItem("utterances-session")
     ) {
       login()
-      setMoreText(userdata.login)
+      setMoreText(userdata.name ? userdata.name : userdata.login)
     }
   }, [isLogin])
 
@@ -176,6 +176,7 @@ export default NavBar
 const StyledWrapper = styled.div`
   flex-direction: row;
   > .wrapper {
+    font-family: Inter;
     display: flex;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
@@ -187,6 +188,7 @@ const StyledWrapper = styled.div`
     color: ${({ theme }) => theme.colors.gray11};
   }
   .more-button {
+    font-family: Inter;
     margin-left: 0.5rem;
   }
   .content {
@@ -200,6 +202,7 @@ const StyledWrapper = styled.div`
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     > .item {
+      font-family: Inter;
       padding: 0.25rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;

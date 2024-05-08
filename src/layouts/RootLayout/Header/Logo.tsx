@@ -8,7 +8,7 @@ const Logo = () => {
   }
 
   return (
-    <StyledWrapper onClick = {() => handleReload()} href="/" aria-label={CONFIG.blog.title}>
+    <StyledWrapper style={{ fontFamily: "Inter" }} onClick = {() => handleReload()} href="/" aria-label={CONFIG.blog.title}>
       {CONFIG.blog.title}
     </StyledWrapper>
   )
