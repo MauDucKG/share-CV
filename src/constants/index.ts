@@ -1,33 +1,26 @@
 export const DEFAULT_CATEGORY = "📂 All" as string;
 
-// export const LINK_TO_SERVER = "http://localhost:4000";
-// export const LINK_TO_CLIENT = "http://localhost:3000";
+export const LINK_TO_SERVER = "http://localhost:4000";
+export const LINK_TO_CLIENT = "http://localhost:3000";
 
-export const LINK_TO_SERVER = "https://share-cv-ubv1.onrender.com"
-export const LINK_TO_CLIENT = "https://share-cv.vercel.app"
+// export const LINK_TO_SERVER = "https://share-cv-ubv1.onrender.com"
+// export const LINK_TO_CLIENT = "https://share-cv.vercel.app"
 
 export const DATA_USER = {
+    "_id": {
+      "$oid": ""
+    },
     "login": "",
-    "id": 0,
-    "node_id": "",
-    "avatar_url": "",
-    "gravatar_id": "",
-    "url": "",
-    "html_url": "",
-    "type": "User",
-    "site_admin": false,
     "name": "",
-    "company": null,
-    "blog": "",
-    "location": null,
+    "avatar": "",
+    "role": "",
     "email": null,
-    "hireable": null,
+    "phone": "",
     "bio": "CODE LIKE A CHATBOT, DEBUG LIKE A MASTER",
-    "twitter_username": null,
-    "public_repos": 0,
-    "public_gists": 0,
-    "followers": 0,
-    "following": 0,
-    "created_at": "2022-02-20T11:55:01Z",
-    "updated_at": "2024-04-23T01:20:02Z"
+    "company": null,
+    "location": null,
+    "isRestricted": false,
+    "createdTime": "",
+    "__v": 0
 }
+

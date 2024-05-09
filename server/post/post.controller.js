@@ -54,9 +54,8 @@ class postController {
             experience: new Date().toISOString(),
             author: [
               {
-                id: userdata ? userdata.id : null,
                 name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
-                profile_photo: userdata ? userdata.avatar_url : null,
+                profile_photo: userdata ? userdata.avatar : null,
               },
             ]
           })

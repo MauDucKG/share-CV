@@ -60,29 +60,17 @@ export type TPost = {
 }
 
 export type TUser = {
-  login: string;
-    id: number;
-    node_id: string | null;
-    avatar_url: string | null;
-    gravatar_id: string | null;
-    url: string | null;
-    html_url: string | null;
-    type: string | null;
-    site_admin: boolean;
-    name: string | null;
-    company: null | null;
-    blog: string | null;
-    location: string | null,
-    email: string | null,
-    hireable: string | null,
-    bio: string | null,
-    twitter_username: string | null,
-    public_repos: number,
-    public_gists: number,
-    followers: number,
-    following: number,
-    created_at: string | null,
-    updated_at: string | null
+  login: String | null,
+  name: String | null,
+  avatar: String | null,
+  role: String | null,
+  email: String | null,
+  phone: String | null,
+  bio: String | null,
+  company: String | null,
+  location: String | null,
+  isRestricted: Boolean,
+  createdTime: String | null
 }
 
 export type PostDetail = TPost & {

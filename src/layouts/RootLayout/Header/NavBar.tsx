@@ -111,17 +111,48 @@ const NavBar: React.FC = () => {
       {opened && (
         <div>
           <div className="content">
-            {links.map((link, i) => (
-              <div className="item" key={i}>
-                <Link
-                  className="item"
-                  onClick={() => handleReload(link.to)}
-                  href={link.to}
-                >
-                  {link.name}
-                </Link>
-              </div>
-            ))}
+          {links.map((link, i) => {
+            if ((!isLogin || userdata.login === "") && (i === 1 || i === 2 || i == 4)) {
+              return (
+                <div className="item" key={i}>
+                  <Link
+                    className="item"
+                    onClick={() => handleReload(link.to)}
+                    href={link.to}
+                  >
+                    {link.name}
+                  </Link>
+                </div>
+              );
+            }
+            else if (userdata.role === "candidate" && (i !== 3)) {
+              return (
+                <div className="item" key={i}>
+                  <Link
+                    className="item"
+                    onClick={() => handleReload(link.to)}
+                    href={link.to}
+                  >
+                    {link.name}
+                  </Link>
+                </div>
+              );
+            }
+            else if (userdata.role === "admin") {
+              return (
+                <div className="item" key={i}>
+                  <Link
+                    className="item"
+                    onClick={() => handleReload(link.to)}
+                    href={link.to}
+                  >
+                    {link.name}
+                  </Link>
+                </div>
+              );
+            }
+            return null; // Ẩn các liên kết khác hoặc cho các vai trò khác
+          })}
             {(isLogin && userdata.login !== "") || (
               <div className="item" key={6}>
                 <a
@@ -143,7 +174,7 @@ const NavBar: React.FC = () => {
                     👤 Your Profile
                   </a>
                 </div>
-                <div className="item" key={10}>
+                {( userdata.role === "admin" ) && <div className="item" key={10}>
                   <a
                     className="item"
                     href={"https://app.appsmith.com/app/share-cv-dashboard/cvs-663bbc9a64694d0878426478"}
@@ -151,6 +182,7 @@ const NavBar: React.FC = () => {
                     🏡 Dashboard {"   "}
                   </a>
                 </div>
+                }
                 <div className="item" key={8}>
                   <a
                     className="item"

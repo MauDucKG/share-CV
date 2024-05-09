@@ -12,7 +12,7 @@ class userController {
         const userItem = new userModel({
           login: userdata.login,
           name: userdata.name,
-          avatar: userdata.avatar_url,
+          avatar: userdata.avatar,
           role: "candidate",
           email: "",
           phone: "",

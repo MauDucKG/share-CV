@@ -9,6 +9,7 @@ export const loginGithub = async (data : any) => {
           Authorization: `Bearer ${access_token.data}`,
       },
     });
+  
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("access_token", access_token.data)
       localStorage.setItem("user_data", JSON.stringify(response.data))

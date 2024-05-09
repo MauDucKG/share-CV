@@ -37,7 +37,6 @@ class loginController {
             };    
 
             const response = await axios.request(config);
-
             const existingUser = await userModel.findOne({ login: response.data.login });
 
             if (!existingUser){
@@ -55,9 +54,10 @@ class loginController {
                     createdTime: new Date().toISOString()
                 });
                 await userItem.save();
-            } 
-
-            res.json(response.data);
+                res.json(userItem);
+            } else {
+                res.json(existingUser);
+            }
 
           } catch (error) {
             console.log(error);

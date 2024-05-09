@@ -16,16 +16,16 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
         <Emoji>💻</Emoji> Profile
       </div>
       <div className="content">
-        {userdata.avatar_url ?
+        {userdata.avatar ?
         <div className="top">
-          <Image src={userdata.avatar_url} fill alt="" />
+          <Image src={userdata.avatar} fill alt="" />
         </div>
         : 
         <></>
         }
         <div className="mid">
-          <div className=" name">{userdata.name}</div>
-          <div className="role">{userdata.login}</div>
+          <div className=" name">{userdata.name ? userdata.name : userdata.login}</div>
+          <div className="role">{userdata.role}</div>
           {
             !userdata.bio ?
             <div className="text-sm mb-2">{DATA_USER.bio}</div>
