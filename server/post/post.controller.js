@@ -71,7 +71,7 @@ class postController {
               date: {
                 start_date: new Date().toISOString(),
               },
-              type: ["Page"],
+              type: ["Post"],
               slug: slug, // Use the unique slug here
               tags,
               category: ["Blog"],
@@ -79,7 +79,7 @@ class postController {
               location: "Viet Nam",
               content: content,
               title: title,
-              status: ["Public"],
+              status: ["Private"],
               createdTime: new Date().toISOString(),
               fullWidth: false,
               thumbnail: thumbnail,
