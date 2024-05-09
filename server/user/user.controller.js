@@ -2,26 +2,26 @@ const userModel = require("./user.model");
 
 class userController {
   newuser = async function (req, res) {
-    const { userdata } = req.body;
+    const userdata = req.body;
     try {
       const existingUser = await userModel.findOne({ login: userdata.login });
-
+      
       if (!existingUser){
         console.log("Add new user")
 
         const userItem = new userModel({
           login: userdata.login,
           name: userdata.name,
-          avatar: userdata.avatar,
+          avatar: userdata.avatar_url,
           role: "candidate",
-          email: "",
+          email: userdata.email,
           phone: "",
-          bio: "",
-          company: "",
-          location: "",
-          isRestricted: False,
+          bio: userdata.bio,
+          company: userdata.company,
+          location: userdata.location,
+          isRestricted: false,
           createdTime: new Date().toISOString()
-        });
+      });
         await userItem.save();
         res.status(200).send("User saved successfully.");
       } 
