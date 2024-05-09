@@ -3,6 +3,7 @@ const postitemModel = require("../postitem/postitem.model")
 const checkPost = require("../shared/promt/checkPost")
 const remarkdown = require("../shared/promt/remarkdown")
 const extractTagsFromPost = require("../shared/promt/extractTagsFromPost")
+const userModel = require("../user/user.model")
 
 class postController {
   async getAllpost(request, respond) {
@@ -32,33 +33,66 @@ class postController {
       
       await extractTagsFromPost(content).then(async (tags) => {
         try {
+          const existingUser = await userModel.findOne({ login: userdata.login });
+
           const today = new Date()
           today.setHours(0, 0, 0, 0)
           const slug = require("crypto").randomBytes(10).toString("hex")
-          const post = new postModel({
-            date: {
-              start_date: new Date().toISOString(),
-            },
-            type: ["Post"],
-            slug: slug, // Use the unique slug here
-            tags,
-            category: ["Blog"],
-            summary: summary,
-            location: "Viet Nam",
-            content: content,
-            title: title,
-            status: ["Public"],
-            createdTime: new Date().toISOString(),
-            fullWidth: false,
-            thumbnail: thumbnail,
-            experience: new Date().toISOString(),
-            author: [
-              {
-                name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
-                profile_photo: userdata ? userdata.avatar : null,
+
+          let post
+
+          if (existingUser.role === "admin"){
+            post = new postModel({
+              date: {
+                start_date: new Date().toISOString(),
               },
-            ]
-          })
+              type: ["Post"],
+              slug: slug, // Use the unique slug here
+              tags,
+              category: ["Blog"],
+              summary: summary,
+              location: "Viet Nam",
+              content: content,
+              title: title,
+              status: ["Public"],
+              createdTime: new Date().toISOString(),
+              fullWidth: false,
+              thumbnail: thumbnail,
+              experience: new Date().toISOString(),
+              author: [
+                {
+                  name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
+                  profile_photo: userdata ? userdata.avatar : null,
+                },
+              ]
+            })
+          } else if (existingUser.role === "candidate"){
+            post = new postModel({
+              date: {
+                start_date: new Date().toISOString(),
+              },
+              type: ["Page"],
+              slug: slug, // Use the unique slug here
+              tags,
+              category: ["Blog"],
+              summary: summary,
+              location: "Viet Nam",
+              content: content,
+              title: title,
+              status: ["Public"],
+              createdTime: new Date().toISOString(),
+              fullWidth: false,
+              thumbnail: thumbnail,
+              experience: new Date().toISOString(),
+              author: [
+                {
+                  name: userdata ? (userdata.name !== "" ? userdata.name : userdata.login) : null,
+                  profile_photo: userdata ? userdata.avatar : null,
+                },
+              ]
+            })
+          }
+
           const new_content = await remarkdown(content)
 
           const postitem = new postitemModel({

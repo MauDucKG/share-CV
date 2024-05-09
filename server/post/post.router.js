@@ -1,10 +1,10 @@
 const  webFramework = require("express");
 const router = webFramework.Router();
-const {checkPermissionAdmin} = require("../middleware")
+const {checkPermissionCandidate} = require("../middleware")
 
 const UserController = require("./post.controller");
 
 router.get("/", UserController.getAllpost);
-router.post("/", checkPermissionAdmin, UserController.newpost);
+router.post("/", checkPermissionCandidate, UserController.newpost);
 
 module.exports = router;

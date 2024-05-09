@@ -125,20 +125,21 @@ const NavBar: React.FC = () => {
                 </div>
               );
             }
-            else if (userdata.role === "candidate" && (i !== 3)) {
-              return (
-                <div className="item" key={i}>
-                  <Link
-                    className="item"
-                    onClick={() => handleReload(link.to)}
-                    href={link.to}
-                  >
-                    {link.name}
-                  </Link>
-                </div>
-              );
-            }
-            else if (userdata.role === "admin") {
+            // else if (userdata.role === "candidate" && (i !== 3)) {
+            //   return (
+            //     <div className="item" key={i}>
+            //       <Link
+            //         className="item"
+            //         onClick={() => handleReload(link.to)}
+            //         href={link.to}
+            //       >
+            //         {link.name}
+            //       </Link>
+            //     </div>
+            //   );
+            // }
+            // else if (userdata.role === "admin") {
+            else {
               return (
                 <div className="item" key={i}>
                   <Link
