@@ -40,27 +40,20 @@ const NavBar: React.FC = () => {
     window.location.href = "/"
   }
 
-  
+  let utterancesParam1
+  if (
+    typeof localStorage !== "undefined" &&
+    localStorage.getItem("utterances-session")
+  ) {
+    utterancesParam1 = localStorage.getItem("utterances-session")
+  }
+  const data = {
+    data: utterancesParam1,
+  }
 
   const login = async () => {
     try {
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("user_data") &&
-        localStorage.getItem("utterances-session")
-      ) return;
-      let utterancesParam1
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("utterances-session")
-      ) {
-        utterancesParam1 = localStorage.getItem("utterances-session")
-      }
-      const data = {
-        data: utterancesParam1,
-      }
-       await loginGithub(data)
-      
+      await loginGithub(data)
     } catch (error) {
       console.log(error)
     }
@@ -85,16 +78,15 @@ const NavBar: React.FC = () => {
 
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
-      setMoreText(userdata.name ? userdata.name : userdata.login)
+      setMoreText(userdata.login)
     }
-    
     if (
       typeof localStorage !== "undefined" &&
       !localStorage.getItem("user_data") &&
       localStorage.getItem("utterances-session")
     ) {
       login()
-      setMoreText(userdata.name ? userdata.name : userdata.login)
+      setMoreText(userdata.login)
     }
   }, [isLogin])
 
@@ -151,6 +143,14 @@ const NavBar: React.FC = () => {
                     👤 Your Profile
                   </a>
                 </div>
+                <div className="item" key={10}>
+                  <a
+                    className="item"
+                    href={"https://app.appsmith.com/app/share-cv-dashboard/cvs-663bbc9a64694d0878426478"}
+                  >
+                    🏡 Dashboard {"   "}
+                  </a>
+                </div>
                 <div className="item" key={8}>
                   <a
                     className="item"
@@ -160,6 +160,7 @@ const NavBar: React.FC = () => {
                     💤 Logout {"   "}
                   </a>
                 </div>
+                
               </>
             ) : (
               <></>
@@ -176,7 +177,6 @@ export default NavBar
 const StyledWrapper = styled.div`
   flex-direction: row;
   > .wrapper {
-    font-family: Inter;
     display: flex;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
@@ -188,7 +188,6 @@ const StyledWrapper = styled.div`
     color: ${({ theme }) => theme.colors.gray11};
   }
   .more-button {
-    font-family: Inter;
     margin-left: 0.5rem;
   }
   .content {
@@ -202,7 +201,6 @@ const StyledWrapper = styled.div`
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     > .item {
-      font-family: Inter;
       padding: 0.25rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
