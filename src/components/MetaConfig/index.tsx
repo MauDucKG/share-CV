@@ -33,7 +33,7 @@ const MetaConfig: React.FC<MetaConfigProps> = (props) => {
       {props.type === "Post" && (
         <>
           <meta property="article:published_time" content={props.date} />
-          <meta property="article:author" content={CONFIG.profile.name} />
+          <meta property="article:author" content={props.title} />
         </>
       )}
     </Head>
