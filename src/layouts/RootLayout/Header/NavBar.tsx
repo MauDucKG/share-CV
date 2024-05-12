@@ -88,6 +88,14 @@ const NavBar: React.FC = () => {
       login()
       setMoreText(userdata.login)
     }
+    if (isLogin && userdata.login === "") {
+      const timer = setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+
   }, [isLogin])
 
   useEffect(() => {
@@ -96,6 +104,14 @@ const NavBar: React.FC = () => {
       handleReload("/")
     }
   }, [])
+
+  if (isLogin && userdata.login === "") {
+    return (
+      <div className="loading">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <StyledWrapper>

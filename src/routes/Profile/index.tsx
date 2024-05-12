@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-            <ProfilePage userdata={userdata}/>
+        <ProfilePage userdata={userdata}/>
       </div>
     </StyledWrapper>
   )
