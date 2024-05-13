@@ -30,7 +30,7 @@ async function sendEmail(json, email) {
         service: 'Gmail',
         auth: {
             user: 'no.replyforour@gmail.com',
-            pass: 'fqdq wsxh kczz fbwl'
+            pass: 'nmgt gpwg aulv mjhr'
         }
     });
 
