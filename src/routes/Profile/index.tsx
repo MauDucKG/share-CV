@@ -38,6 +38,7 @@ const StyledWrapper = styled.div`
   padding-bottom: 3rem;
   border-radius: 1.5rem;
   max-width: 56rem;
+  
   .wrapper {
     display: flex;
     flex-direction: column;

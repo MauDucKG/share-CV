@@ -1,19 +1,45 @@
-import { CONFIG } from "site.config"
 import Image from "next/image"
 import React, {useEffect, useState} from "react"
 import styled from "@emotion/styled"
 import { Emoji } from "src/components/Emoji"
 import { DATA_USER } from "src/constants"
+import { LINK_TO_SERVER } from 'src/constants';
+import axios from 'axios';
 
 type Props = {
   userdata: typeof DATA_USER;
-
-
 }
 
-
-
 const ProfilePage: React.FC<Props> = ({ userdata }) => {
+  const [file, setFile] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(userdata.name)
+  const [avatar, setAvatar] = useState(userdata.avatar)
+  const [email, setEmail] = useState(userdata.email ? userdata.email : "")
+  const [phone, setPhone] = useState(userdata.phone)
+  const [bio, setBio] = useState(userdata.bio ? userdata.bio : "")
+  const [company, setCompany] = useState(userdata.company ? userdata.company : "")
+  const [location, setLocation] = useState(userdata.location ? userdata.location : "")
+
+  const handleUpload = async () => {
+    try {
+      setLoading(true);
+
+      const data = new FormData();
+      if (file) {
+        data.append("my_file", file);
+      }
+      console.log(data)
+      const res = await axios.post(`${LINK_TO_SERVER}/upload`, data);
+      setAvatar(res.data.url)
+      
+    } catch (error : any) {
+      alert(error.message);
+    }  finally {
+      setLoading(false);
+    }
+  };
+
   const [isEdit, setisEdit] = useState(false)
   const handleEditProfile = () => {
     setisEdit(true)
@@ -32,6 +58,7 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
           <Emoji>💻</Emoji> Profile
         </div>
         <div className="content">
+          <div className="white"> {'\u00a0'.repeat(80)} </div>
           {userdata.avatar ?
           <div className="top">
             <Image src={userdata.avatar} fill alt="" />
@@ -40,13 +67,13 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
           <></>
           }
           <div className="mid">
-            <div className=" name">{userdata.name ? userdata.name : userdata.login}</div>
+            <div className="name">{userdata.name ? userdata.name : userdata.login}</div>
             <div className="role">{userdata.role}</div>
             {
               !userdata.bio ?
-              <div className="text-sm mb-2">{DATA_USER.bio}</div>
+              <div className="bio"> {DATA_USER.bio} </div>
               :
-              <></>
+              <div className="bio"> {userdata.bio}</div>
             }
             
           </div>
@@ -54,33 +81,122 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
         </div>
         <button className="edit-profile-button" onClick={handleEditProfile}>Edit Profile</button>
       </StyledWrapper>
-      : <StyledWrapper>
-      <div className="title">
-        <Emoji>💻</Emoji> Profile
-      </div>
-      <div className="content">
-        {userdata.avatar ?
-        <div className="top">
-          <Image src={userdata.avatar} fill alt="" />
-        </div>
-        : 
-        <></>
-        }
-        <div className="mid">
-          <div className=" name"><input  type="text" placeholder={userdata.name}></input>
-            </div>
-          <div className="role">{userdata.role}</div>
-          {
-            !userdata.bio ?
-            <div className="text-sm mb-2"><input  type="text" placeholder={DATA_USER.bio} ></input></div>
-            :
-            <></>
-          }
-          
+
+      : 
+      // EditPage
+      <StyledWrapper>
+        <div className="title">
+          <Emoji>💻</Emoji> Edit Profile
         </div>
 
-      </div>
-      <button className="edit-profile-button" onClick={handleSave}>Save</button>
+        <div className="content">
+          <div className="top-input">
+            <Emoji>📝</Emoji> Name 
+          </div>
+
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.name}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Avatar (Select File)
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.avatar}
+            value={avatar}
+          />
+          {userdata.avatar ?
+          <div className="top">
+            <Image src={userdata.avatar} fill alt="" />
+          </div>
+          : 
+          <></> 
+          }
+          
+          <div className="upload" >
+            <input
+              id="file" type="file"
+              onChange={(e : any) =>
+                setFile(e.target.files[0])
+              }
+              multiple={false}
+            />
+
+            <div className="form-submit">
+              <button
+                className="btn-submit"
+                onClick={handleUpload} 
+              >
+                {loading ? "Uploading ..." : "Upload"}
+              </button>
+            
+            </div>
+              
+          </div>
+            
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Email 
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.email ? userdata.email : "Email"}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Phone 
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.phone ? userdata.phone : "Phone"}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Bio 
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.bio ? userdata.bio : "Bio"}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Company 
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.company ? userdata.company : "Company"}
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+          />
+
+          <div className="top-input">
+            <Emoji>📝</Emoji> Location 
+          </div>
+          <input
+            className="mid1"
+            type="text"
+            placeholder={userdata.location ? userdata.location : "Location"}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div>
+        <button className="edit-profile-button" onClick={handleSave}>Update</button>
     </StyledWrapper>}
     </StyledWrapper>
     
@@ -90,9 +206,54 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
 export default ProfilePage
 
 const StyledWrapper = styled.div`
+.upload {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 0.99fr 0.01fr; 
+  grid-gap: 1rem; 
+  align-items: center; 
+}
+
+.form-submit {
+  text-align: center;
+}
+
+.btn-submit {
+  padding: 0.5rem 1.25rem;
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.colors.blue4};
+}
+
+  .white {
+    color: white;
+    font-size: 0.875rem;
+    text-align: center;
+    display: flex
+    align-items: center;
+
+
+  }
+  .top-input {
+    padding: 0.25rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem; 
+  }
+  .mid1 {
+    margin-bottom: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border-radius: 1rem;
+    outline-style: none;
+    width: 100%;
+    font-size: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray4};
+  }
   .edit-profile-button {
-    margin: 0 auto; /* Căn giữa theo chiều ngang */
-  display: block;
+    margin: 0 auto; 
+    display: block;
     display: flex;
     justify-content: center;
     padding: 0.5rem 1rem;
@@ -129,6 +290,7 @@ const StyledWrapper = styled.div`
     .top {
       position: relative;
       width: 100%;
+
       &:after {
         content: "";
         display: block;
@@ -140,6 +302,8 @@ const StyledWrapper = styled.div`
       padding: 0.5rem;
       flex-direction: column;
       align-items: center;
+      justify-content: center:
+      
       .name {
         font-size: 1.25rem;
         line-height: 1.75rem;
@@ -156,6 +320,7 @@ const StyledWrapper = styled.div`
         margin-bottom: 0.5rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
+        text-align: center;
       }
     }
   }

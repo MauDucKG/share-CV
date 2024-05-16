@@ -5,8 +5,6 @@ import styled from "@emotion/styled"
   interface Props extends InputHTMLAttributes<HTMLInputElement> { }
 
   const ImageInput: React.FC<Props> = ({ ...props }) => {
-    const [file, setFile] = useState("")
-
     return (      
         <StyledWrapper>
           <div className="top-input">
