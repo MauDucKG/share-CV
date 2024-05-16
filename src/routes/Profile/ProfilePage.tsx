@@ -5,12 +5,14 @@ import { Emoji } from "src/components/Emoji"
 import { DATA_USER } from "src/constants"
 import { LINK_TO_SERVER } from 'src/constants';
 import axios from 'axios';
+import { updateUser } from "src/apis/notion-client/updateUser"
 
 type Props = {
   userdata: typeof DATA_USER;
 }
 
 const ProfilePage: React.FC<Props> = ({ userdata }) => {
+  const [isloading, setIsLoading] = useState(false);
   const [file, setFile] = useState("")
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState(userdata.name)
@@ -29,7 +31,6 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
       if (file) {
         data.append("my_file", file);
       }
-      console.log(data)
       const res = await axios.post(`${LINK_TO_SERVER}/upload`, data);
       setAvatar(res.data.url)
       
@@ -45,8 +46,22 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
     setisEdit(true)
   };
 
-  const handleSave = () => {
-    setisEdit(false)
+  const handleSave = async () => {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("access_token")
+      console.log(userdata._id)
+      const userdata_new = await updateUser(userdata._id, name, avatar, email, phone, bio, company, location, token)
+      localStorage.setItem("user_data", JSON.stringify(userdata_new))
+    }
+    catch (error : any) {
+      alert(error.message);
+    }  finally {
+      setIsLoading(false);
+      setisEdit(false);
+      window.location.reload();
+    }
+    
   };
 
   return (
@@ -98,7 +113,7 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
             className="mid1"
             type="text"
             placeholder={userdata.name}
-            value={name}
+            value={name || userdata.name}
             onChange={(e) => setName(e.target.value)}
           />
 
@@ -109,11 +124,12 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
             className="mid1"
             type="text"
             placeholder={userdata.avatar}
-            value={avatar}
+            value={avatar || userdata.avatar}
+            // onChange={(e) => setAvatar(e.target.value)}
           />
-          {userdata.avatar ?
+          {avatar ?
           <div className="top">
-            <Image src={userdata.avatar} fill alt="" />
+            <Image src={avatar} fill alt="" />
           </div>
           : 
           <></> 
@@ -133,11 +149,11 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
                 className="btn-submit"
                 onClick={handleUpload} 
               >
-                {loading ? "Uploading ..." : "Upload"}
+                {loading ? "Uploading" : "Upload"}
               </button>
             
             </div>
-              
+               
           </div>
             
 
@@ -196,7 +212,7 @@ const ProfilePage: React.FC<Props> = ({ userdata }) => {
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
-        <button className="edit-profile-button" onClick={handleSave}>Update</button>
+        <button className="edit-profile-button" onClick={handleSave}>{isloading ? "Upload ..." : "Upload"}</button>
     </StyledWrapper>}
     </StyledWrapper>
     
@@ -209,7 +225,7 @@ const StyledWrapper = styled.div`
 .upload {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: 0.99fr 0.01fr; 
+  grid-template-columns: 0.9fr 0.1fr; 
   grid-gap: 1rem; 
   align-items: center; 
 }

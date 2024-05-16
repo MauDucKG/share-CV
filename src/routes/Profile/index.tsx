@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     }
   
   }, [userdata.login]);  
-  
+
   return (
     <StyledWrapper>
       <div className="wrapper">
