@@ -29,14 +29,14 @@ async function sendEmail(json, email) {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'phdhuy1@gmail.com',
-            pass: 'prxb dopf rxak uemh'
+            user: 'no.replyforour@gmail.com',
+            pass: 'nmgt gpwg aulv mjhr'
         }
     });
 
 
     const mailOptions = {
-        from: 'phdhuy1@gmail.com',
+        from: 'no.replyforour@gmail.com',
         to: email,
         subject: 'Suggested CV for ' + json.title +' position from Share-CV',
         html: `
