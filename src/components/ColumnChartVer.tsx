@@ -27,7 +27,6 @@ export const ColumnChartVer : React.FC<Props> = ({ columnNames, values}) => {
             if (headerElement instanceof HTMLElement) {
                 const headerWidth = headerElement.offsetWidth;
                 setChartWidth(headerWidth);
-                console.log(headerWidth)
             }          
             else setChartWidth(window.innerWidth * 1);
             setChartHeight(window.innerHeight * 0.4)

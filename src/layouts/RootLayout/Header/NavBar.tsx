@@ -27,9 +27,9 @@ const NavBar: React.FC = () => {
   const [moreText, setMoreText] = useState("More")
 
   const handleReload = (e: any) => {
-    if (e === "/post" || e === "/about" || e === "/") {
-      window.location.href = `${e}`
-    }
+    // if (e === "/post" || e === "/about" || e === "/") {
+    //   window.location.href = `${e}`
+    // }
   }
 
   const handleLogoutGithub = () => {
@@ -101,7 +101,7 @@ const NavBar: React.FC = () => {
   useEffect(() => {
     if (isLogin && userdata.login !== "") {
       setIsLogin(false)
-      handleReload("/")
+      window.location.href = "/"
     }
   }, [])
 

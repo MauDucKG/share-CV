@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import PostCard from "src/routes/Feed/PostList/PostCard"
 import { DEFAULT_CATEGORY } from "src/constants"
-import usePostsQuery from "src/hooks/usePostsQuery"
+import useBlogsQuery from "src/hooks/useBlogsQuery"
 
 type Props = {
   q: string
@@ -11,7 +11,7 @@ type Props = {
 const PostList: React.FC<Props> = ({ q }) => {
   const router = useRouter()
   
-  const data = usePostsQuery()
+  const data = useBlogsQuery()
   const [filteredPosts, setFilteredPosts] = useState(data)
 
   const currentTag = `${router.query.tag || ``}` || undefined
