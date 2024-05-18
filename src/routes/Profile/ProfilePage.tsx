@@ -265,7 +265,7 @@ const StyledWrapper = styled.div`
     outline-style: none;
     width: 100%;
     font-size: 1rem;
-    background-color: ${({ theme }) => theme.colors.gray4};
+    background-color: ${({ theme }) => theme.colors.gray7};
   }
   .edit-profile-button {
     margin: 0 auto; 

@@ -3,12 +3,8 @@ import { CONFIG } from "site.config"
 import styled from "@emotion/styled"
 
 const Logo = () => {
-  const handleReload = () => {
-    // window.location.href = `/`
-  }
-
   return (
-    <StyledWrapper style={{ fontFamily: "Inter" }} onClick = {() => handleReload()} href="/" aria-label={CONFIG.blog.title}>
+    <StyledWrapper style={{ fontFamily: "Inter" }} href="/" aria-label={CONFIG.blog.title}>
       {CONFIG.blog.title}
     </StyledWrapper>
   )

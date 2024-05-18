@@ -26,12 +26,6 @@ const NavBar: React.FC = () => {
   const [utterancesParam, setUtterancesParam] = useState("")
   const [moreText, setMoreText] = useState("More")
 
-  const handleReload = (e: any) => {
-    // if (e === "/post" || e === "/about" || e === "/") {
-    //   window.location.href = `${e}`
-    // }
-  }
-
   const handleLogoutGithub = () => {
     setIsLogin(false)
     if (typeof localStorage !== "undefined") {
@@ -116,7 +110,7 @@ const NavBar: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-        <Link onClick={() => handleReload("/about")} href={"/about"}>
+        <Link href={"/about"}>
           About
         </Link>
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
@@ -133,7 +127,6 @@ const NavBar: React.FC = () => {
                 <div className="item" key={i}>
                   <Link
                     className="item"
-                    onClick={() => handleReload(link.to)}
                     href={link.to}
                   >
                     {link.name}
@@ -146,7 +139,6 @@ const NavBar: React.FC = () => {
             //     <div className="item" key={i}>
             //       <Link
             //         className="item"
-            //         onClick={() => handleReload(link.to)}
             //         href={link.to}
             //       >
             //         {link.name}
@@ -160,7 +152,6 @@ const NavBar: React.FC = () => {
                 <div className="item" key={i}>
                   <Link
                     className="item"
-                    onClick={() => handleReload(link.to)}
                     href={link.to}
                   >
                     {link.name}
@@ -188,7 +179,7 @@ const NavBar: React.FC = () => {
                     href={"/profile"}
                     className="btn btn-primary"
                   >
-                    👤 Your Profile
+                    👤 My Profile
                   </a>
                 </div>
                 {( userdata.role === "admin" ) && <div className="item" key={10}>
