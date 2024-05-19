@@ -1,6 +1,22 @@
 const userModel = require("./user.model");
 
 class userController {
+  async getAlluser(request, respond) {
+    userModel
+      .find()
+      .exec()
+      .then((user) => {
+        respond.status(200).json({
+          success: true,
+          message: "Done!",
+          users: user,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   newuser = async function (req, res) {
     const userdata = req.body;
     try {
