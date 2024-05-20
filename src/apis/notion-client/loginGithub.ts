@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LINK_TO_SERVER } from 'src/constants';
+import CustomError from "../../routes/Error"
 
 export const loginGithub = async (data : any) => {
     let BLACK_USER = {
@@ -35,7 +36,7 @@ export const loginGithub = async (data : any) => {
     } else {
       BLACK_USER.login = response.data.login
       localStorage.setItem("user_data", JSON.stringify(BLACK_USER))
-      window.location.href = `/404`
+      window.location.href = `/banned`
     } 
 
     return response

@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { Emoji } from "src/components/Emoji";
 
-type Props = {};
+type Props = {
+  isBanned?: boolean;
+};
 
-const CustomError: React.FC<Props> = () => {
+const CustomError: React.FC<Props> = ({ isBanned = false }) => {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -19,12 +21,23 @@ const CustomError: React.FC<Props> = () => {
     <StyledWrapper>
       {showContent && (
         <div className="wrapper">
-          <div className="top">
-            <div>4</div>
-            <Emoji>🤔</Emoji>
-            <div>4</div>
-          </div>
-          <div className="text">Post not found</div>
+          {isBanned ? (
+            <>
+              <div className="top">
+                <Emoji>🔒</Emoji>
+              </div>
+              <div className="text">You have been banned from this website.</div>
+            </>
+          ) : (
+            <>
+              <div className="top">
+                <div>4</div>
+                <Emoji>🤔</Emoji>
+                <div>4</div>
+              </div>
+              <div className="text">Post not found</div>
+            </>
+          )}
         </div>
       )}
       {!showContent && (

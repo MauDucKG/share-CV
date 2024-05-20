@@ -97,7 +97,11 @@ const NavBar: React.FC = () => {
       setIsLogin(false)
       window.location.href = "/"
     }
+    
   }, [])
+  if (isLogin && userdata.isRestricted && window.location.pathname !== "/banned") {
+    window.location.href = "/banned";
+  }
 
   if (isLogin && userdata.login === "") {
     return (
@@ -110,9 +114,10 @@ const NavBar: React.FC = () => {
   return (
     <StyledWrapper>
       <div className="wrapper">
-        <Link href={"/about"}>
+        {(!userdata.isRestricted) && <Link href={"/about"}>
           About
         </Link>
+        } 
         <div ref={dropdownRef} onClick={handleOpen} className="more-button">
           {moreText}
         </div>
@@ -147,6 +152,8 @@ const NavBar: React.FC = () => {
             //   );
             // }
             // else if (userdata.role === "admin") {
+            else if (isLogin && userdata.isRestricted) {
+            }
             else {
               return (
                 <div className="item" key={i}>
@@ -159,7 +166,7 @@ const NavBar: React.FC = () => {
                 </div>
               );
             }
-            return null; // Ẩn các liên kết khác hoặc cho các vai trò khác
+            return null; 
           })}
             {(isLogin && userdata.login !== "") || (
               <div className="item" key={6}>
@@ -174,7 +181,7 @@ const NavBar: React.FC = () => {
             )}
             {isLogin && userdata.login !== "" ? (
               <>
-                <div className="item" key={7}>
+                {(!userdata.isRestricted ) && <div className="item" key={7}>
                   <a
                     href={"/profile"}
                     className="btn btn-primary"
@@ -182,6 +189,7 @@ const NavBar: React.FC = () => {
                     👤 My Profile
                   </a>
                 </div>
+                }
                 {( userdata.role === "admin" ) && <div className="item" key={10}>
                   <a
                     className="item"
