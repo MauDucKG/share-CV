@@ -126,19 +126,19 @@ const dataProvider: DataProvider = {
 
 const AdminApp = () => (
   <Admin dataProvider={dataProvider}>
-    <Resource
+    {/* <Resource
       name="cv"
       list={CVList}
       edit={CVList}
       recordRepresentation="name"
-    />
-    <Resource
+    /> */}
+    {/* <Resource
       name="post"
       list={PostList}
       edit={PostList}
       recordRepresentation="title"
-    />
-    <Resource name="user" list={UserList} edit={UserList} />
+    /> */}
+    {/* <Resource name="user" list={UserList} edit={UserList} /> */}
     {/* <Resource name="blacklist" list={PostList} edit={PostList} /> */}
   </Admin>
 );
