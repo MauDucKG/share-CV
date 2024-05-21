@@ -1,10 +1,12 @@
 const  webFramework = require("express");
 const router = webFramework.Router();
-const { checkPermissionTokenCandidate } = require("../middleware")
+const { checkPermissionTokenCandidate, checkPermissionTokenAdmin } = require("../middleware")
 
 const UserController = require("./user.controller");
 
-router.get("/", UserController.getAlluser);
+router.get("/", checkPermissionTokenAdmin, UserController.getAlluser);
+router.get("/:id", checkPermissionTokenAdmin, UserController.getOne);
+router.delete("/:id", checkPermissionTokenAdmin, UserController.deleteUser);
 router.post("/", UserController.newuser);
 router.put("/:id", checkPermissionTokenCandidate, UserController.updateUser);
 

@@ -1,13 +1,13 @@
-const userModel = require("./user.model");
+const userModel = require("../user/user.model");
 
-class userController {
+class BlackListController {
   async getAlluser(request, respond) {
     try {
-      const users = await userModel.find({ isRestricted: false });
+      const users = await userModel.find({ isRestricted: true });
       respond.status(200).json({
         success: true,
         message: "Done!",
-        users: users,
+        blacklists: users,
       });
     } catch (error) {
       console.error(error);
@@ -37,6 +37,54 @@ class userController {
       respond.status(500).json({
         success: false,
         message: "Internal server error",
+      });
+    }
+  }
+
+  async updateUser(req, res) {
+    try { 
+      const user = await userModel.findById(req.params.id);
+      user.name = req.body.name || user.name;
+      user.avatar = req.body.avatar || user.avatar;
+      user.role = req.body.role || user.role;
+      user.email = req.body.email || user.email;
+      user.phone = req.body.phone || user.phone;
+      user.bio = req.body.bio || user.bio;
+      user.company = req.body.company || user.company;
+      user.location = req.body.location || user.location;
+      user.isRestricted = req.body.isRestricted || user.isRestricted;
+
+      await user.save();
+
+      return res.json(user);
+    } catch (error) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
+  async deleteUser(request, respond) {
+    try {
+      const user = await userModel.findById(request.params.id);
+
+      if (!user || !user.isRestricted) {
+        return respond.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+      }
+  
+      user.isRestricted = false
+      await user.save();
+  
+      respond.status(200).json({
+        success: true,
+        message: "User deleted successfully"
+      });
+    } catch (error) {
+      console.error(error);
+      respond.status(500).json({
+        success: false,
+        message: "An error occurred while deleting the user"
       });
     }
   }
@@ -78,20 +126,18 @@ class userController {
       }
 
       const userSend = req.existingUser;
-      if (user.login !== userSend.login && userSend.role !== "admin"){
+      if (user.login !== userSend.login){
         return res.status(401).json({ error: "No Permission" });
       } 
-      
+  
       user.name = req.body.name || user.name;
       user.avatar = req.body.avatar || user.avatar;
-      user.role = req.body.role || user.role;
       user.email = req.body.email || user.email;
       user.phone = req.body.phone || user.phone;
       user.bio = req.body.bio || user.bio;
       user.company = req.body.company || user.company;
       user.location = req.body.location || user.location;
-      user.isRestricted = req.body.isRestricted || user.isRestricted;
-
+  
       await user.save();
 
       return res.json(user);
@@ -99,34 +145,7 @@ class userController {
       return res.status(500).json({ error: "Internal server error" });
     }
   }
-
-  async deleteUser(request, respond) {
-    try {
-      const user = await userModel.findById(request.params.id);
-
-      if (!user) {
-        return respond.status(404).json({
-          success: false,
-          message: "User not found"
-        });
-      }
-  
-      user.isRestricted = true
-      await user.save();
-  
-      respond.status(200).json({
-        success: true,
-        message: "User deleted successfully"
-      });
-    } catch (error) {
-      console.error(error);
-      respond.status(500).json({
-        success: false,
-        message: "An error occurred while deleting the user"
-      });
-    }
-  }
   
 }
 
-module.exports = new userController();
+module.exports = new BlackListController();

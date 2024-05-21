@@ -22,6 +22,56 @@ class postController {
       })
   }
 
+  async getOne(request, respond) {
+    try {
+      const cv = await postModel.findById(request.params.id);
+  
+      if (!cv) {
+        respond.status(404).json({
+          success: false,
+          message: "Post not found",
+        });
+        return;
+      }
+  
+      respond.status(200).json(cv);
+
+    } catch (error) {
+      console.log(error);
+      respond.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  }
+  
+  async deletepost(request, respond) {
+    try {
+      const cv = await postModel.findById(request.params.id);
+
+      if (!cv) {
+        return respond.status(404).json({
+          success: false,
+          message: "Post not found"
+        });
+      }
+  
+      cv.status[0] = "Private"
+      await cv.save();
+  
+      respond.status(200).json({
+        success: true,
+        message: "Post deleted successfully"
+      });
+    } catch (error) {
+      console.error(error);
+      respond.status(500).json({
+        success: false,
+        message: "An error occurred while deleting the cv"
+      });
+    }
+  }
+
   newpost = async function (req, res) {
     const { title, summary, content, thumbnail, userdata } = req.body
 

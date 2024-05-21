@@ -18,7 +18,7 @@ const filter: FilterPostsOptions = {
 export const getStaticProps: GetStaticProps = async () => {
 
   const posts = filterPosts(await getPosts())
-  await queryClient.fetchQuery(queryKey.posts(), () => posts)
+  await queryClient.prefetchQuery(queryKey.posts(), () => posts)
 
   return {
     props: {

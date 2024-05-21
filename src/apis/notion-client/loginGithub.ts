@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { LINK_TO_SERVER } from 'src/constants';
 import CustomError from "../../routes/Error"
-
+import { tokenQuery } from "src/libs/react-query";
+import { queryKey } from 'src/constants/queryKey';
 export const loginGithub = async (data : any) => {
     let BLACK_USER = {
       "_id": {
@@ -29,9 +30,12 @@ export const loginGithub = async (data : any) => {
       },
     });
   
+    await tokenQuery.prefetchQuery(queryKey.token(), () => access_token.data)
+    
     if (typeof localStorage !== "undefined" && !response.data.isRestricted) {
       localStorage.setItem("access_token", access_token.data)
       localStorage.setItem("user_data", JSON.stringify(response.data))
+      
       window.location.href = `/`
     } else {
       BLACK_USER.login = response.data.login

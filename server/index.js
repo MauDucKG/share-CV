@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cvRouter = require("./cv/cv.router");
 const cvitemRouter = require("./cvitem/cvitem.router");
 const userRouter = require("./user/user.router");
+const blacklistRouter = require("./blacklist/blacklist.router");
+
 const jdRouter = require("./jd/jd.router");
 const postRouter = require("./post/post.router");
 const postitemRouter = require("./postitem/postitem.router");
@@ -81,4 +83,6 @@ app.use("/post", postRouter);
 app.use("/postitem", postitemRouter);
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
+app.use("/blacklist", blacklistRouter);
+
 app.use("/chat", require("./chat/chat.router"));

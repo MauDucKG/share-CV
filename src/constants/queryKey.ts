@@ -1,6 +1,8 @@
 export const queryKey = {
   scheme: () => ["scheme"],
   posts: () => ["posts"],
+  token: () => ["token"],
+  userdata: () => ["userdata"],
   blogs: () => ["blogs"],
   tags: () => ["tags"],
   categories: () => ["categories"],

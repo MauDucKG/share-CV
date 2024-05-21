@@ -8,10 +8,12 @@ export const UserList = () => (
             <TextField source="role" />
 
             <TextField source="email" />
-            {/* <TextField source="bio" /> */}
-            {/* <TextField source="location" /> */}
-            <ImageField source="avatar" />
-            {/* <TextField source="experience" /> */}
+            <TextField source="phone" />
+            <TextField source="bio" />
+            <TextField source="company" />
+            <TextField source="location" />
+
+            <ImageField source="avatar"/>
             
             <DateField source="createdTime" />
             {/* <TextField source="name" /> */}

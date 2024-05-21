@@ -8,12 +8,14 @@ export const PostList = () => (
             <TextField source="summary" />
 
             {/* <TextField source="category" /> */}
-            {/* <TextField source="summary" /> */}
+            {/* <TextField source="content" /> */}
             {/* <TextField source="location" /> */}
             <DateField source="createdTime" />
-            {/* <TextField source="experience" /> */}
+            <ImageField source="thumbnail" />
             
             <TextField source="author[0].name" label = "Author"/>
+            <TextField source="status[0]" label = "Hide"/>
+
             {/* <TextField source="name" /> */}
 
         </Datagrid>
