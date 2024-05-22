@@ -24,8 +24,9 @@ class chatController {
         message = "Hiện tại hệ thống không có CV phù hợp với yêu cầu của bạn"
       } else {
         message =
-          "# Sau đây là thông tin về các CV hiện tại phù hợp với yêu cầu của bạn trong hệ thống chúng tôi:<br>" +
-          slugFields.map((field) => `- ${field}`).join("<br>")
+          `Sau đây là thông tin về các CV hiện tại phù hợp với yêu cầu của bạn trong hệ thống chúng tôi: ` +
+          slugFields.map((field) => `
+          - ${field}`).join(``)
       }
       res.json({ message: message })
     } else if (casePROMT === "4") {
