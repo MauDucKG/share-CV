@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
     { id: 4, name: "📰 New Feed", to: "/post" },
     { id: 5, name: "📣 Submit Post", to: "/submit" },
     { id: 9, name: "💬 Talk Space ", to: "/chat" },
-    { id: 10, name: "Admin", to: "/admin" },
+    { id: 10, name: "🖥 Admin", to: "/admin" },
 
   ]
 
