@@ -44,6 +44,62 @@ class cvController {
     }
   }
 
+  async updatecv(request, respond) {
+    const { 
+      date, 
+      type, 
+      slug, 
+      tags, 
+      category, 
+      summary, 
+      location, 
+      title, 
+      status, 
+      createdTime, 
+      fullWidth, 
+      experience, 
+      author
+    } = request.body;
+
+    try {
+      let cv = await cvModel.findById(request.params.id);
+  
+      if (!cv) {
+        return respond.status(404).json({
+          success: false,
+          message: "CV not found",
+        });
+      }
+  
+      cv.date = date;
+      cv.type = type;
+      cv.slug = slug;
+      cv.tags = tags;
+      cv.category = category;
+      cv.summary = summary;
+      cv.location = location;
+      cv.title = title;
+      cv.status = status;
+      cv.createdTime = createdTime;
+      cv.fullWidth = fullWidth;
+      cv.experience = experience;
+      cv.author = author;
+
+      await cv.save();
+  
+      respond.status(200).json({
+        success: true,
+        message: "CV updated successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      respond.status(500).json({
+        success: false,
+        message: "An error occurred while updating the CV",
+      });
+    }
+  }
+
   newcv = async function (req, res) {
     const { fullname, major, cvText, userdata } = req.body
     let cv = {}

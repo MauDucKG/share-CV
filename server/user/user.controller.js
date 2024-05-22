@@ -10,7 +10,6 @@ class userController {
         users: users,
       });
     } catch (error) {
-      console.error(error);
       respond.status(500).json({
         success: false,
         message: "An error occurred while retrieving users",

@@ -72,6 +72,68 @@ class postController {
     }
   }
 
+  async updatePost(request, response) {
+    try {
+      const { id } = request.params;
+      const {
+        date,
+        type,
+        slug,
+        tags,
+        category,
+        summary,
+        location,
+        content,
+        author,
+        title,
+        status,
+        createdTime,
+        fullWidth,
+        thumbnail,
+        experience
+      } = request.body;
+  
+      // Tìm bài viết theo ID
+      const post = await postModel.findById(id);
+  
+      if (!post) {
+        return response.status(404).json({
+          success: false,
+          message: "Post not found"
+        });
+      }
+  
+      post.date = date;
+      post.type = type;
+      post.slug = slug;
+      post.tags = tags;
+      post.category = category;
+      post.summary = summary;
+      post.location = location;
+      post.content = content;
+      post.author = author;
+      post.title = title;
+      post.status = status;
+      post.createdTime = createdTime;
+      post.fullWidth = fullWidth;
+      post.thumbnail = thumbnail;
+      post.experience = experience;
+  
+      await post.save();
+  
+      response.status(200).json({
+        success: true,
+        message: "Success"
+      });
+    } catch (error) {
+      console.error(error);
+      response.status(500).json({
+        success: false,
+        message: " Error"
+      });
+    }
+  }
+
   newpost = async function (req, res) {
     const { title, summary, content, thumbnail, userdata } = req.body
 

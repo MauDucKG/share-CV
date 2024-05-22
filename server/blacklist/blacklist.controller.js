@@ -41,9 +41,10 @@ class BlackListController {
     }
   }
 
-  async updateUser(req, res) {
+  async updateblacklist(req, res) {
     try { 
       const user = await userModel.findById(req.params.id);
+      
       user.name = req.body.name || user.name;
       user.avatar = req.body.avatar || user.avatar;
       user.role = req.body.role || user.role;
@@ -52,7 +53,7 @@ class BlackListController {
       user.bio = req.body.bio || user.bio;
       user.company = req.body.company || user.company;
       user.location = req.body.location || user.location;
-      user.isRestricted = req.body.isRestricted || user.isRestricted;
+      user.isRestricted = req.body.isRestricted || false;
 
       await user.save();
 

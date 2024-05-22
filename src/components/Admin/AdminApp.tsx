@@ -1,8 +1,13 @@
-  import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
+  import { Admin, Resource } from "react-admin";
   import { fetchUtils, DataProvider } from "react-admin";
   import { CVList } from "./CVList";
+  import { CVEdit } from "./CVEdit";
+
   import { PostList } from "./PostList";
+  import { PostEdit } from "./PostEdit";
+
   import { UserList } from "./UserList";
+  import { UserEdit } from "./UserEdit";
   import { LINK_TO_SERVER } from "src/constants";
 
   const httpClient = (url: string, options: any = {}) => {
@@ -26,6 +31,7 @@
   const dataProvider: DataProvider = {
     async getList(resource, params) {
       const dot = resource + "s";
+
       const { page, perPage } = params.pagination;
       const { field, order } = params.sort;
     
@@ -93,9 +99,7 @@
         };
       } catch (error) {
         console.error('Error in getOne:', error);
-    
-        // window.location.href = '/401';
-    
+        window.location.href = '/401';
         throw error;
       }
     },
@@ -112,7 +116,7 @@
             body: JSON.stringify(params.data),
           })
           .then(({ json }) => {
-            return { data: json };
+            return { data: { ...json, id: params.id } };
           }),
     
       delete: (resource, params) =>
@@ -174,17 +178,17 @@
         <Resource
           name="cv"
           list={CVList}
-          edit={EditGuesser}
+          edit={CVEdit}
           recordRepresentation="name"
         />
         <Resource
           name="post"
           list={PostList}
-          edit={EditGuesser}
+          edit={PostEdit}
           recordRepresentation="title"
         />
-        <Resource name="user" list={UserList} edit={EditGuesser} />
-        <Resource name="blacklist" list={UserList} edit={EditGuesser} />
+        <Resource name="user" list={UserList} edit={UserEdit} />
+        <Resource name="blacklist" list={UserList} edit={UserEdit} />
       </Admin>
   );
 

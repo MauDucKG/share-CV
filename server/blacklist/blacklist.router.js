@@ -8,7 +8,7 @@ router.get("/", checkPermissionTokenAdmin, BlackListController.getAlluser);
 router.get("/:id", checkPermissionTokenAdmin, BlackListController.getOne);
 
 router.delete("/:id", checkPermissionTokenAdmin, BlackListController.deleteUser);
-router.put("/:id", checkPermissionTokenAdmin, BlackListController.updateUser);
+router.put("/:id", checkPermissionTokenAdmin, BlackListController.updateblacklist);
 
 // router.post("/", BlackListController.newuser);
 // router.put("/:id", checkPermissionTokenCandidate, BController.updateUser);

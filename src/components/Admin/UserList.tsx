@@ -8,8 +8,8 @@ export const UserList = () => (
             <TextField source="role" />
 
             <TextField source="email" />
-            <TextField source="phone" />
-            <TextField source="bio" />
+            {/* <TextField source="phone" /> */}
+            {/* <TextField source="bio" /> */}
             <TextField source="company" />
             <TextField source="location" />
 

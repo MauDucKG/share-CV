@@ -17,7 +17,6 @@ const checkPermissionCandidate = async (req, res, next) => {
         }
     }
     catch (error) {
-        console.log("No User")
         res.status(500).send(error);
     }
 }
@@ -35,7 +34,6 @@ const checkPermissionAdmin = async (req, res, next) => {
         }
     }
     catch (error) {
-        console.log("No User")
         res.status(500).send(error);
     }
 }
@@ -43,11 +41,11 @@ const checkPermissionAdmin = async (req, res, next) => {
 const checkPermissionTokenAdmin = async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1]
-
+        
         if (!token) {
             return res.status(401).json({ error: "Missing token" });
         }
-        
+
         const config = {
             method: 'GET',
             maxBodyLength: Infinity,
@@ -57,9 +55,7 @@ const checkPermissionTokenAdmin = async (req, res, next) => {
                 'Authorization': req.get("Authorization")
             }
         };    
-
         const response = await axios.request(config);        
-
         const existingUser = await userModel.findOne({ login: response.data.login });
         if (existingUser.role === 'admin') {
             next()
@@ -70,7 +66,6 @@ const checkPermissionTokenAdmin = async (req, res, next) => {
         }
     }
     catch (error) {
-        console.log("No User")
         res.status(500).send(error);
     }
 }
@@ -106,7 +101,6 @@ const checkPermissionTokenCandidate = async (req, res, next) => {
         }
     }
     catch (error) {
-        console.log("No User")
         res.status(500).send(error);
     }
 }
