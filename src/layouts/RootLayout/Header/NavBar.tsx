@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
     { id: 4, name: "📰 New Feed", to: "/post" },
     { id: 5, name: "📣 Submit Post", to: "/submit" },
     { id: 9, name: "💬 Talk Space ", to: "/chat" },
-    { id: 10, name: "🖥 Admin", to: "/admin" },
+    // { id: 10, name: "🖥 Admin", to: "/admin" },
 
   ]
 
@@ -198,6 +198,15 @@ const NavBar: React.FC = () => {
                     href={"https://app.appsmith.com/app/share-cv-dashboard/cvs-663bbc9a64694d0878426478"}
                   >
                     🏡 Dashboard {"   "}
+                  </a>
+                </div>
+                }
+                {( userdata.role === "admin" ) && <div className="item" key={11}>
+                  <a
+                    href={"/admin"}
+                    className="btn btn-primary"
+                  >
+                    🖥 Admin
                   </a>
                 </div>
                 }
