@@ -64,6 +64,7 @@ const NavBar: React.FC = () => {
     }
     else if (typeof localStorage !== "undefined" && !localStorage.getItem("login_time")){
       localStorage.clear()
+      window.location.reload()
     }
 
     const currentTime = Date.now();
@@ -76,7 +77,7 @@ const NavBar: React.FC = () => {
     }
   }
 
-  setInterval(checkAndAutoLogin, 1000); 
+  setInterval(checkAndAutoLogin, 60000); 
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
