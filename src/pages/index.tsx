@@ -5,7 +5,7 @@ import { getPosts, getBlogs } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
-import { GetStaticProps } from "next"
+import { GetServerSideProps, GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
@@ -15,7 +15,7 @@ const filter: FilterPostsOptions = {
   acceptType: ["Paper", "Post", "Page"],
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetServerSideProps = async () => {
 
   const posts = filterPosts(await getPosts())
   await queryClient.prefetchQuery(queryKey.posts(), () => posts)
@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: CONFIG.revalidateTime,
+    // revalidate: CONFIG.revalidateTime,
   }
 }
 
