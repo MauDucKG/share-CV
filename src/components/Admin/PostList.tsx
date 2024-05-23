@@ -6,7 +6,6 @@ export const PostList = () => (
             <TextField source="title" />
             <TextField source="tags" />
             <TextField source="summary" />
-
             {/* <TextField source="category" /> */}
             {/* <TextField source="content" /> */}
             {/* <TextField source="location" /> */}

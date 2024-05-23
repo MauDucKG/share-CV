@@ -6,6 +6,7 @@ export const CVList = () => (
             <TextField source="title" label = "Name"/>
             <TextField source="tags" />
             <TextField source="category" />
+            {/* <TextField source="slug" /> */}
             {/* <TextField source="summary" /> */}
             <TextField source="location" />
             <DateField source="createdTime" />
