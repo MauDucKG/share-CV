@@ -54,6 +54,29 @@ const NavBar: React.FC = () => {
       console.log(error)
     }
   }
+  const checkAndAutoLogin = async () => {
+    let loginTime 
+    if (
+      typeof localStorage !== "undefined" &&
+      localStorage.getItem("login_time")
+    ) {
+      loginTime = localStorage.getItem('login_time');
+    }
+    else if (typeof localStorage !== "undefined" && !localStorage.getItem("login_time")){
+      localStorage.clear()
+    }
+
+    const currentTime = Date.now();
+
+    if (loginTime && (currentTime - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("user_data");
+      localStorage.removeItem("login_time");
+      await loginGithub(data);
+    }
+  }
+
+  setInterval(checkAndAutoLogin, 1000); 
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
