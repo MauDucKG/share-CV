@@ -6,7 +6,7 @@ export const PostEdit = () => (
             <TextInput source="id" disabled fullWidth />
             <DateInput source="date.start_date" fullWidth />
             <TextInput source="type" fullWidth />
-            <TextInput source="slug" disabled fullWidth />
+            <TextInput source="slug" fullWidth />
             <TextInput source="tags" fullWidth />
             <TextInput source="category" fullWidth />
             <TextInput source="summary" fullWidth />
@@ -22,7 +22,7 @@ export const PostEdit = () => (
             <DateInput source="createdTime" fullWidth />
             <BooleanInput source="fullWidth" fullWidth />
             <TextInput source="thumbnail" fullWidth />
-            <DateInput source="experience" fullWidth />
+            {/* <DateInput source="experience" fullWidth /> */}
         </SimpleForm>
     </Edit>
 );

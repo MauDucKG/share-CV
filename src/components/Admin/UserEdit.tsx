@@ -9,7 +9,7 @@ export const UserEdit = () => (
             <TextInput source="avatar" fullWidth />
             <TextInput source="role" fullWidth />
             <TextInput source="email" fullWidth />
-            <DateInput source="phone" fullWidth />
+            <TextInput source="phone" fullWidth />
             <TextInput source="bio" fullWidth />
             <TextInput source="company" fullWidth />
             <TextInput source="location" fullWidth />

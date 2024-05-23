@@ -6,7 +6,7 @@ export const CVEdit = () => (
             <TextInput source="id" disabled fullWidth />
             <DateInput source="date.start_date" fullWidth />
             <TextInput source="type" fullWidth />
-            <TextInput source="slug" disabled fullWidth />
+            <TextInput source="slug" fullWidth />
             <TextInput source="tags" fullWidth />
             <TextInput source="category" fullWidth />
             <TextInput source="summary" fullWidth />

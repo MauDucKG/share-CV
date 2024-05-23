@@ -89,8 +89,7 @@ class postController {
         status,
         createdTime,
         fullWidth,
-        thumbnail,
-        experience
+        thumbnail
       } = request.body;
   
       // Tìm bài viết theo ID
@@ -117,7 +116,7 @@ class postController {
       post.createdTime = createdTime;
       post.fullWidth = fullWidth;
       post.thumbnail = thumbnail;
-      post.experience = experience;
+      post.experience = createdTime;
   
       await post.save();
   
