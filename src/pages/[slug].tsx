@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
   const posts = await getPosts()
   const feedPosts = filterPosts(posts)
@@ -46,7 +46,7 @@ export const getStaticProps: GetServerSideProps = async (context) => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    // revalidate: CONFIG.revalidateTime,
+    revalidate: CONFIG.revalidateTime,
   }
 }
 

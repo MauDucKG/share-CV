@@ -15,7 +15,7 @@ const filter: FilterPostsOptions = {
   acceptType: ["Paper", "Post", "Page"],
 }
 
-export const getStaticProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 
   const posts = filterPosts(await getPosts())
   await queryClient.prefetchQuery(queryKey.posts(), () => posts)
@@ -24,7 +24,7 @@ export const getStaticProps: GetServerSideProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    // revalidate: CONFIG.revalidateTime,
+    revalidate: CONFIG.revalidateTime,
   }
 }
 
