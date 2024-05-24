@@ -4,6 +4,18 @@ import CustomError from "../../routes/Error"
 import { tokenQuery } from "src/libs/react-query";
 import { queryKey } from 'src/constants/queryKey';
 
+export const getTokenGithub = async (data : any) => {
+  try {
+    const access_token = await axios.post(`${LINK_TO_SERVER}/login/getToken`, data);
+    return access_token
+  } catch (error) {
+    console.error('Error Get Token:', error);
+    localStorage.clear();
+    window.location.reload();
+    return null;
+  }
+}
+
 export const loginGithub = async (data: any) => {
   let BLACK_USER = {
     "_id": {
@@ -24,7 +36,11 @@ export const loginGithub = async (data: any) => {
   }
 
   try {
-    const access_token = await axios.post(`${LINK_TO_SERVER}/login/getToken`, data);
+    const access_token = await getTokenGithub(data);
+    if (!access_token) {
+      return null;
+    }
+
     const response = await axios.get(`${LINK_TO_SERVER}/login/getUserData`, {
       headers: {
         Authorization: `Bearer ${access_token.data}`,
@@ -50,7 +66,9 @@ export const loginGithub = async (data: any) => {
 
     return response
   } catch (error) {
-    console.error('Error login:', error);
+    console.error('Error Get Data:', error);
+    localStorage.clear();
+    window.location.reload();
     return null;
   }
 }

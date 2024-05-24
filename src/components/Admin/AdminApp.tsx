@@ -1,4 +1,4 @@
-  import { Admin, Resource } from "react-admin";
+  import { Admin, Resource, TopToolbar, SearchInput} from "react-admin";
   import { fetchUtils, DataProvider } from "react-admin";
   import { CVList } from "./CVList";
   import { CVEdit } from "./CVEdit";
@@ -179,13 +179,17 @@
           name="cv"
           list={CVList}
           edit={CVEdit}
-          recordRepresentation="name"
+          recordRepresentation="name" 
+          
+
         />
         <Resource
           name="post"
           list={PostList}
           edit={PostEdit}
           recordRepresentation="title"
+          
+    
         />
         <Resource name="user" list={UserList} edit={UserEdit} />
         <Resource name="blacklist" list={UserList} edit={UserEdit} />

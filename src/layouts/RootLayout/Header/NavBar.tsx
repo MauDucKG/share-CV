@@ -7,8 +7,7 @@ import { loginGithub } from "src/apis"
 
 const NavBar: React.FC = () => {
   var redirect_uri =
-    "https://api.utteranc.es/authorize?redirect_uri=" +
-    encodeURIComponent(LINK_TO_CLIENT)
+    "https://api.utteranc.es/authorize?redirect_uri=" + encodeURIComponent(LINK_TO_CLIENT)
 
   const links = [
     { id: 2, name: "📝 Register", to: "/register" },
@@ -16,8 +15,6 @@ const NavBar: React.FC = () => {
     { id: 4, name: "📰 New Feed", to: "/post" },
     { id: 5, name: "📣 Submit Post", to: "/submit" },
     { id: 9, name: "💬 Talk Space ", to: "/chat" },
-    // { id: 10, name: "🖥 Admin", to: "/admin" },
-
   ]
 
   const logouts = [{ id: 2, name: "Logout", to: "/" }]
@@ -25,7 +22,6 @@ const NavBar: React.FC = () => {
   const [dropdownLogout, logout, handleLogout] = useDropdown()
   const [userdata, setUserData] = useState(DATA_USER)
   const [isLogin, setIsLogin] = useState(false)
-  const [utterancesParam, setUtterancesParam] = useState("")
   const [moreText, setMoreText] = useState("More")
 
   const handleLogoutGithub = () => {
@@ -36,33 +32,39 @@ const NavBar: React.FC = () => {
     window.location.href = "/"
   }
 
-  let utterancesParam1
-  if (
-    typeof localStorage !== "undefined" &&
-    localStorage.getItem("utterances-session")
-  ) {
-    utterancesParam1 = localStorage.getItem("utterances-session")
-  }
-  const data = {
-    data: utterancesParam1,
-  }
-
   const login = async () => {
     try {
+      let utterancesParam
+
+      if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") ) {
+        utterancesParam = localStorage.getItem("utterances-session")
+      }
+      const data = {
+        data: utterancesParam,
+      }
+
+      setIsLogin(true)
       await loginGithub(data)
     } catch (error) {
       console.log(error)
     }
   }
+  
   const checkAndAutoLogin = async () => {
+    let utterancesParam
+
+    if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") ) {
+      utterancesParam = localStorage.getItem("utterances-session")
+    }
+    const data = {
+      data: utterancesParam,
+    }
+
     let loginTime 
-    if (
-      typeof localStorage !== "undefined" &&
-      localStorage.getItem("login_time")
-    ) {
+    if ( typeof localStorage !== "undefined" && localStorage.getItem("login_time")) {
       loginTime = localStorage.getItem('login_time');
     }
-    else if (typeof localStorage !== "undefined" && !localStorage.getItem("login_time")){
+    else if (typeof localStorage !== "undefined" && localStorage.getItem("user_data") && !localStorage.getItem("login_time")){
       localStorage.clear()
       window.location.reload()
     }
@@ -77,37 +79,32 @@ const NavBar: React.FC = () => {
     }
   }
 
-  setInterval(checkAndAutoLogin, 60000); 
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const utterancesValue = urlParams.get("utterances")
     if (utterancesValue) {
-      setUtterancesParam(utterancesValue)
       localStorage.setItem("utterances-session", utterancesValue)
     }
-    if (
-      typeof localStorage !== "undefined" &&
-      localStorage.getItem("user_data")
-    ) {
+
+    if ( typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
       const storedUserDataJSON = localStorage.getItem("user_data")
       if (storedUserDataJSON) {
         setUserData(JSON.parse(storedUserDataJSON))
       }
+    }
+  
+    setInterval(checkAndAutoLogin, 30000); 
+
+    if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") && !localStorage.getItem("user_data")) {
+      login()
+      setMoreText(userdata.login)
     }
 
     if (localStorage.getItem("utterances-session")) {
       setIsLogin(true)
       setMoreText(userdata.login)
     }
-    if (
-      typeof localStorage !== "undefined" &&
-      !localStorage.getItem("user_data") &&
-      localStorage.getItem("utterances-session")
-    ) {
-      login()
-      setMoreText(userdata.login)
-    }
+    
     if (isLogin && userdata.login === "") {
       const timer = setTimeout(() => {
         window.location.reload();
@@ -125,6 +122,7 @@ const NavBar: React.FC = () => {
     }
     
   }, [])
+
   if (isLogin && userdata.isRestricted && window.location.pathname !== "/banned") {
     window.location.href = "/banned";
   }
