@@ -26,6 +26,7 @@ const NavBar: React.FC = () => {
 
   const handleLogoutGithub = () => {
     setIsLogin(false)
+    setMoreText("More")
     if (typeof localStorage !== "undefined") {
       localStorage.clear()
     }
@@ -43,8 +44,8 @@ const NavBar: React.FC = () => {
         data: utterancesParam,
       }
 
-      setIsLogin(true)
       await loginGithub(data)
+      setIsLogin(true)
     } catch (error) {
       console.log(error)
     }
@@ -72,10 +73,11 @@ const NavBar: React.FC = () => {
     const currentTime = Date.now();
 
     if (loginTime && (currentTime - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("user_data");
-      localStorage.removeItem("login_time");
-      await loginGithub(data);
+      handleLogoutGithub()
+      // localStorage.removeItem("access_token");
+      // localStorage.removeItem("user_data");
+      // localStorage.removeItem("login_time");
+      // await loginGithub(data);
     }
   }
 
@@ -93,7 +95,7 @@ const NavBar: React.FC = () => {
       }
     }
   
-    setInterval(checkAndAutoLogin, 30000); 
+    setInterval(checkAndAutoLogin, 24 * 60 * 60 * 1000); 
 
     if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") && !localStorage.getItem("user_data")) {
       login()
@@ -118,7 +120,7 @@ const NavBar: React.FC = () => {
   useEffect(() => {
     if (isLogin && userdata.login !== "") {
       setIsLogin(false)
-      window.location.href = "/"
+      window.location.reload();
     }
     
   }, [])
@@ -206,12 +208,12 @@ const NavBar: React.FC = () => {
             {isLogin && userdata.login !== "" ? (
               <>
                 {(!userdata.isRestricted ) && <div className="item" key={7}>
-                  <a
-                    href={"/profile"}
-                    className="btn btn-primary"
-                  >
+                  <Link
+                      className="btn btn-primary"
+                      href={"/profile"}
+                      >
                     👤 My Profile
-                  </a>
+                  </Link>
                 </div>
                 }
                 {( userdata.role === "admin" ) && <div className="item" key={10}>
@@ -224,22 +226,22 @@ const NavBar: React.FC = () => {
                 </div>
                 }
                 {( userdata.role === "admin" ) && <div className="item" key={11}>
-                  <a
-                    href={"/admin"}
-                    className="btn btn-primary"
-                  >
-                    🖥 Admin
-                  </a>
+                  <Link
+                      className="btn btn-primary"
+                      href={"/admin"}
+                      >
+                    🖥 Admin {"   "}
+                  </Link>
                 </div>
                 }
                 <div className="item" key={8}>
-                  <a
-                    className="item"
-                    onClick={() => handleLogoutGithub()}
-                    href={"/"}
-                  >
+                  <Link
+                      className="btn btn-primary"
+                      onClick={() => handleLogoutGithub()}
+                      href={"/"}
+                      >
                     💤 Logout {"   "}
-                  </a>
+                  </Link>
                 </div>
                 
               </>

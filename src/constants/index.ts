@@ -16,7 +16,7 @@ export const DATA_USER = {
     "role": "",
     "email": null,
     "phone": "",
-    "bio": "CODE LIKE A CHATBOT, DEBUG LIKE A MASTER",
+    "bio": "",
     "company": null,
     "location": null,
     "isRestricted": false,
