@@ -50,15 +50,19 @@ const NavBar: React.FC = () => {
       console.log(error)
     }
   }
-  
-  const checkAndAutoLogin = async () => {
-    let utterancesParam
 
-    if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") ) {
-      utterancesParam = localStorage.getItem("utterances-session")
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const utterancesValue = urlParams.get("utterances")
+    if (utterancesValue) {
+      localStorage.setItem("utterances-session", utterancesValue)
     }
-    const data = {
-      data: utterancesParam,
+
+    if ( typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
+      const storedUserDataJSON = localStorage.getItem("user_data")
+      if (storedUserDataJSON) {
+        setUserData(JSON.parse(storedUserDataJSON))
+      }
     }
 
     let loginTime 
@@ -75,27 +79,10 @@ const NavBar: React.FC = () => {
     if (loginTime && (currentTime - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
       handleLogoutGithub()
       // localStorage.removeItem("access_token");
-      // localStorage.removeItem("user_data");
+      // localStorage.removeItem("user_data"); 
       // localStorage.removeItem("login_time");
       // await loginGithub(data);
     }
-  }
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const utterancesValue = urlParams.get("utterances")
-    if (utterancesValue) {
-      localStorage.setItem("utterances-session", utterancesValue)
-    }
-
-    if ( typeof localStorage !== "undefined" && localStorage.getItem("user_data")) {
-      const storedUserDataJSON = localStorage.getItem("user_data")
-      if (storedUserDataJSON) {
-        setUserData(JSON.parse(storedUserDataJSON))
-      }
-    }
-  
-    setInterval(checkAndAutoLogin, 24 * 60 * 60 * 1000); 
 
     if ( typeof localStorage !== "undefined" && localStorage.getItem("utterances-session") && !localStorage.getItem("user_data")) {
       login()
