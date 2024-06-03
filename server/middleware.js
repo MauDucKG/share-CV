@@ -8,7 +8,6 @@ const checkPermissionCandidate = async (req, res, next) => {
         const login = req.body.userdata.login
         const existingUser = await userModel.findOne({ login: login });
         if (existingUser.role === 'candidate' || existingUser.role === 'admin') {
-            res.json({existingUser})
             next()
         }
         else {
